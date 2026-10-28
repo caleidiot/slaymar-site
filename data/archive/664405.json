@@ -185,7 +185,64 @@
       "opponent": "The Baldy Boys",
       "bye": false,
       "us": 9,
-      "them": 5
+      "them": 5,
+      "goals": {
+        "scorers": [
+          {
+            "player": "Cratim",
+            "min": 4
+          },
+          {
+            "player": "Foster",
+            "min": 14
+          },
+          {
+            "player": "Doug",
+            "min": 16
+          },
+          {
+            "player": "Dougie",
+            "min": 19
+          },
+          {
+            "player": "Crahtim",
+            "min": 21
+          },
+          {
+            "player": "Dougie",
+            "min": 28
+          },
+          {
+            "player": "Crahtim",
+            "min": 36
+          },
+          {
+            "player": "Dougie",
+            "min": 37
+          },
+          {
+            "player": "Will",
+            "min": 40
+          }
+        ],
+        "conceded": [
+          {
+            "min": 19
+          },
+          {
+            "min": 20
+          },
+          {
+            "min": 22
+          },
+          {
+            "min": 33
+          },
+          {
+            "min": 39
+          }
+        ]
+      }
     },
     {
       "round": 2,
@@ -196,7 +253,38 @@
       "opponent": "No Chance FC",
       "bye": false,
       "us": 4,
-      "them": 3
+      "them": 3,
+      "goals": {
+        "scorers": [
+          {
+            "player": "Foster",
+            "min": 20
+          },
+          {
+            "player": "Foster",
+            "min": 26
+          },
+          {
+            "player": "Dougie",
+            "min": 28
+          },
+          {
+            "player": "Foster",
+            "min": 30
+          }
+        ],
+        "conceded": [
+          {
+            "min": 10
+          },
+          {
+            "min": 11
+          },
+          {
+            "min": 17
+          }
+        ]
+      }
     },
     {
       "round": 3,
@@ -207,7 +295,50 @@
       "opponent": "Rolling Stone Futsal Club",
       "bye": false,
       "us": 13,
-      "them": 6
+      "them": 6,
+      "goals": {
+        "scorers": [
+          {
+            "player": "Will",
+            "min": 5
+          },
+          {
+            "player": "Will",
+            "min": 6
+          },
+          {
+            "player": "Crahtim",
+            "min": 7
+          },
+          {
+            "player": "Dougie",
+            "min": 14
+          },
+          {
+            "player": "Dougie",
+            "min": 15
+          },
+          {
+            "player": "Will",
+            "min": 17
+          },
+          {
+            "player": "Crahtim",
+            "min": 18
+          }
+        ],
+        "conceded": [
+          {
+            "min": 8
+          },
+          {
+            "min": 14
+          },
+          {
+            "min": 15
+          }
+        ]
+      }
     },
     {
       "round": 4,
@@ -269,5 +400,5 @@
       "last": "2026-10-22"
     }
   ],
-  "archived": "2026-10-28T09:14:45.510Z"
+  "archived": "2026-10-28T09:38:20.848Z"
 }
