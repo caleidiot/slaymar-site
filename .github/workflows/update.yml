@@ -1,0 +1,63 @@
+name: Update data and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Every 3 hours (UTC). Thursday-night results usually land within a day or two.
+    - cron: "17 */3 * * *"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: update-and-deploy
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Scrape GameDay and YouTube
+        run: npm run scrape
+      - name: Commit data if changed
+        run: |
+          git config user.name "slaymar-bot"
+          git config user.email "slaymar-bot@users.noreply.github.com"
+          # Ignore the timestamp so we only commit real changes.
+          if git diff --quiet -I '"updated":' -- data/site.json; then
+            echo "No data changes (deploying with fresh timestamp only)"
+          else
+            git add data/site.json
+            git commit -m "Update match data"
+            git push
+          fi
+      - name: Prepare site
+        run: |
+          mkdir -p _site/data
+          cp index.html styles.css app.js _site/
+          cp -r assets _site/ 2>/dev/null || true
+          cp data/site.json _site/data/
+          [ -f CNAME ] && cp CNAME _site/ || true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

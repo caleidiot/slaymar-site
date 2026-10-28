@@ -78,6 +78,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--tape); outline-
   text-transform: uppercase;
 }
 .opp::before { content: "vs "; font-weight: 600; opacity: .7; }
+.opp.bye::before, .opp.tbc::before { content: none; }
 .score { font-variant-numeric: tabular-nums; }
 .when { margin: 8px 0 0; color: rgba(255,255,255,.85); }
 .countdown {
@@ -129,7 +130,7 @@ main { padding-top: 8px; }
 .results { list-style: none; margin: 0; padding: 0; }
 .results li {
   display: grid;
-  grid-template-columns: 2.4rem 5.5rem 1fr auto;
+  grid-template-columns: 2.4rem 7.5rem 1fr auto;
   align-items: center;
   gap: 12px;
   padding: 10px 0;

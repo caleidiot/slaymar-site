@@ -35,10 +35,12 @@
   const next = data.next;
   if (next && new Date(next.datetime) > Date.now() - 2 * 3600e3) {
     $("next-opp").textContent = next.opponent;
+    if (next.opponent === "Bye") document.querySelector(".opp").classList.add("bye");
     $("next-when").textContent =
       fmtDate(next.datetime, { weekday: "long", day: "numeric", month: "short" }) + ", " +
       new Date(next.datetime).toLocaleTimeString("en-AU", { timeZone: TZ, hour: "numeric", minute: "2-digit" }) +
-      (next.venue ? ", " + next.venue : "");
+      (next.venue ? ", " + next.venue : "") +
+      (next.round ? ". Round " + next.round : "");
     const tick = () => {
       const ms = new Date(next.datetime) - Date.now();
       if (ms <= 0) return ($("next-count").textContent = ms > -50 * 60e3 ? "On now" : "");
@@ -81,7 +83,7 @@
         .map((r) => {
           const o = outcome(r);
           return `<li><span class="badge ${o}" aria-label="${{ W: "Win", L: "Loss", D: "Draw" }[o]}">${o}</span>` +
-            `<span class="r-date">${fmtDate(r.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}</span>` +
+            `<span class="r-date">${fmtDate(r.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}${r.round ? ", Rd " + esc(r.round) : ""}</span>` +
             `<span class="r-opp">vs ${esc(r.opponent)}</span>` +
             `<span class="r-score">${r.us}–${r.them}</span>` +
             (r.video ? `<a class="r-watch" href="https://www.youtube.com/watch?v=${esc(r.video.id)}">Watch the match</a>` : "") +
@@ -113,6 +115,6 @@
     .join("");
 
   // ---- Footer ----
-  $("updated").textContent = "Updated " + new Date(data.updated).toLocaleString("en-AU", { timeZone: TZ, weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
+  $("updated").textContent = "Checked " + new Date(data.updated).toLocaleString("en-AU", { timeZone: TZ, weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
   $("source-link").href = data.comp.url;
 })();
