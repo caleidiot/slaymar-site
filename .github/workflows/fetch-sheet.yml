@@ -1,0 +1,18 @@
+name: Fetch stats mastersheet (one-off)
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/fetch-sheet.yml"]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p imports
+          curl -sSL "https://docs.google.com/spreadsheets/d/1xPL4OzDTHsPw2jZmPlTFKWSpk0h5b0RXz6bkHm0RXqc/export?format=xlsx" -o imports/mastersheet.xlsx
+          ls -la imports
+          git config user.name "slaymar-bot"; git config user.email "slaymar-bot@users.noreply.github.com"
+          git add imports; git commit -m "Import stats mastersheet" || true; git push
