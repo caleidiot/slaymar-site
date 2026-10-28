@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T03:46:09.527Z",
+  "updated": "2026-10-28T04:22:57.359Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -305,6 +305,1207 @@
       "name": "W Plagakis",
       "games": 4,
       "last": "2026-10-22"
+    }
+  ],
+  "opponents": [
+    {
+      "team": "America",
+      "p": 12,
+      "w": 6,
+      "d": 1,
+      "l": 5,
+      "f": 62,
+      "a": 51,
+      "games": [
+        {
+          "date": "2024-08-01",
+          "us": 0,
+          "them": 5,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-06-13",
+          "us": 9,
+          "them": 1,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-04-04",
+          "us": 4,
+          "them": 6,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2024-03-21",
+          "us": 6,
+          "them": 5,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2024-01-18",
+          "us": 3,
+          "them": 9,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2023-09-14",
+          "us": 5,
+          "them": 1,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-07-20",
+          "us": 12,
+          "them": 2,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-06-15",
+          "us": 4,
+          "them": 7,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-03-30",
+          "us": 7,
+          "them": 3,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2022-11-17",
+          "us": 2,
+          "them": 4,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2022-08-18",
+          "us": 4,
+          "them": 4,
+          "season": "Winter 2022"
+        },
+        {
+          "date": "2022-06-09",
+          "us": 6,
+          "them": 4,
+          "season": "Winter 2022"
+        }
+      ]
+    },
+    {
+      "team": "McHeaver",
+      "p": 12,
+      "w": 7,
+      "d": 2,
+      "l": 3,
+      "f": 61,
+      "a": 60,
+      "games": [
+        {
+          "date": "2025-03-20",
+          "us": 2,
+          "them": 2,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2025-02-13",
+          "us": 1,
+          "them": 3,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2024-11-07",
+          "us": 3,
+          "them": 6,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2024-09-19",
+          "us": 7,
+          "them": 6,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-08-15",
+          "us": 3,
+          "them": 11,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-06-27",
+          "us": 6,
+          "them": 4,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-03-28",
+          "us": 5,
+          "them": 5,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2024-03-07",
+          "us": 8,
+          "them": 4,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2023-09-07",
+          "us": 5,
+          "them": 2,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-08-17",
+          "us": 8,
+          "them": 6,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-03-02",
+          "us": 8,
+          "them": 7,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2022-11-24",
+          "us": 5,
+          "them": 4,
+          "season": "Summer 2022-23"
+        }
+      ]
+    },
+    {
+      "team": "Dr Teeth",
+      "p": 10,
+      "w": 2,
+      "d": 1,
+      "l": 7,
+      "f": 32,
+      "a": 61,
+      "games": [
+        {
+          "date": "2024-12-19",
+          "us": 2,
+          "them": 6,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2024-09-05",
+          "us": 4,
+          "them": 8,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-08-08",
+          "us": 3,
+          "them": 4,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-07-04",
+          "us": 2,
+          "them": 10,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-02-29",
+          "us": 3,
+          "them": 3,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2023-11-30",
+          "us": 5,
+          "them": 4,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2023-09-21",
+          "us": 3,
+          "them": 6,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-08-10",
+          "us": 2,
+          "them": 9,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-06-22",
+          "us": 3,
+          "them": 8,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-03-09",
+          "us": 5,
+          "them": 3,
+          "season": "Summer 2022-23"
+        }
+      ]
+    },
+    {
+      "team": "Avas Army",
+      "p": 6,
+      "w": 2,
+      "d": 1,
+      "l": 3,
+      "f": 35,
+      "a": 42,
+      "games": [
+        {
+          "date": "2025-01-23",
+          "us": 8,
+          "them": 11,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2024-08-29",
+          "us": 5,
+          "them": 3,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-07-11",
+          "us": 3,
+          "them": 10,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-03-14",
+          "us": 9,
+          "them": 10,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2024-01-25",
+          "us": 6,
+          "them": 6,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2023-12-07",
+          "us": 4,
+          "them": 2,
+          "season": "Summer 2023-24"
+        }
+      ]
+    },
+    {
+      "team": "Savanna FC",
+      "p": 5,
+      "w": 0,
+      "d": 1,
+      "l": 4,
+      "f": 15,
+      "a": 23,
+      "games": [
+        {
+          "date": "2024-02-08",
+          "us": 4,
+          "them": 6,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2023-11-23",
+          "us": 3,
+          "them": 3,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2023-08-31",
+          "us": 5,
+          "them": 6,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-07-06",
+          "us": 1,
+          "them": 3,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-05-25",
+          "us": 2,
+          "them": 5,
+          "season": "Winter 2023"
+        }
+      ]
+    },
+    {
+      "team": "Scotch Old Cols",
+      "p": 5,
+      "w": 1,
+      "d": 1,
+      "l": 3,
+      "f": 17,
+      "a": 38,
+      "games": [
+        {
+          "date": "2025-01-16",
+          "us": 7,
+          "them": 5,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2024-10-24",
+          "us": 5,
+          "them": 5,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2024-09-12",
+          "us": 3,
+          "them": 6,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-07-25",
+          "us": 1,
+          "them": 6,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-05-30",
+          "us": 1,
+          "them": 16,
+          "season": "Winter 2024"
+        }
+      ]
+    },
+    {
+      "team": "Arraffoni",
+      "p": 4,
+      "w": 2,
+      "d": 1,
+      "l": 1,
+      "f": 26,
+      "a": 18,
+      "games": [
+        {
+          "date": "2023-04-06",
+          "us": 3,
+          "them": 4,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2023-03-23",
+          "us": 6,
+          "them": 6,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2023-01-05",
+          "us": 9,
+          "them": 3,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2022-10-27",
+          "us": 8,
+          "them": 5,
+          "season": "Summer 2022-23"
+        }
+      ]
+    },
+    {
+      "team": "Futbol Club Kitchen de Stevens",
+      "p": 4,
+      "w": 1,
+      "d": 1,
+      "l": 2,
+      "f": 11,
+      "a": 18,
+      "games": [
+        {
+          "date": "2025-03-06",
+          "us": 0,
+          "them": 5,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2025-01-30",
+          "us": 0,
+          "them": 5,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2024-10-17",
+          "us": 5,
+          "them": 2,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2024-02-15",
+          "us": 6,
+          "them": 6,
+          "season": "Summer 2023-24"
+        }
+      ]
+    },
+    {
+      "team": "The Crusaders",
+      "p": 4,
+      "w": 2,
+      "d": 1,
+      "l": 1,
+      "f": 23,
+      "a": 24,
+      "games": [
+        {
+          "date": "2023-04-27",
+          "us": 5,
+          "them": 3,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2022-09-08",
+          "us": 6,
+          "them": 5,
+          "season": "Winter 2022"
+        },
+        {
+          "date": "2022-07-07",
+          "us": 6,
+          "them": 6,
+          "season": "Winter 2022"
+        },
+        {
+          "date": "2022-05-19",
+          "us": 6,
+          "them": 10,
+          "season": "Winter 2022"
+        }
+      ]
+    },
+    {
+      "team": "Atletico Vejentud",
+      "p": 3,
+      "w": 0,
+      "d": 0,
+      "l": 3,
+      "f": 16,
+      "a": 21,
+      "games": [
+        {
+          "date": "2025-03-27",
+          "us": 5,
+          "them": 8,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2025-02-20",
+          "us": 5,
+          "them": 6,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2024-10-03",
+          "us": 6,
+          "them": 7,
+          "season": "Summer 2024/25"
+        }
+      ]
+    },
+    {
+      "team": "Cerveza United",
+      "p": 3,
+      "w": 2,
+      "d": 0,
+      "l": 1,
+      "f": 15,
+      "a": 7,
+      "games": [
+        {
+          "date": "2024-06-20",
+          "us": 2,
+          "them": 3,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2023-06-29",
+          "us": 7,
+          "them": 2,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-05-04",
+          "us": 6,
+          "them": 2,
+          "season": "Winter 2023"
+        }
+      ]
+    },
+    {
+      "team": "Dynamo Chicken Kiev",
+      "p": 3,
+      "w": 2,
+      "d": 0,
+      "l": 1,
+      "f": 14,
+      "a": 16,
+      "games": [
+        {
+          "date": "2023-08-24",
+          "us": 3,
+          "them": 9,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-07-13",
+          "us": 6,
+          "them": 4,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-06-01",
+          "us": 5,
+          "them": 3,
+          "season": "Winter 2023"
+        }
+      ]
+    },
+    {
+      "team": "Kentucky FC",
+      "p": 3,
+      "w": 1,
+      "d": 1,
+      "l": 1,
+      "f": 10,
+      "a": 17,
+      "games": [
+        {
+          "date": "2022-10-13",
+          "us": 5,
+          "them": 4,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2022-07-28",
+          "us": 4,
+          "them": 4,
+          "season": "Winter 2022"
+        },
+        {
+          "date": "2022-05-12",
+          "us": 1,
+          "them": 9,
+          "season": "Winter 2022"
+        }
+      ]
+    },
+    {
+      "team": "Nandos Club de Futbol",
+      "p": 3,
+      "w": 0,
+      "d": 0,
+      "l": 3,
+      "f": 8,
+      "a": 15,
+      "games": [
+        {
+          "date": "2024-09-26",
+          "us": 2,
+          "them": 3,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2024-08-22",
+          "us": 3,
+          "them": 4,
+          "season": "Winter 2024"
+        },
+        {
+          "date": "2023-01-19",
+          "us": 3,
+          "them": 8,
+          "season": "Summer 2022-23"
+        }
+      ]
+    },
+    {
+      "team": "O'porto",
+      "p": 3,
+      "w": 2,
+      "d": 0,
+      "l": 1,
+      "f": 17,
+      "a": 8,
+      "games": [
+        {
+          "date": "2023-03-16",
+          "us": 9,
+          "them": 5,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2022-12-01",
+          "us": 2,
+          "them": 3,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2022-10-20",
+          "us": 6,
+          "them": 0,
+          "season": "Summer 2022-23"
+        }
+      ]
+    },
+    {
+      "team": "The Illustrious Unley Browns",
+      "p": 3,
+      "w": 1,
+      "d": 1,
+      "l": 1,
+      "f": 18,
+      "a": 9,
+      "games": [
+        {
+          "date": "2022-09-15",
+          "us": 11,
+          "them": 1,
+          "season": "Winter 2022"
+        },
+        {
+          "date": "2022-07-14",
+          "us": 3,
+          "them": 3,
+          "season": "Winter 2022"
+        },
+        {
+          "date": "2022-06-02",
+          "us": 4,
+          "them": 5,
+          "season": "Winter 2022"
+        }
+      ]
+    },
+    {
+      "team": "The Truth",
+      "p": 3,
+      "w": 3,
+      "d": 0,
+      "l": 0,
+      "f": 24,
+      "a": 7,
+      "games": [
+        {
+          "date": "2023-05-11",
+          "us": 5,
+          "them": 0,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2022-08-25",
+          "us": 11,
+          "them": 2,
+          "season": "Winter 2022"
+        },
+        {
+          "date": "2022-06-23",
+          "us": 8,
+          "them": 5,
+          "season": "Winter 2022"
+        }
+      ]
+    },
+    {
+      "team": "Clown Baby",
+      "p": 2,
+      "w": 1,
+      "d": 0,
+      "l": 1,
+      "f": 8,
+      "a": 10,
+      "games": [
+        {
+          "date": "2022-09-01",
+          "us": 3,
+          "them": 8,
+          "season": "Winter 2022"
+        },
+        {
+          "date": "2022-06-30",
+          "us": 5,
+          "them": 2,
+          "season": "Winter 2022"
+        }
+      ]
+    },
+    {
+      "team": "Daddy's Boys",
+      "p": 2,
+      "w": 0,
+      "d": 0,
+      "l": 2,
+      "f": 8,
+      "a": 20,
+      "games": [
+        {
+          "date": "2025-03-13",
+          "us": 4,
+          "them": 12,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2025-02-06",
+          "us": 4,
+          "them": 8,
+          "season": "Summer 2024/25"
+        }
+      ]
+    },
+    {
+      "team": "Futsal Friends",
+      "p": 2,
+      "w": 2,
+      "d": 0,
+      "l": 0,
+      "f": 15,
+      "a": 11,
+      "games": [
+        {
+          "date": "2025-02-27",
+          "us": 7,
+          "them": 5,
+          "season": "Summer 2024/25"
+        },
+        {
+          "date": "2025-01-09",
+          "us": 8,
+          "them": 6,
+          "season": "Summer 2024/25"
+        }
+      ]
+    },
+    {
+      "team": "Pathetico Madrid",
+      "p": 2,
+      "w": 2,
+      "d": 0,
+      "l": 0,
+      "f": 15,
+      "a": 9,
+      "games": [
+        {
+          "date": "2022-12-08",
+          "us": 11,
+          "them": 6,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2022-10-06",
+          "us": 4,
+          "them": 3,
+          "season": "Summer 2022-23"
+        }
+      ]
+    },
+    {
+      "team": "Pirie Street United",
+      "p": 2,
+      "w": 1,
+      "d": 1,
+      "l": 0,
+      "f": 12,
+      "a": 7,
+      "games": [
+        {
+          "date": "2023-12-14",
+          "us": 4,
+          "them": 4,
+          "season": "Summer 2023-24"
+        },
+        {
+          "date": "2023-11-16",
+          "us": 8,
+          "them": 3,
+          "season": "Summer 2023-24"
+        }
+      ]
+    },
+    {
+      "team": "Silver Foxes",
+      "p": 2,
+      "w": 0,
+      "d": 1,
+      "l": 1,
+      "f": 11,
+      "a": 13,
+      "games": [
+        {
+          "date": "2022-07-21",
+          "us": 6,
+          "them": 6,
+          "season": "Winter 2022"
+        },
+        {
+          "date": "2022-05-26",
+          "us": 5,
+          "them": 7,
+          "season": "Winter 2022"
+        }
+      ]
+    },
+    {
+      "team": "The Leeroys",
+      "p": 2,
+      "w": 2,
+      "d": 0,
+      "l": 0,
+      "f": 19,
+      "a": 9,
+      "games": [
+        {
+          "date": "2022-08-04",
+          "us": 7,
+          "them": 5,
+          "season": "Winter 2022"
+        },
+        {
+          "date": "2022-06-16",
+          "us": 12,
+          "them": 4,
+          "season": "Winter 2022"
+        }
+      ]
+    },
+    {
+      "team": "Tucker Lloyd",
+      "p": 2,
+      "w": 0,
+      "d": 0,
+      "l": 2,
+      "f": 7,
+      "a": 13,
+      "games": [
+        {
+          "date": "2023-07-27",
+          "us": 4,
+          "them": 7,
+          "season": "Winter 2023"
+        },
+        {
+          "date": "2023-06-08",
+          "us": 3,
+          "them": 6,
+          "season": "Winter 2023"
+        }
+      ]
+    },
+    {
+      "team": "Woods Bagot FC",
+      "p": 2,
+      "w": 1,
+      "d": 0,
+      "l": 1,
+      "f": 15,
+      "a": 8,
+      "games": [
+        {
+          "date": "2023-02-02",
+          "us": 10,
+          "them": 2,
+          "season": "Summer 2022-23"
+        },
+        {
+          "date": "2022-11-10",
+          "us": 5,
+          "them": 6,
+          "season": "Summer 2022-23"
+        }
+      ]
+    },
+    {
+      "team": "Baily's moist muffin",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 11,
+      "a": 4,
+      "games": [
+        {
+          "date": "2023-08-03",
+          "us": 11,
+          "them": 4,
+          "season": "Winter 2023"
+        }
+      ]
+    },
+    {
+      "team": "Ball's Ballers",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 18,
+      "a": 5,
+      "games": [
+        {
+          "date": "2023-05-18",
+          "us": 18,
+          "them": 5,
+          "season": "Winter 2023"
+        }
+      ]
+    },
+    {
+      "team": "Blue city",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 5,
+      "a": 0,
+      "games": [
+        {
+          "date": "2024-11-21",
+          "us": 5,
+          "them": 0,
+          "season": "Summer 2024/25"
+        }
+      ]
+    },
+    {
+      "team": "Bowser's Balls",
+      "p": 1,
+      "w": 0,
+      "d": 0,
+      "l": 1,
+      "f": 4,
+      "a": 5,
+      "games": [
+        {
+          "date": "2024-01-11",
+          "us": 4,
+          "them": 5,
+          "season": "Summer 2023-24"
+        }
+      ]
+    },
+    {
+      "team": "Collateral Damage",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 8,
+      "a": 0,
+      "games": [
+        {
+          "date": "2024-06-06",
+          "us": 8,
+          "them": 0,
+          "season": "Winter 2024"
+        }
+      ]
+    },
+    {
+      "team": "Goal diggers",
+      "p": 1,
+      "w": 0,
+      "d": 0,
+      "l": 1,
+      "f": 5,
+      "a": 13,
+      "games": [
+        {
+          "date": "2024-07-18",
+          "us": 5,
+          "them": 13,
+          "season": "Winter 2024"
+        }
+      ]
+    },
+    {
+      "team": "Matthew Pearson",
+      "p": 1,
+      "w": 0,
+      "d": 0,
+      "l": 1,
+      "f": 3,
+      "a": 7,
+      "games": [
+        {
+          "date": "2022-08-11",
+          "us": 3,
+          "them": 7,
+          "season": "Winter 2022"
+        }
+      ]
+    },
+    {
+      "team": "Mooy Fuego",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 7,
+      "a": 4,
+      "games": [
+        {
+          "date": "2023-01-12",
+          "us": 7,
+          "them": 4,
+          "season": "Summer 2022-23"
+        }
+      ]
+    },
+    {
+      "team": "No Chance FC",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 4,
+      "a": 3,
+      "games": [
+        {
+          "date": "2026-10-08",
+          "us": 4,
+          "them": 3,
+          "season": "Summer 2026/27"
+        }
+      ]
+    },
+    {
+      "team": "Peasano Boys",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 7,
+      "a": 3,
+      "games": [
+        {
+          "date": "2024-10-31",
+          "us": 7,
+          "them": 3,
+          "season": "Summer 2024/25"
+        }
+      ]
+    },
+    {
+      "team": "Rimmies",
+      "p": 1,
+      "w": 0,
+      "d": 1,
+      "l": 0,
+      "f": 2,
+      "a": 2,
+      "games": [
+        {
+          "date": "2024-11-14",
+          "us": 2,
+          "them": 2,
+          "season": "Summer 2024/25"
+        }
+      ]
+    },
+    {
+      "team": "Rolling Stone Futsal Club",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 13,
+      "a": 6,
+      "games": [
+        {
+          "date": "2026-10-15",
+          "us": 13,
+          "them": 6,
+          "season": "Summer 2026/27"
+        }
+      ]
+    },
+    {
+      "team": "Sparkle Pina Koala",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 16,
+      "a": 4,
+      "games": [
+        {
+          "date": "2023-04-20",
+          "us": 16,
+          "them": 4,
+          "season": "Winter 2023"
+        }
+      ]
+    },
+    {
+      "team": "The Baldy Boys",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 9,
+      "a": 5,
+      "games": [
+        {
+          "date": "2026-10-01",
+          "us": 9,
+          "them": 5,
+          "season": "Summer 2026/27"
+        }
+      ]
+    },
+    {
+      "team": "The Phil Ins",
+      "p": 1,
+      "w": 0,
+      "d": 0,
+      "l": 1,
+      "f": 5,
+      "a": 7,
+      "games": [
+        {
+          "date": "2026-10-22",
+          "us": 5,
+          "them": 7,
+          "season": "Summer 2026/27"
+        }
+      ]
+    },
+    {
+      "team": "Unley Browns Ressies",
+      "p": 1,
+      "w": 0,
+      "d": 0,
+      "l": 1,
+      "f": 3,
+      "a": 6,
+      "games": [
+        {
+          "date": "2024-12-12",
+          "us": 3,
+          "them": 6,
+          "season": "Summer 2024/25"
+        }
+      ]
+    },
+    {
+      "team": "Unley Power Rangers",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 4,
+      "a": 3,
+      "games": [
+        {
+          "date": "2024-02-01",
+          "us": 4,
+          "them": 3,
+          "season": "Summer 2023-24"
+        }
+      ]
     }
   ],
   "channel": {
