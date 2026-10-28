@@ -204,7 +204,7 @@
   {
     const toKit = (n) => kit(n);
     const byName = new Map(roster.map((p) => [p.name, p]));
-    const thumb = (n) => { const p = byName.get(n); return p && p.image ? `<img src="assets/players/thumbs/${esc(p.image)}.webp" alt="" width="48" height="48" loading="lazy">` : `<span class="t-init">${esc(n.slice(0, 1))}</span>`; };
+    const thumb = (n) => { const p = byName.get(n); const f = p && (p.photo || p.image); return f ? `<img src="assets/players/thumbs/${esc(f)}.webp" alt="" width="48" height="48" loading="lazy">` : `<span class="t-init">${esc(n.slice(0, 1))}</span>`; };
 
     // Season games (GameDay) and goals (sheet)
     const games = new Map();
@@ -254,7 +254,9 @@
         ? (g ? `<b>${g}</b> ${g === 1 ? "game" : "games"}${gl ? `, <b>${gl}</b> ${gl === 1 ? "goal" : "goals"}` : ""}` : "No games yet")
         : (c ? `<b>${c}</b> games` : "Former");
       return `<li class="card${p.current ? "" : " former"}"><button type="button" data-player="${esc(p.name)}">` +
-        (p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="${esc(p.name)}" width="427" height="440" loading="lazy">` : `<span class="c-name">${esc(p.name)}</span>`) +
+        (p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="${esc(p.name)}" width="427" height="440" loading="lazy">`
+          : p.photo ? `<span class="c-photo"><img src="assets/players/photos/${esc(p.photo)}.webp" alt="" loading="lazy"><span>${esc(p.name)}</span></span>`
+          : `<span class="c-name">${esc(p.name)}</span>`) +
         `<span class="c-games">${line}</span></button></li>`;
     };
     const cur = roster.filter((p) => p.current);
@@ -273,7 +275,7 @@
       const seasons = [...(bySeason.get(name) || new Map())];
       const stat = (v, l) => `<div class="p-stat"><b>${v}</b><span>${l}</span></div>`;
       $("pdlg-body").innerHTML =
-        `<div class="p-hero">${p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="" width="427" height="440">` : `<span class="c-name">${esc(name)}</span>`}` +
+        `<div class="p-hero">${p.photo ? `<img class="p-photo" src="assets/players/photos/${esc(p.photo)}.webp" alt="">` : p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="" width="427" height="440">` : `<span class="c-name">${esc(name)}</span>`}` +
         `<div><h2 id="pdlg-name">${esc(name)}</h2><p class="p-status">${p.current ? "Current squad" : "Former player"}</p>` +
         (p.current ? `<h3>This season</h3><div class="p-stats">${stat(g, g === 1 ? "game" : "games")}${stat(log.length, log.length === 1 ? "goal" : "goals")}${stat(g ? (log.length / g).toFixed(1) : "0.0", "per game")}</div>` : "") +
         `<h3>All-time</h3><div class="p-stats">${stat(c, "games")}${stat(seasons.length, seasons.length === 1 ? "season" : "seasons")}</div></div></div>` +

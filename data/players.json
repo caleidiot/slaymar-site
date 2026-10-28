@@ -7,7 +7,8 @@
       "gameday": [
         "C Abrahamson"
       ],
-      "current": true
+      "current": true,
+      "photo": "cale"
     },
     {
       "name": "Foster",
@@ -15,7 +16,8 @@
       "gameday": [
         "J Foster"
       ],
-      "current": true
+      "current": true,
+      "photo": "foster"
     },
     {
       "name": "Dougie",
@@ -26,7 +28,8 @@
       "current": true,
       "aliases": [
         "Doug"
-      ]
+      ],
+      "photo": "dougie"
     },
     {
       "name": "Gorin",
@@ -34,7 +37,8 @@
       "gameday": [
         "G Shakes"
       ],
-      "current": true
+      "current": true,
+      "photo": "gorin"
     },
     {
       "name": "Schmitt",
@@ -42,7 +46,8 @@
       "gameday": [
         "J Smith"
       ],
-      "current": true
+      "current": true,
+      "photo": "schmitt"
     },
     {
       "name": "Crahtim",
@@ -54,7 +59,8 @@
       "aliases": [
         "Cratim",
         "Crahzi"
-      ]
+      ],
+      "photo": "crahtim"
     },
     {
       "name": "Barry",
@@ -66,7 +72,8 @@
       "aliases": [
         "Will",
         "Barru"
-      ]
+      ],
+      "photo": "barry"
     },
     {
       "name": "Lauchlan",
@@ -74,7 +81,8 @@
       "gameday": [
         "J Lockington"
       ],
-      "current": false
+      "current": false,
+      "photo": "lauchlan"
     },
     {
       "name": "Nich",
@@ -82,7 +90,8 @@
       "gameday": [
         "H Hewitt"
       ],
-      "current": false
+      "current": false,
+      "photo": "nich"
     },
     {
       "name": "Steven",
@@ -92,14 +101,19 @@
         "Ethan ‘benat’ Gonzalez",
         "Ethan 'benat' Gonzalez"
       ],
-      "current": false
+      "current": false,
+      "photo": "steven"
     },
     {
-      "name": "Kobi",
+      "name": "Kobo",
       "gameday": [
         "K Grocke"
       ],
-      "current": false
+      "current": false,
+      "aliases": [
+        "Kobi"
+      ],
+      "photo": "kobo"
     }
   ]
 }

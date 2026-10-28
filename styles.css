@@ -41,6 +41,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--tape); outline-
 }
 .hero { position: relative; }
 
+.brand { display: flex; align-items: center; gap: clamp(10px, 3vw, 24px); }
+.brand-logo { width: clamp(84px, 20vw, 170px); height: auto; flex: none; filter: drop-shadow(0 6px 14px rgba(0,0,0,.35)); }
 .crest {
   margin: 0;
   font: 900 clamp(4rem, 17vw, 9.5rem)/.82 var(--display);
@@ -266,8 +268,26 @@ main { padding-top: 8px; }
 .cards.small { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
 .card { display: grid; justify-items: center; gap: 4px; }
 .card img { width: 100%; height: auto; display: block; }
-.card.former img, .card.former .c-name { filter: grayscale(.85); opacity: .8; }
+.card.former img, .card.former .c-photo { position: relative; display: block; width: 100%; aspect-ratio: 427 / 440; overflow: hidden; background: linear-gradient(180deg, transparent 20%, rgba(29,78,160,.25)); }
+.c-photo img { position: absolute; left: 50%; bottom: 13%; transform: translateX(-50%); height: 78%; width: auto; }
+.c-photo span {
+  position: absolute; left: 0; right: 0; bottom: 4%; padding: 4px 0; text-align: center;
+  background: #1e9be0; color: #fff; font: 900 1.4rem/1 var(--display); text-transform: uppercase;
+  transform: skewX(-12deg);
+}
+.cards.small .c-photo span { font-size: 1rem; }
+.p-hero .p-photo { width: 100%; height: auto; max-height: 300px; object-fit: contain; object-position: bottom; }
+.c-name { filter: grayscale(.85); opacity: .8; }
 .c-games { color: var(--muted); font-size: .95rem; }
+.c-photo { position: relative; display: block; width: 100%; aspect-ratio: 427 / 440; overflow: hidden; background: linear-gradient(180deg, transparent 20%, rgba(29,78,160,.25)); }
+.c-photo img { position: absolute; left: 50%; bottom: 13%; transform: translateX(-50%); height: 78%; width: auto; }
+.c-photo span {
+  position: absolute; left: 0; right: 0; bottom: 4%; padding: 4px 0; text-align: center;
+  background: #1e9be0; color: #fff; font: 900 1.4rem/1 var(--display); text-transform: uppercase;
+  transform: skewX(-12deg);
+}
+.cards.small .c-photo span { font-size: 1rem; }
+.p-hero .p-photo { width: 100%; height: auto; max-height: 300px; object-fit: contain; object-position: bottom; }
 .c-name {
   display: grid; place-items: center; width: 100%; aspect-ratio: 427 / 440;
   font: 900 1.6rem/1 var(--display); text-transform: uppercase; color: #fff;
