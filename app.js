@@ -44,10 +44,10 @@
     const o = outcome(r);
     return `<div class="mc mc-${o}">` +
       `<div class="mc-top"><span class="mc-team">Slaymar FC</span><span class="mc-score"><b>${r.us}–${r.them}</b>${ht ? `<small>${ht}</small>` : ""}</span><span class="mc-team">${esc(r.opponent)}</span></div>` +
-      (g || r.us || r.them ? `<div class="mc-goals">` +
-        `<ul class="mc-us">${ours.map((s) => `<li>${esc(s.name)} <span>${mins(s.mins)}</span></li>`).join("")}${missUs > 0 ? `<li class="mc-miss">${missUs} not logged</li>` : ""}</ul>` +
-        `<span class="mc-ball">${(ours.length || theirs.length) ? BALL : ""}</span>` +
-        `<ul class="mc-them">${theirs.length ? `<li><span>${mins(theirs.map((x) => x.min))}</span></li>` : ""}${missThem > 0 ? `<li class="mc-miss">${missThem} not logged</li>` : ""}</ul>` +
+      ((ours.length || theirs.length || missUs > 0 || missThem > 0) ? `<div class="mc-goals">` +
+        `<ul class="mc-us">${ours.map((s) => `<li><span class="mc-n">${esc(s.name)}</span><span class="mc-m">${mins(s.mins)}</span></li>`).join("")}${missUs > 0 ? `<li class="mc-miss">${missUs} not logged</li>` : ""}</ul>` +
+        `<span class="mc-ball">${BALL}</span>` +
+        `<ul class="mc-them">${theirs.map((x) => `<li><span class="mc-m">${x.min != null ? x.min + "'" : ""}</span></li>`).join("")}${missThem > 0 ? `<li class="mc-miss">${missThem} not logged</li>` : ""}</ul>` +
       `</div>` : "") +
       `<p class="mc-meta">${[r.stage === "Grading" ? "Grading" : r.round ? "Round " + esc(r.round) : "", fmtDate(r.date + "T12:00:00+10:30", { weekday: "short", day: "numeric", month: "short" }), r.venue ? esc(r.venue) : ""].filter(Boolean).join(" &nbsp;/&nbsp; ")}</p>` +
       (r.video ? `<a class="mc-watch" href="https://www.youtube.com/watch?v=${esc(r.video.id)}">Watch the match</a>` : "") +
