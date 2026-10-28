@@ -151,9 +151,14 @@
       <section class="block" aria-labelledby="history-h">
       <div class="head">
         <h2 id="history-h">History</h2>
-        <p class="sub">Every season Slaymar has played</p>
+        <p class="sub">Since Winter 2022</p>
       </div>
+      <h3 class="sq-h first">All-time leaders</h3>
+      <div class="boards" id="alltime"></div>
+      <h3 class="sq-h">Seasons</h3>
       <div id="history"></div>
+      <h3 class="sq-h">Former players</h3>
+      <div id="former"></div>
     </section>
     </div>
 
@@ -163,17 +168,24 @@
         <h2 id="squad-h">Squad</h2>
         <p class="sub" id="squad-sub"></p>
       </div>
-      <div class="boards" id="boards"></div>
-      <h3 class="sq-h">Players</h3>
-      <p class="sq-hint">Tap a player for their stats.</p>
+      <p class="sq-hint">Tap a player for their profile.</p>
       <div id="squad"></div>
     </section>
-    <dialog class="pdlg" id="pdlg" aria-labelledby="pdlg-name">
-      <form method="dialog"><button class="pdlg-x" aria-label="Close">×</button></form>
-      <div id="pdlg-body"></div>
-    </dialog>
+      <section class="block" aria-labelledby="leaders-h">
+        <div class="head">
+          <h2 id="leaders-h">This season</h2>
+          <p class="sub"><a href="#history">All-time records</a></p>
+        </div>
+        <div class="boards one" id="boards"></div>
+        <div id="fillins"></div>
+      </section>
     </div>
   </main>
+
+  <dialog class="pdlg" id="pdlg" aria-labelledby="pdlg-name">
+    <form method="dialog"><button class="pdlg-x" aria-label="Close">×</button></form>
+    <div id="pdlg-body"></div>
+  </dialog>
 
   <footer class="wrap foot">
     <p id="updated"></p>

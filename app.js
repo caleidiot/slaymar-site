@@ -282,19 +282,23 @@
       return `<div class="lb"><h3>${title}</h3>${rows.length ? `<ol>${lis}</ol>` : `<p class="lb-empty">${empty}</p>`}</div>`;
     };
     const goalsRows = [...goalLog].map(([n, l]) => [n, l.length]);
-    const gamesTxt = (n) => { const g = games.get(n) || 0; return `${g} ${g === 1 ? "game" : "games"} this season`; };
-    $("boards").innerHTML =
-      board("Goals", goalsRows, gamesTxt, "No goals logged yet this season.") +
-      board("Goals, all-time", [...careerGoals].filter(([n]) => byName.has(n) || careerGoals.get(n) > 5), (n) => `${career.get(n) || 0} games`, "No goals logged yet.") +
-      board("Games, all-time", [...career].filter(([n]) => byName.has(n) || career.get(n) > 5), (n) => (byName.get(n)?.current ? "Current" : "Former"), "No games yet.");
-    $("squad-sub").textContent = data.season ? `${data.season}` : "";
+    const seasonGamesTxt = (n) => { const g = games.get(n) || 0; return `${g} ${g === 1 ? "game" : "games"}`; };
+    const seasonGoalsTxt = (n) => { const g = (goalLog.get(n) || []).length; return g ? `${g} ${g === 1 ? "goal" : "goals"}` : "No goals yet"; };
+    // Squad tab: this season only
+    $("boards").innerHTML = board("Top scorers", goalsRows, seasonGamesTxt, "No goals logged yet this season.");
+    $("squad-sub").textContent = data.season || "";
+    // History tab: all-time, current and former
+    const status = (n) => (byName.get(n)?.current ? "Current squad" : "Former");
+    $("alltime").innerHTML =
+      board("Goals", [...careerGoals].filter(([n]) => byName.has(n) || careerGoals.get(n) > 5), (n) => `${career.get(n) || 0} games, ${status(n).toLowerCase()}`, "No goals logged yet.") +
+      board("Games", [...career].filter(([n]) => byName.has(n) || career.get(n) > 5), status, "No games yet.");
 
     // Cards
     const card = (p) => {
-      const g = games.get(p.name), gl = (goalLog.get(p.name) || []).length, c = career.get(p.name);
+      const g = games.get(p.name), gl = (goalLog.get(p.name) || []).length, c = career.get(p.name), cg = careerGoals.get(p.name);
       const line = p.current
         ? (g ? `<b>${g}</b> ${g === 1 ? "game" : "games"}${gl ? `, <b>${gl}</b> ${gl === 1 ? "goal" : "goals"}` : ""}` : "No games yet")
-        : (c ? `<b>${c}</b> games${careerGoals.get(p.name) ? `, <b>${careerGoals.get(p.name)}</b> goals` : ""}` : "Former");
+        : (c ? `<b>${c}</b> games${cg ? `, <b>${cg}</b> goals` : ""}` : "Former");
       return `<li class="card${p.current ? "" : " former"}"><button type="button" data-player="${esc(p.name)}">` +
         (p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="${esc(p.name)}" width="427" height="440" loading="lazy">`
           : p.photo ? `<span class="c-photo"><img src="assets/players/photos/${esc(p.photo)}.webp" alt="" loading="lazy"><span>${esc(p.name)}</span></span>`
@@ -304,10 +308,9 @@
     const cur = roster.filter((p) => p.current);
     const old = roster.filter((p) => !p.current).sort((x, y) => (career.get(y.name) || 0) - (career.get(x.name) || 0));
     const others = [...games].filter(([k]) => !byName.has(k));
-    $("squad").innerHTML =
-      (cur.length ? `<ul class="cards">${cur.map(card).join("")}</ul>` : "") +
-      (others.length ? `<h3 class="sq-h">Fill-ins this season</h3><ul class="squad">${others.sort((x, y) => y[1] - x[1]).map(([n, g]) => `<li><span>${esc(n)}</span><span class="g">${g}</span></li>`).join("")}</ul>` : "") +
-      (old.length ? `<h3 class="sq-h">Former players</h3><ul class="cards small">${old.map(card).join("")}</ul>` : "");
+    $("squad").innerHTML = cur.length ? `<ul class="cards">${cur.map(card).join("")}</ul>` : "";
+    $("fillins").innerHTML = others.length ? `<h3 class="sq-h">Fill-ins</h3><ul class="squad">${others.sort((x, y) => y[1] - x[1]).map(([n, g]) => `<li><span>${esc(n)}</span><span class="g">${g} ${g === 1 ? "game" : "games"}</span></li>`).join("")}</ul>` : "";
+    $("former").innerHTML = old.length ? `<p class="sq-hint">Tap a player for their profile.</p><ul class="cards small">${old.map(card).join("")}</ul>` : "";
 
     // Player detail
     const dlg = $("pdlg");
@@ -339,7 +342,7 @@
           `</tbody></table><p class="p-foot">– means goals weren't tracked that season.</p>` : "");
       if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
     };
-    document.querySelector('[data-panel="squad"]').addEventListener("click", (e) => {
+    document.querySelector("main").addEventListener("click", (e) => {
       const b = e.target.closest("[data-player]");
       if (b) openPlayer(b.dataset.player);
     });
