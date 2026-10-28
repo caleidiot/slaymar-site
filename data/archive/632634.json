@@ -1,0 +1,377 @@
+{
+  "comp": {
+    "id": "632634",
+    "name": "Unley/Immanuel Thursday Futsal C/D Grade",
+    "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-632634-0&pool=1&a=LADDER"
+  },
+  "season": {
+    "id": "6036353",
+    "name": "Summer 2023-24"
+  },
+  "position": 3,
+  "teams": 7,
+  "record": {
+    "w": 6,
+    "d": 6,
+    "l": 5,
+    "f": 86,
+    "a": 84
+  },
+  "ladder": [
+    {
+      "pos": 1,
+      "team": "Bowser's Balls",
+      "p": 23,
+      "w": 13,
+      "b": 3,
+      "d": 1,
+      "l": 5,
+      "f": 125,
+      "a": 87,
+      "gd": 38,
+      "pts": 52
+    },
+    {
+      "pos": 2,
+      "team": "Dr Teeth",
+      "p": 23,
+      "w": 12,
+      "b": 2,
+      "d": 1,
+      "l": 8,
+      "f": 105,
+      "a": 85,
+      "gd": 20,
+      "pts": 50
+    },
+    {
+      "pos": 3,
+      "team": "Slaymar FC",
+      "p": 23,
+      "w": 9,
+      "b": 2,
+      "d": 6,
+      "l": 6,
+      "f": 118,
+      "a": 104,
+      "gd": 14,
+      "pts": 49
+    },
+    {
+      "pos": 4,
+      "team": "Futbol Club Kitchen de Stevens",
+      "p": 23,
+      "w": 9,
+      "b": 1,
+      "d": 3,
+      "l": 10,
+      "f": 110,
+      "a": 107,
+      "gd": 3,
+      "pts": 45
+    },
+    {
+      "pos": 5,
+      "team": "Avas Army",
+      "p": 23,
+      "w": 8,
+      "b": 2,
+      "d": 2,
+      "l": 11,
+      "f": 126,
+      "a": 117,
+      "gd": 9,
+      "pts": 43
+    },
+    {
+      "pos": 6,
+      "team": "America",
+      "p": 23,
+      "w": 9,
+      "b": 1,
+      "d": 0,
+      "l": 12,
+      "f": 101,
+      "a": 96,
+      "gd": 5,
+      "pts": 41
+    },
+    {
+      "pos": 7,
+      "team": "McHeaver",
+      "p": 23,
+      "w": 8,
+      "b": 1,
+      "d": 1,
+      "l": 12,
+      "f": 105,
+      "a": 124,
+      "gd": -19,
+      "pts": 40
+    }
+  ],
+  "fixtures": [
+    {
+      "round": 6,
+      "stage": "Regular Season",
+      "date": "2023-11-09",
+      "datetime": "2023-11-09T12:00:00+10:30",
+      "venue": "BYE",
+      "opponent": "",
+      "bye": false,
+      "us": null,
+      "them": null
+    },
+    {
+      "round": 7,
+      "stage": "Regular Season",
+      "date": "2023-11-16",
+      "datetime": "2023-11-16T20:30:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Pirie Street United",
+      "bye": false,
+      "us": 8,
+      "them": 3
+    },
+    {
+      "round": 8,
+      "stage": "Regular Season",
+      "date": "2023-11-23",
+      "datetime": "2023-11-23T18:50:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Savanna FC",
+      "bye": false,
+      "us": 3,
+      "them": 3
+    },
+    {
+      "round": 9,
+      "stage": "Regular Season",
+      "date": "2023-11-30",
+      "datetime": "2023-11-30T20:30:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Dr Teeth",
+      "bye": false,
+      "us": 5,
+      "them": 4
+    },
+    {
+      "round": 10,
+      "stage": "Regular Season",
+      "date": "2023-12-07",
+      "datetime": "2023-12-07T22:10:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Avas Army",
+      "bye": false,
+      "us": 4,
+      "them": 2
+    },
+    {
+      "round": 11,
+      "stage": "Regular Season",
+      "date": "2023-12-14",
+      "datetime": "2023-12-14T20:30:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "Pirie Street United",
+      "bye": false,
+      "us": 4,
+      "them": 4
+    },
+    {
+      "round": 12,
+      "stage": "Regular Season",
+      "date": "2024-01-11",
+      "datetime": "2024-01-11T18:50:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Bowser's Balls",
+      "bye": false,
+      "us": 4,
+      "them": 5
+    },
+    {
+      "round": 13,
+      "stage": "Regular Season",
+      "date": "2024-01-18",
+      "datetime": "2024-01-18T20:30:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "America",
+      "bye": false,
+      "us": 3,
+      "them": 9
+    },
+    {
+      "round": 14,
+      "stage": "Regular Season",
+      "date": "2024-01-25",
+      "datetime": "2024-01-25T18:00:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Avas Army",
+      "bye": false,
+      "us": 6,
+      "them": 6
+    },
+    {
+      "round": 15,
+      "stage": "Regular Season",
+      "date": "2024-02-01",
+      "datetime": "2024-02-01T21:20:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Unley Power Rangers",
+      "bye": false,
+      "us": 4,
+      "them": 3
+    },
+    {
+      "round": 16,
+      "stage": "Regular Season",
+      "date": "2024-02-08",
+      "datetime": "2024-02-08T20:30:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Savanna FC",
+      "bye": false,
+      "us": 4,
+      "them": 6
+    },
+    {
+      "round": 17,
+      "stage": "Regular Season",
+      "date": "2024-02-15",
+      "datetime": "2024-02-15T21:20:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Futbol Club Kitchen de Stevens",
+      "bye": false,
+      "us": 6,
+      "them": 6
+    },
+    {
+      "round": 18,
+      "stage": "Regular Season",
+      "date": "2024-02-22",
+      "datetime": "2024-02-22T12:00:00+10:30",
+      "venue": "BYE",
+      "opponent": "",
+      "bye": false,
+      "us": null,
+      "them": null
+    },
+    {
+      "round": 19,
+      "stage": "Regular Season",
+      "date": "2024-02-29",
+      "datetime": "2024-02-29T18:50:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Dr Teeth",
+      "bye": false,
+      "us": 3,
+      "them": 3
+    },
+    {
+      "round": 20,
+      "stage": "Regular Season",
+      "date": "2024-03-07",
+      "datetime": "2024-03-07T21:20:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "McHeaver",
+      "bye": false,
+      "us": 8,
+      "them": 4
+    },
+    {
+      "round": 21,
+      "stage": "Regular Season",
+      "date": "2024-03-14",
+      "datetime": "2024-03-14T20:30:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "Avas Army",
+      "bye": false,
+      "us": 9,
+      "them": 10
+    },
+    {
+      "round": 22,
+      "stage": "Regular Season",
+      "date": "2024-03-21",
+      "datetime": "2024-03-21T19:40:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "America",
+      "bye": false,
+      "us": 6,
+      "them": 5
+    },
+    {
+      "round": 23,
+      "stage": "Regular Season",
+      "date": "2024-03-28",
+      "datetime": "2024-03-28T21:20:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "McHeaver",
+      "bye": false,
+      "us": 5,
+      "them": 5
+    },
+    {
+      "round": 1,
+      "stage": "Finals",
+      "date": "2024-04-04",
+      "datetime": "2024-04-04T18:50:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "America",
+      "bye": false,
+      "us": 4,
+      "them": 6
+    }
+  ],
+  "squad": [
+    {
+      "name": "C Abrahamson",
+      "games": 13,
+      "last": "2024-04-04"
+    },
+    {
+      "name": "C S Avdoulas",
+      "games": 11,
+      "last": "2024-03-21"
+    },
+    {
+      "name": "C Marinos",
+      "games": 14,
+      "last": "2024-04-04"
+    },
+    {
+      "name": "E Gonzales",
+      "games": 15,
+      "last": "2024-04-04"
+    },
+    {
+      "name": "G Shakes",
+      "games": 6,
+      "last": "2024-04-04"
+    },
+    {
+      "name": "H Hewitt",
+      "games": 14,
+      "last": "2024-04-04"
+    },
+    {
+      "name": "J Smith",
+      "games": 11,
+      "last": "2024-04-04"
+    },
+    {
+      "name": "K Grocke",
+      "games": 12,
+      "last": "2024-04-04"
+    },
+    {
+      "name": "W Plagakis",
+      "games": 7,
+      "last": "2024-03-21"
+    },
+    {
+      "name": "W Plagakis",
+      "games": 6,
+      "last": "2024-04-04"
+    }
+  ],
+  "archived": "2026-10-28T03:36:50.268Z"
+}

@@ -1,0 +1,138 @@
+[
+  {
+    "id": "664405",
+    "name": "Unley/Immanuel - Thursday Senior Open Futsal Grading 2",
+    "season": "Summer 2026/27",
+    "seasonId": "6046520",
+    "position": 2,
+    "teams": 12,
+    "record": {
+      "w": 3,
+      "d": 0,
+      "l": 1,
+      "f": 31,
+      "a": 21
+    },
+    "start": "2026-10-01",
+    "end": "2026-10-29"
+  },
+  {
+    "id": "643280",
+    "name": "Unley - Thursday Futsal B Grade",
+    "season": "Summer 2024/25",
+    "seasonId": "6040836",
+    "position": 5,
+    "teams": 5,
+    "record": {
+      "w": 6,
+      "d": 3,
+      "l": 12,
+      "f": 89,
+      "a": 113
+    },
+    "start": "2024-10-03",
+    "end": "2025-03-27"
+  },
+  {
+    "id": "639460",
+    "name": "Thursday Futsal C/D Grade",
+    "season": "Winter 2024",
+    "seasonId": "6039368",
+    "position": 8,
+    "teams": 8,
+    "record": {
+      "w": 5,
+      "d": 0,
+      "l": 13,
+      "f": 67,
+      "a": 113
+    },
+    "start": "2024-05-30",
+    "end": "2024-09-26"
+  },
+  {
+    "id": "632634",
+    "name": "Unley/Immanuel Thursday Futsal C/D Grade",
+    "season": "Summer 2023-24",
+    "seasonId": "6036353",
+    "position": 3,
+    "teams": 7,
+    "record": {
+      "w": 6,
+      "d": 6,
+      "l": 5,
+      "f": 86,
+      "a": 84
+    },
+    "start": "2023-11-09",
+    "end": "2024-04-04"
+  },
+  {
+    "id": "626415",
+    "name": "Unley/Immanuel Thursday Futsal - C/D Grade",
+    "season": "Winter 2023",
+    "seasonId": "6032114",
+    "position": 4,
+    "teams": 7,
+    "record": {
+      "w": 13,
+      "d": 0,
+      "l": 10,
+      "f": 139,
+      "a": 104
+    },
+    "start": "2023-04-20",
+    "end": "2023-09-21"
+  },
+  {
+    "id": "615882",
+    "name": "Unley/Immanuel Thursday Senior Futsal-D",
+    "season": "Summer 2022-23",
+    "seasonId": "6028849",
+    "position": 1,
+    "teams": 9,
+    "record": {
+      "w": 13,
+      "d": 1,
+      "l": 5,
+      "f": 115,
+      "a": 80
+    },
+    "start": "2022-10-06",
+    "end": "2023-04-06"
+  },
+  {
+    "id": "610804",
+    "name": "Unley- Thursday Senior Futsal C Grade",
+    "season": "Winter 2022",
+    "seasonId": "6023809",
+    "position": 5,
+    "teams": 9,
+    "record": {
+      "w": 8,
+      "d": 5,
+      "l": 4,
+      "f": 104,
+      "a": 78
+    },
+    "start": "2022-05-26",
+    "end": "2022-09-15"
+  },
+  {
+    "id": "608899",
+    "name": "Unley Thursday Senior Futsal- Grading 2",
+    "season": "Winter 2022",
+    "seasonId": "6023809",
+    "position": 16,
+    "teams": 16,
+    "record": {
+      "w": 0,
+      "d": 0,
+      "l": 2,
+      "f": 7,
+      "a": 19
+    },
+    "start": "2022-05-12",
+    "end": "2022-05-19"
+  }
+]

@@ -1,0 +1,292 @@
+{
+  "comp": {
+    "id": "608899",
+    "name": "Unley Thursday Senior Futsal- Grading 2",
+    "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-608899-0&pool=1&a=LADDER"
+  },
+  "season": {
+    "id": "6023809",
+    "name": "Winter 2022"
+  },
+  "position": 16,
+  "teams": 16,
+  "record": {
+    "w": 0,
+    "d": 0,
+    "l": 2,
+    "f": 7,
+    "a": 19
+  },
+  "ladder": [
+    {
+      "pos": 1,
+      "team": "Kentucky FC",
+      "p": 5,
+      "w": 4,
+      "b": 0,
+      "d": 0,
+      "l": 1,
+      "f": 56,
+      "a": 11,
+      "gd": 45,
+      "pts": 13
+    },
+    {
+      "pos": 2,
+      "team": "America",
+      "p": 5,
+      "w": 4,
+      "b": 0,
+      "d": 0,
+      "l": 1,
+      "f": 28,
+      "a": 18,
+      "gd": 10,
+      "pts": 13
+    },
+    {
+      "pos": 3,
+      "team": "The Truth",
+      "p": 5,
+      "w": 3,
+      "b": 0,
+      "d": 1,
+      "l": 1,
+      "f": 18,
+      "a": 22,
+      "gd": -4,
+      "pts": 12
+    },
+    {
+      "pos": 4,
+      "team": "The Illustrious Unley Browns",
+      "p": 5,
+      "w": 3,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 26,
+      "a": 17,
+      "gd": 9,
+      "pts": 11
+    },
+    {
+      "pos": 5,
+      "team": "UUU (Unruly Unley United)",
+      "p": 5,
+      "w": 3,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 32,
+      "a": 31,
+      "gd": 1,
+      "pts": 11
+    },
+    {
+      "pos": 6,
+      "team": "Kyanites who say Ni",
+      "p": 5,
+      "w": 3,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 25,
+      "a": 37,
+      "gd": -12,
+      "pts": 11
+    },
+    {
+      "pos": 7,
+      "team": "Pirie Street United",
+      "p": 4,
+      "w": 3,
+      "b": 0,
+      "d": 0,
+      "l": 1,
+      "f": 36,
+      "a": 17,
+      "gd": 19,
+      "pts": 10
+    },
+    {
+      "pos": 8,
+      "team": "Haggis United",
+      "p": 5,
+      "w": 3,
+      "b": 0,
+      "d": 0,
+      "l": 1,
+      "f": 33,
+      "a": 15,
+      "gd": 18,
+      "pts": 10
+    },
+    {
+      "pos": 9,
+      "team": "The Crusaders",
+      "p": 4,
+      "w": 2,
+      "b": 0,
+      "d": 1,
+      "l": 1,
+      "f": 26,
+      "a": 27,
+      "gd": -1,
+      "pts": 9
+    },
+    {
+      "pos": 10,
+      "team": "Rik Allen",
+      "p": 4,
+      "w": 2,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 21,
+      "a": 17,
+      "gd": 4,
+      "pts": 8
+    },
+    {
+      "pos": 11,
+      "team": "Clown Baby",
+      "p": 4,
+      "w": 2,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 22,
+      "a": 20,
+      "gd": 2,
+      "pts": 8
+    },
+    {
+      "pos": 12,
+      "team": "Dynamo Chicken Kiev",
+      "p": 5,
+      "w": 1,
+      "b": 0,
+      "d": 0,
+      "l": 4,
+      "f": 22,
+      "a": 32,
+      "gd": -10,
+      "pts": 7
+    },
+    {
+      "pos": 13,
+      "team": "Sparkle Pina Koala",
+      "p": 5,
+      "w": 0,
+      "b": 1,
+      "d": 0,
+      "l": 4,
+      "f": 7,
+      "a": 40,
+      "gd": -33,
+      "pts": 6
+    },
+    {
+      "pos": 14,
+      "team": "Silver Foxes",
+      "p": 3,
+      "w": 1,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 22,
+      "a": 16,
+      "gd": 6,
+      "pts": 5
+    },
+    {
+      "pos": 15,
+      "team": "Kingpingers",
+      "p": 5,
+      "w": 0,
+      "b": 0,
+      "d": 0,
+      "l": 4,
+      "f": 7,
+      "a": 39,
+      "gd": -32,
+      "pts": 4
+    },
+    {
+      "pos": 16,
+      "team": "Slaymar FC",
+      "p": 2,
+      "w": 0,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 7,
+      "a": 19,
+      "gd": -12,
+      "pts": 2
+    }
+  ],
+  "fixtures": [
+    {
+      "round": 4,
+      "stage": "Regular Season",
+      "date": "2022-05-12",
+      "datetime": "2022-05-12T18:50:00+09:30",
+      "venue": "Unley Court 2",
+      "opponent": "Kentucky FC",
+      "bye": false,
+      "us": 1,
+      "them": 9
+    },
+    {
+      "round": 5,
+      "stage": "Regular Season",
+      "date": "2022-05-19",
+      "datetime": "2022-05-19T20:30:00+09:30",
+      "venue": "Unley Court 1",
+      "opponent": "The Crusaders",
+      "bye": false,
+      "us": 6,
+      "them": 10
+    }
+  ],
+  "squad": [
+    {
+      "name": "C Abrahamson",
+      "games": 2,
+      "last": "2022-05-19"
+    },
+    {
+      "name": "C S Avdoulas",
+      "games": 2,
+      "last": "2022-05-19"
+    },
+    {
+      "name": "C Marinos",
+      "games": 2,
+      "last": "2022-05-19"
+    },
+    {
+      "name": "E Gonzales",
+      "games": 2,
+      "last": "2022-05-19"
+    },
+    {
+      "name": "G Shakes",
+      "games": 2,
+      "last": "2022-05-19"
+    },
+    {
+      "name": "J Smith",
+      "games": 1,
+      "last": "2022-05-12"
+    },
+    {
+      "name": "W Plagakis",
+      "games": 2,
+      "last": "2022-05-19"
+    }
+  ],
+  "archived": "2026-10-28T03:35:49.616Z"
+}

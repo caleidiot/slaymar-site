@@ -1,0 +1,273 @@
+{
+  "comp": {
+    "id": "664405",
+    "name": "Unley/Immanuel - Thursday Senior Open Futsal Grading 2",
+    "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-664405-0&pool=1&a=LADDER"
+  },
+  "season": {
+    "id": "6046520",
+    "name": "Summer 2026/27"
+  },
+  "position": 2,
+  "teams": 12,
+  "record": {
+    "w": 3,
+    "d": 0,
+    "l": 1,
+    "f": 31,
+    "a": 21
+  },
+  "ladder": [
+    {
+      "pos": 1,
+      "team": "RKO Reborn",
+      "p": 4,
+      "w": 4,
+      "b": 0,
+      "d": 0,
+      "l": 0,
+      "f": 34,
+      "a": 18,
+      "gd": 16,
+      "pts": 12
+    },
+    {
+      "pos": 2,
+      "team": "Slaymar FC",
+      "p": 4,
+      "w": 3,
+      "b": 0,
+      "d": 0,
+      "l": 1,
+      "f": 31,
+      "a": 21,
+      "gd": 10,
+      "pts": 10
+    },
+    {
+      "pos": 3,
+      "team": "McHeaver",
+      "p": 4,
+      "w": 3,
+      "b": 0,
+      "d": 0,
+      "l": 1,
+      "f": 26,
+      "a": 21,
+      "gd": 5,
+      "pts": 10
+    },
+    {
+      "pos": 4,
+      "team": "No Chance FC",
+      "p": 4,
+      "w": 2,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 19,
+      "a": 14,
+      "gd": 5,
+      "pts": 8
+    },
+    {
+      "pos": 5,
+      "team": "Silver Foxes",
+      "p": 3,
+      "w": 2,
+      "b": 1,
+      "d": 0,
+      "l": 0,
+      "f": 9,
+      "a": 6,
+      "gd": 3,
+      "pts": 8
+    },
+    {
+      "pos": 6,
+      "team": "The Phil Ins",
+      "p": 4,
+      "w": 2,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 22,
+      "a": 21,
+      "gd": 1,
+      "pts": 8
+    },
+    {
+      "pos": 7,
+      "team": "America",
+      "p": 4,
+      "w": 1,
+      "b": 0,
+      "d": 2,
+      "l": 1,
+      "f": 22,
+      "a": 24,
+      "gd": -2,
+      "pts": 8
+    },
+    {
+      "pos": 8,
+      "team": "Brazukas",
+      "p": 3,
+      "w": 1,
+      "b": 1,
+      "d": 1,
+      "l": 0,
+      "f": 13,
+      "a": 10,
+      "gd": 3,
+      "pts": 7
+    },
+    {
+      "pos": 9,
+      "team": "Comparative Advantage",
+      "p": 3,
+      "w": 0,
+      "b": 1,
+      "d": 1,
+      "l": 1,
+      "f": 10,
+      "a": 12,
+      "gd": -2,
+      "pts": 5
+    },
+    {
+      "pos": 10,
+      "team": "Extremely Average Futsal Club",
+      "p": 4,
+      "w": 0,
+      "b": 1,
+      "d": 0,
+      "l": 3,
+      "f": 13,
+      "a": 22,
+      "gd": -9,
+      "pts": 5
+    },
+    {
+      "pos": 11,
+      "team": "The Baldy Boys",
+      "p": 4,
+      "w": 0,
+      "b": 1,
+      "d": 0,
+      "l": 3,
+      "f": 12,
+      "a": 25,
+      "gd": -13,
+      "pts": 5
+    },
+    {
+      "pos": 12,
+      "team": "Rolling Stone Futsal Club",
+      "p": 4,
+      "w": 0,
+      "b": 0,
+      "d": 0,
+      "l": 4,
+      "f": 18,
+      "a": 35,
+      "gd": -17,
+      "pts": 4
+    }
+  ],
+  "fixtures": [
+    {
+      "round": 1,
+      "stage": "Regular Season",
+      "date": "2026-10-01",
+      "datetime": "2026-10-01T19:40:00+09:30",
+      "venue": "Unley Court 3",
+      "opponent": "The Baldy Boys",
+      "bye": false,
+      "us": 9,
+      "them": 5
+    },
+    {
+      "round": 2,
+      "stage": "Regular Season",
+      "date": "2026-10-08",
+      "datetime": "2026-10-08T21:20:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "No Chance FC",
+      "bye": false,
+      "us": 4,
+      "them": 3
+    },
+    {
+      "round": 3,
+      "stage": "Regular Season",
+      "date": "2026-10-15",
+      "datetime": "2026-10-15T22:10:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Rolling Stone Futsal Club",
+      "bye": false,
+      "us": 13,
+      "them": 6
+    },
+    {
+      "round": 4,
+      "stage": "Regular Season",
+      "date": "2026-10-22",
+      "datetime": "2026-10-22T18:50:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "The Phil Ins",
+      "bye": false,
+      "us": 5,
+      "them": 7
+    },
+    {
+      "round": 5,
+      "stage": "Regular Season",
+      "date": "2026-10-29",
+      "datetime": "2026-10-29T20:30:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "America",
+      "bye": false,
+      "us": null,
+      "them": null
+    }
+  ],
+  "squad": [
+    {
+      "name": "C Abrahamson",
+      "games": 4,
+      "last": "2026-10-22"
+    },
+    {
+      "name": "C S Avdoulas",
+      "games": 4,
+      "last": "2026-10-22"
+    },
+    {
+      "name": "C Marinos",
+      "games": 3,
+      "last": "2026-10-15"
+    },
+    {
+      "name": "G Shakes",
+      "games": 4,
+      "last": "2026-10-22"
+    },
+    {
+      "name": "J Foster",
+      "games": 2,
+      "last": "2026-10-08"
+    },
+    {
+      "name": "J Smith",
+      "games": 2,
+      "last": "2026-10-22"
+    },
+    {
+      "name": "W Plagakis",
+      "games": 4,
+      "last": "2026-10-22"
+    }
+  ],
+  "archived": "2026-10-28T03:38:37.248Z"
+}

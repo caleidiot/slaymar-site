@@ -1,0 +1,416 @@
+{
+  "comp": {
+    "id": "643280",
+    "name": "Unley - Thursday Futsal B Grade",
+    "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-643280-0&pool=1&a=LADDER"
+  },
+  "season": {
+    "id": "6040836",
+    "name": "Summer 2024/25"
+  },
+  "position": 5,
+  "teams": 5,
+  "record": {
+    "w": 6,
+    "d": 3,
+    "l": 12,
+    "f": 89,
+    "a": 113
+  },
+  "ladder": [
+    {
+      "pos": 1,
+      "team": "Daddy's Boys",
+      "p": 22,
+      "w": 15,
+      "b": 1,
+      "d": 0,
+      "l": 5,
+      "f": 135,
+      "a": 104,
+      "gd": 31,
+      "pts": 52
+    },
+    {
+      "pos": 2,
+      "team": "Futbol Club Kitchen de Stevens",
+      "p": 24,
+      "w": 11,
+      "b": 2,
+      "d": 2,
+      "l": 9,
+      "f": 102,
+      "a": 87,
+      "gd": 15,
+      "pts": 50
+    },
+    {
+      "pos": 3,
+      "team": "Atletico Vejentud",
+      "p": 23,
+      "w": 12,
+      "b": 0,
+      "d": 1,
+      "l": 10,
+      "f": 112,
+      "a": 99,
+      "gd": 13,
+      "pts": 48
+    },
+    {
+      "pos": 4,
+      "team": "McHeaver",
+      "p": 24,
+      "w": 7,
+      "b": 1,
+      "d": 1,
+      "l": 15,
+      "f": 99,
+      "a": 133,
+      "gd": -34,
+      "pts": 40
+    },
+    {
+      "pos": 5,
+      "team": "Slaymar FC",
+      "p": 23,
+      "w": 6,
+      "b": 2,
+      "d": 3,
+      "l": 10,
+      "f": 89,
+      "a": 103,
+      "gd": -14,
+      "pts": 38
+    }
+  ],
+  "fixtures": [
+    {
+      "round": 1,
+      "stage": "Regular Season",
+      "date": "2024-10-03",
+      "datetime": "2024-10-03T21:20:00+09:30",
+      "venue": "Unley Court 2",
+      "opponent": "Atletico Vejentud",
+      "bye": false,
+      "us": 6,
+      "them": 7
+    },
+    {
+      "round": 2,
+      "stage": "Regular Season",
+      "date": "2024-10-10",
+      "datetime": "2024-10-10T12:00:00+10:30",
+      "venue": "BYE",
+      "opponent": "",
+      "bye": false,
+      "us": null,
+      "them": null
+    },
+    {
+      "round": 3,
+      "stage": "Regular Season",
+      "date": "2024-10-17",
+      "datetime": "2024-10-17T22:10:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Futbol Club Kitchen de Stevens",
+      "bye": false,
+      "us": 5,
+      "them": 2
+    },
+    {
+      "round": 4,
+      "stage": "Regular Season",
+      "date": "2024-10-24",
+      "datetime": "2024-10-24T19:40:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "Scotch Old Cols",
+      "bye": false,
+      "us": 5,
+      "them": 5
+    },
+    {
+      "round": 5,
+      "stage": "Regular Season",
+      "date": "2024-10-31",
+      "datetime": "2024-10-31T20:30:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Peasano Boys",
+      "bye": false,
+      "us": 7,
+      "them": 3
+    },
+    {
+      "round": 6,
+      "stage": "Regular Season",
+      "date": "2024-11-07",
+      "datetime": "2024-11-07T20:30:00+10:30",
+      "venue": "Immanuel Court 3",
+      "opponent": "McHeaver",
+      "bye": false,
+      "us": 3,
+      "them": 6
+    },
+    {
+      "round": 7,
+      "stage": "Regular Season",
+      "date": "2024-11-14",
+      "datetime": "2024-11-14T20:30:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Rimmies",
+      "bye": false,
+      "us": 2,
+      "them": 2
+    },
+    {
+      "round": 8,
+      "stage": "Regular Season",
+      "date": "2024-11-21",
+      "datetime": "2024-11-21T20:30:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Blue city",
+      "bye": false,
+      "us": 5,
+      "them": 0
+    },
+    {
+      "round": 9,
+      "stage": "Regular Season",
+      "date": "2024-11-28",
+      "datetime": "2024-11-28T12:00:00+10:30",
+      "venue": "BYE",
+      "opponent": "",
+      "bye": false,
+      "us": null,
+      "them": null
+    },
+    {
+      "round": 10,
+      "stage": "Regular Season",
+      "date": "2024-12-05",
+      "datetime": "2024-12-05T22:10:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Dr Teeth",
+      "bye": false,
+      "us": null,
+      "them": null
+    },
+    {
+      "round": 11,
+      "stage": "Regular Season",
+      "date": "2024-12-12",
+      "datetime": "2024-12-12T21:20:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Unley Browns Ressies",
+      "bye": false,
+      "us": 3,
+      "them": 6
+    },
+    {
+      "round": 12,
+      "stage": "Regular Season",
+      "date": "2024-12-19",
+      "datetime": "2024-12-19T19:40:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Dr Teeth",
+      "bye": false,
+      "us": 2,
+      "them": 6
+    },
+    {
+      "round": 13,
+      "stage": "Regular Season",
+      "date": "2025-01-09",
+      "datetime": "2025-01-09T20:30:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "Futsal Friends",
+      "bye": false,
+      "us": 8,
+      "them": 6
+    },
+    {
+      "round": 14,
+      "stage": "Regular Season",
+      "date": "2025-01-16",
+      "datetime": "2025-01-16T20:30:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Scotch Old Cols",
+      "bye": false,
+      "us": 7,
+      "them": 5
+    },
+    {
+      "round": 15,
+      "stage": "Regular Season",
+      "date": "2025-01-23",
+      "datetime": "2025-01-23T21:20:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "Avas Army",
+      "bye": false,
+      "us": 8,
+      "them": 11
+    },
+    {
+      "round": 16,
+      "stage": "Regular Season",
+      "date": "2025-01-30",
+      "datetime": "2025-01-30T21:20:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "Futbol Club Kitchen de Stevens",
+      "bye": false,
+      "us": 0,
+      "them": 5
+    },
+    {
+      "round": 17,
+      "stage": "Regular Season",
+      "date": "2025-02-06",
+      "datetime": "2025-02-06T22:10:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Daddy's Boys",
+      "bye": false,
+      "us": 4,
+      "them": 8
+    },
+    {
+      "round": 18,
+      "stage": "Regular Season",
+      "date": "2025-02-13",
+      "datetime": "2025-02-13T19:40:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "McHeaver",
+      "bye": false,
+      "us": 1,
+      "them": 3
+    },
+    {
+      "round": 19,
+      "stage": "Regular Season",
+      "date": "2025-02-20",
+      "datetime": "2025-02-20T21:20:00+10:30",
+      "venue": "Immanuel Court 3",
+      "opponent": "Atletico Vejentud",
+      "bye": false,
+      "us": 5,
+      "them": 6
+    },
+    {
+      "round": 20,
+      "stage": "Regular Season",
+      "date": "2025-02-27",
+      "datetime": "2025-02-27T20:30:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "Futsal Friends",
+      "bye": false,
+      "us": 7,
+      "them": 5
+    },
+    {
+      "round": 21,
+      "stage": "Regular Season",
+      "date": "2025-03-06",
+      "datetime": "2025-03-06T20:30:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Futbol Club Kitchen de Stevens",
+      "bye": false,
+      "us": 0,
+      "them": 5
+    },
+    {
+      "round": 22,
+      "stage": "Regular Season",
+      "date": "2025-03-13",
+      "datetime": "2025-03-13T20:30:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Daddy's Boys",
+      "bye": false,
+      "us": 4,
+      "them": 12
+    },
+    {
+      "round": 23,
+      "stage": "Regular Season",
+      "date": "2025-03-20",
+      "datetime": "2025-03-20T19:40:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "McHeaver",
+      "bye": false,
+      "us": 2,
+      "them": 2
+    },
+    {
+      "round": 24,
+      "stage": "Regular Season",
+      "date": "2025-03-27",
+      "datetime": "2025-03-27T21:20:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "Atletico Vejentud",
+      "bye": false,
+      "us": 5,
+      "them": 8
+    }
+  ],
+  "squad": [
+    {
+      "name": "C Abrahamson",
+      "games": 15,
+      "last": "2025-03-27"
+    },
+    {
+      "name": "C S Avdoulas",
+      "games": 9,
+      "last": "2025-03-13"
+    },
+    {
+      "name": "C Marinos",
+      "games": 16,
+      "last": "2025-03-27"
+    },
+    {
+      "name": "E Gonzales",
+      "games": 8,
+      "last": "2025-03-27"
+    },
+    {
+      "name": "Ethan ‘benat’ Gonzalez",
+      "games": 13,
+      "last": "2025-03-20"
+    },
+    {
+      "name": "G Shakes",
+      "games": 14,
+      "last": "2025-03-27"
+    },
+    {
+      "name": "H Hewitt",
+      "games": 4,
+      "last": "2025-03-13"
+    },
+    {
+      "name": "H Hewitt",
+      "games": 3,
+      "last": "2025-03-13"
+    },
+    {
+      "name": "J Lockington",
+      "games": 1,
+      "last": "2025-02-13"
+    },
+    {
+      "name": "J Lockington",
+      "games": 8,
+      "last": "2025-03-27"
+    },
+    {
+      "name": "J Smith",
+      "games": 16,
+      "last": "2025-03-27"
+    },
+    {
+      "name": "W Plagakis",
+      "games": 12,
+      "last": "2025-03-27"
+    }
+  ],
+  "archived": "2026-10-28T03:36:40.306Z"
+}

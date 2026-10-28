@@ -1,0 +1,369 @@
+{
+  "comp": {
+    "id": "639460",
+    "name": "Thursday Futsal C/D Grade",
+    "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-639460-0&pool=1&a=LADDER"
+  },
+  "season": {
+    "id": "6039368",
+    "name": "Winter 2024"
+  },
+  "position": 8,
+  "teams": 8,
+  "record": {
+    "w": 5,
+    "d": 0,
+    "l": 13,
+    "f": 67,
+    "a": 113
+  },
+  "ladder": [
+    {
+      "pos": 1,
+      "team": "Scotch Old Cols",
+      "p": 21,
+      "w": 15,
+      "b": 1,
+      "d": 0,
+      "l": 5,
+      "f": 130,
+      "a": 72,
+      "gd": 58,
+      "pts": 52
+    },
+    {
+      "pos": 2,
+      "team": "Goal diggers",
+      "p": 21,
+      "w": 13,
+      "b": 1,
+      "d": 3,
+      "l": 4,
+      "f": 140,
+      "a": 87,
+      "gd": 53,
+      "pts": 51
+    },
+    {
+      "pos": 3,
+      "team": "Dr Teeth",
+      "p": 21,
+      "w": 13,
+      "b": 1,
+      "d": 2,
+      "l": 4,
+      "f": 120,
+      "a": 65,
+      "gd": 55,
+      "pts": 49
+    },
+    {
+      "pos": 4,
+      "team": "Avas Army",
+      "p": 21,
+      "w": 12,
+      "b": 0,
+      "d": 1,
+      "l": 8,
+      "f": 136,
+      "a": 95,
+      "gd": 41,
+      "pts": 46
+    },
+    {
+      "pos": 5,
+      "team": "McHeaver",
+      "p": 21,
+      "w": 9,
+      "b": 1,
+      "d": 0,
+      "l": 10,
+      "f": 134,
+      "a": 112,
+      "gd": 22,
+      "pts": 39
+    },
+    {
+      "pos": 6,
+      "team": "Nandos Club de Futbol",
+      "p": 21,
+      "w": 8,
+      "b": 0,
+      "d": 1,
+      "l": 12,
+      "f": 78,
+      "a": 124,
+      "gd": -46,
+      "pts": 38
+    },
+    {
+      "pos": 7,
+      "team": "America",
+      "p": 21,
+      "w": 6,
+      "b": 2,
+      "d": 1,
+      "l": 12,
+      "f": 81,
+      "a": 109,
+      "gd": -28,
+      "pts": 36
+    },
+    {
+      "pos": 8,
+      "team": "Slaymar FC",
+      "p": 21,
+      "w": 5,
+      "b": 1,
+      "d": 0,
+      "l": 13,
+      "f": 68,
+      "a": 110,
+      "gd": -42,
+      "pts": 30
+    }
+  ],
+  "fixtures": [
+    {
+      "round": 6,
+      "stage": "Regular Season",
+      "date": "2024-05-30",
+      "datetime": "2024-05-30T19:40:00+09:30",
+      "venue": "Unley Court 3",
+      "opponent": "Scotch Old Cols",
+      "bye": false,
+      "us": 1,
+      "them": 16
+    },
+    {
+      "round": 7,
+      "stage": "Regular Season",
+      "date": "2024-06-06",
+      "datetime": "2024-06-06T19:40:00+09:30",
+      "venue": "Unley Court 1",
+      "opponent": "Collateral Damage",
+      "bye": false,
+      "us": 8,
+      "them": 0
+    },
+    {
+      "round": 8,
+      "stage": "Regular Season",
+      "date": "2024-06-13",
+      "datetime": "2024-06-13T22:10:00+09:30",
+      "venue": "Unley Court 1",
+      "opponent": "America",
+      "bye": false,
+      "us": 9,
+      "them": 1
+    },
+    {
+      "round": 9,
+      "stage": "Regular Season",
+      "date": "2024-06-20",
+      "datetime": "2024-06-20T18:50:00+09:30",
+      "venue": "Unley Court 2",
+      "opponent": "Cerveza United",
+      "bye": false,
+      "us": 2,
+      "them": 3
+    },
+    {
+      "round": 10,
+      "stage": "Regular Season",
+      "date": "2024-06-27",
+      "datetime": "2024-06-27T20:30:00+09:30",
+      "venue": "Unley Court 1",
+      "opponent": "McHeaver",
+      "bye": false,
+      "us": 6,
+      "them": 4
+    },
+    {
+      "round": 11,
+      "stage": "Regular Season",
+      "date": "2024-07-04",
+      "datetime": "2024-07-04T22:10:00+09:30",
+      "venue": "Unley Court 1",
+      "opponent": "Dr Teeth",
+      "bye": false,
+      "us": 2,
+      "them": 10
+    },
+    {
+      "round": 12,
+      "stage": "Regular Season",
+      "date": "2024-07-11",
+      "datetime": "2024-07-11T21:20:00+09:30",
+      "venue": "Unley Court 3",
+      "opponent": "Avas Army",
+      "bye": false,
+      "us": 3,
+      "them": 10
+    },
+    {
+      "round": 13,
+      "stage": "Regular Season",
+      "date": "2024-07-18",
+      "datetime": "2024-07-18T19:40:00+09:30",
+      "venue": "Unley Court 1",
+      "opponent": "Goal diggers",
+      "bye": false,
+      "us": 5,
+      "them": 13
+    },
+    {
+      "round": 14,
+      "stage": "Regular Season",
+      "date": "2024-07-25",
+      "datetime": "2024-07-25T21:20:00+09:30",
+      "venue": "Unley Court 2",
+      "opponent": "Scotch Old Cols",
+      "bye": false,
+      "us": 1,
+      "them": 6
+    },
+    {
+      "round": 15,
+      "stage": "Regular Season",
+      "date": "2024-08-01",
+      "datetime": "2024-08-01T19:40:00+09:30",
+      "venue": "Unley Court 3",
+      "opponent": "America",
+      "bye": false,
+      "us": 0,
+      "them": 5
+    },
+    {
+      "round": 16,
+      "stage": "Regular Season",
+      "date": "2024-08-08",
+      "datetime": "2024-08-08T20:30:00+09:30",
+      "venue": "Unley Court 1",
+      "opponent": "Dr Teeth",
+      "bye": false,
+      "us": 3,
+      "them": 4
+    },
+    {
+      "round": 17,
+      "stage": "Regular Season",
+      "date": "2024-08-15",
+      "datetime": "2024-08-15T19:40:00+09:30",
+      "venue": "Unley Court 2",
+      "opponent": "McHeaver",
+      "bye": false,
+      "us": 3,
+      "them": 11
+    },
+    {
+      "round": 18,
+      "stage": "Regular Season",
+      "date": "2024-08-22",
+      "datetime": "2024-08-22T22:10:00+09:30",
+      "venue": "Unley Court 3",
+      "opponent": "Nandos Club de Futbol",
+      "bye": false,
+      "us": 3,
+      "them": 4
+    },
+    {
+      "round": 19,
+      "stage": "Regular Season",
+      "date": "2024-08-29",
+      "datetime": "2024-08-29T18:50:00+09:30",
+      "venue": "Unley Court 1",
+      "opponent": "Avas Army",
+      "bye": false,
+      "us": 5,
+      "them": 3
+    },
+    {
+      "round": 20,
+      "stage": "Regular Season",
+      "date": "2024-09-05",
+      "datetime": "2024-09-05T20:30:00+09:30",
+      "venue": "Unley Court 2",
+      "opponent": "Dr Teeth",
+      "bye": false,
+      "us": 4,
+      "them": 8
+    },
+    {
+      "round": 21,
+      "stage": "Regular Season",
+      "date": "2024-09-12",
+      "datetime": "2024-09-12T19:40:00+09:30",
+      "venue": "Unley Court 3",
+      "opponent": "Scotch Old Cols",
+      "bye": false,
+      "us": 3,
+      "them": 6
+    },
+    {
+      "round": 1,
+      "stage": "Finals",
+      "date": "2024-09-19",
+      "datetime": "2024-09-19T19:40:00+09:30",
+      "venue": "Unley Court 2",
+      "opponent": "McHeaver",
+      "bye": false,
+      "us": 7,
+      "them": 6
+    },
+    {
+      "round": 2,
+      "stage": "Finals",
+      "date": "2024-09-26",
+      "datetime": "2024-09-26T21:00:00+09:30",
+      "venue": "Unley Court 2",
+      "opponent": "Nandos Club de Futbol",
+      "bye": false,
+      "us": 2,
+      "them": 3
+    }
+  ],
+  "squad": [
+    {
+      "name": "C Abrahamson",
+      "games": 18,
+      "last": "2024-09-26"
+    },
+    {
+      "name": "C S Avdoulas",
+      "games": 3,
+      "last": "2024-09-19"
+    },
+    {
+      "name": "C Marinos",
+      "games": 17,
+      "last": "2024-09-26"
+    },
+    {
+      "name": "E Gonzales",
+      "games": 17,
+      "last": "2024-09-26"
+    },
+    {
+      "name": "G Shakes",
+      "games": 12,
+      "last": "2024-09-12"
+    },
+    {
+      "name": "H Hewitt",
+      "games": 14,
+      "last": "2024-09-26"
+    },
+    {
+      "name": "J Smith",
+      "games": 17,
+      "last": "2024-09-26"
+    },
+    {
+      "name": "W Plagakis",
+      "games": 9,
+      "last": "2024-09-26"
+    }
+  ],
+  "archived": "2026-10-28T03:35:32.774Z"
+}

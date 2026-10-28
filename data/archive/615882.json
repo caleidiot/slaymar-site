@@ -1,0 +1,458 @@
+{
+  "comp": {
+    "id": "615882",
+    "name": "Unley/Immanuel Thursday Senior Futsal-D",
+    "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-615882-0&pool=1&a=LADDER"
+  },
+  "season": {
+    "id": "6028849",
+    "name": "Summer 2022-23"
+  },
+  "position": 1,
+  "teams": 9,
+  "record": {
+    "w": 13,
+    "d": 1,
+    "l": 5,
+    "f": 115,
+    "a": 80
+  },
+  "ladder": [
+    {
+      "pos": 1,
+      "team": "Slaymar FC",
+      "p": 21,
+      "w": 13,
+      "b": 3,
+      "d": 1,
+      "l": 4,
+      "f": 112,
+      "a": 76,
+      "gd": 36,
+      "pts": 51
+    },
+    {
+      "pos": 2,
+      "team": "Nandos Club de Futbol",
+      "p": 21,
+      "w": 11,
+      "b": 7,
+      "d": 0,
+      "l": 3,
+      "f": 112,
+      "a": 51,
+      "gd": 61,
+      "pts": 50
+    },
+    {
+      "pos": 3,
+      "team": "McHeaver",
+      "p": 21,
+      "w": 10,
+      "b": 7,
+      "d": 0,
+      "l": 3,
+      "f": 103,
+      "a": 62,
+      "gd": 41,
+      "pts": 47
+    },
+    {
+      "pos": 4,
+      "team": "Arraffoni",
+      "p": 21,
+      "w": 10,
+      "b": 4,
+      "d": 1,
+      "l": 6,
+      "f": 92,
+      "a": 75,
+      "gd": 17,
+      "pts": 46
+    },
+    {
+      "pos": 5,
+      "team": "O'porto",
+      "p": 21,
+      "w": 10,
+      "b": 4,
+      "d": 0,
+      "l": 6,
+      "f": 74,
+      "a": 67,
+      "gd": 7,
+      "pts": 44
+    },
+    {
+      "pos": 6,
+      "team": "America",
+      "p": 21,
+      "w": 8,
+      "b": 2,
+      "d": 0,
+      "l": 11,
+      "f": 81,
+      "a": 80,
+      "gd": 1,
+      "pts": 39
+    },
+    {
+      "pos": 7,
+      "team": "Dr Teeth",
+      "p": 21,
+      "w": 6,
+      "b": 3,
+      "d": 1,
+      "l": 10,
+      "f": 73,
+      "a": 106,
+      "gd": -33,
+      "pts": 36
+    },
+    {
+      "pos": 8,
+      "team": "Pathetico Madrid",
+      "p": 21,
+      "w": 1,
+      "b": 4,
+      "d": 2,
+      "l": 14,
+      "f": 58,
+      "a": 136,
+      "gd": -78,
+      "pts": 29
+    },
+    {
+      "pos": 9,
+      "team": "The Underachievers",
+      "p": 6,
+      "w": 2,
+      "b": 0,
+      "d": 0,
+      "l": 4,
+      "f": 29,
+      "a": 37,
+      "gd": -8,
+      "pts": 10
+    }
+  ],
+  "fixtures": [
+    {
+      "round": 1,
+      "stage": "Regular Season",
+      "date": "2022-10-06",
+      "datetime": "2022-10-06T18:00:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Pathetico Madrid",
+      "bye": false,
+      "us": 4,
+      "them": 3
+    },
+    {
+      "round": 2,
+      "stage": "Regular Season",
+      "date": "2022-10-13",
+      "datetime": "2022-10-13T20:30:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Kentucky FC",
+      "bye": false,
+      "us": 5,
+      "them": 4
+    },
+    {
+      "round": 3,
+      "stage": "Regular Season",
+      "date": "2022-10-20",
+      "datetime": "2022-10-20T18:50:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "O'porto",
+      "bye": false,
+      "us": 6,
+      "them": 0
+    },
+    {
+      "round": 4,
+      "stage": "Regular Season",
+      "date": "2022-10-27",
+      "datetime": "2022-10-27T19:40:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "Arraffoni",
+      "bye": false,
+      "us": 8,
+      "them": 5
+    },
+    {
+      "round": 5,
+      "stage": "Regular Season",
+      "date": "2022-11-03",
+      "datetime": "2022-11-03T12:00:00+10:30",
+      "venue": "BYE",
+      "opponent": "",
+      "bye": false,
+      "us": null,
+      "them": null
+    },
+    {
+      "round": 6,
+      "stage": "Regular Season",
+      "date": "2022-11-10",
+      "datetime": "2022-11-10T22:10:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Woods Bagot FC",
+      "bye": false,
+      "us": 5,
+      "them": 6
+    },
+    {
+      "round": 7,
+      "stage": "Regular Season",
+      "date": "2022-11-17",
+      "datetime": "2022-11-17T21:20:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "America",
+      "bye": false,
+      "us": 2,
+      "them": 4
+    },
+    {
+      "round": 8,
+      "stage": "Regular Season",
+      "date": "2022-11-24",
+      "datetime": "2022-11-24T20:30:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "McHeaver",
+      "bye": false,
+      "us": 5,
+      "them": 4
+    },
+    {
+      "round": 9,
+      "stage": "Regular Season",
+      "date": "2022-12-01",
+      "datetime": "2022-12-01T19:40:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "O'porto",
+      "bye": false,
+      "us": 2,
+      "them": 3
+    },
+    {
+      "round": 10,
+      "stage": "Regular Season",
+      "date": "2022-12-08",
+      "datetime": "2022-12-08T19:40:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "Pathetico Madrid",
+      "bye": false,
+      "us": 11,
+      "them": 6
+    },
+    {
+      "round": 11,
+      "stage": "Regular Season",
+      "date": "2022-12-15",
+      "datetime": "2022-12-15T12:00:00+10:30",
+      "venue": "BYE",
+      "opponent": "",
+      "bye": false,
+      "us": null,
+      "them": null
+    },
+    {
+      "round": 12,
+      "stage": "Regular Season",
+      "date": "2023-01-05",
+      "datetime": "2023-01-05T22:10:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Arraffoni",
+      "bye": false,
+      "us": 9,
+      "them": 3
+    },
+    {
+      "round": 13,
+      "stage": "Regular Season",
+      "date": "2023-01-12",
+      "datetime": "2023-01-12T19:40:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Mooy Fuego",
+      "bye": false,
+      "us": 7,
+      "them": 4
+    },
+    {
+      "round": 14,
+      "stage": "Regular Season",
+      "date": "2023-01-19",
+      "datetime": "2023-01-19T19:40:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Nandos Club de Futbol",
+      "bye": false,
+      "us": 3,
+      "them": 8
+    },
+    {
+      "round": 15,
+      "stage": "Regular Season",
+      "date": "2023-02-02",
+      "datetime": "2023-02-02T18:00:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Woods Bagot FC",
+      "bye": false,
+      "us": 10,
+      "them": 2
+    },
+    {
+      "round": 16,
+      "stage": "Regular Season",
+      "date": "2023-02-09",
+      "datetime": "2023-02-09T12:00:00+10:30",
+      "venue": "BYE",
+      "opponent": "",
+      "bye": false,
+      "us": null,
+      "them": null
+    },
+    {
+      "round": 17,
+      "stage": "Regular Season",
+      "date": "2023-02-16",
+      "datetime": "2023-02-16T19:40:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Dr Teeth",
+      "bye": false,
+      "us": null,
+      "them": null
+    },
+    {
+      "round": 18,
+      "stage": "Regular Season",
+      "date": "2023-02-23",
+      "datetime": "2023-02-23T21:20:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Pathetico Madrid",
+      "bye": false,
+      "us": null,
+      "them": null
+    },
+    {
+      "round": 19,
+      "stage": "Regular Season",
+      "date": "2023-03-02",
+      "datetime": "2023-03-02T20:30:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "McHeaver",
+      "bye": false,
+      "us": 8,
+      "them": 7
+    },
+    {
+      "round": 20,
+      "stage": "Regular Season",
+      "date": "2023-03-09",
+      "datetime": "2023-03-09T18:50:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "Dr Teeth",
+      "bye": false,
+      "us": 5,
+      "them": 3
+    },
+    {
+      "round": 21,
+      "stage": "Regular Season",
+      "date": "2023-03-16",
+      "datetime": "2023-03-16T19:40:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "O'porto",
+      "bye": false,
+      "us": 9,
+      "them": 5
+    },
+    {
+      "round": 22,
+      "stage": "Regular Season",
+      "date": "2023-03-23",
+      "datetime": "2023-03-23T18:50:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Arraffoni",
+      "bye": false,
+      "us": 6,
+      "them": 6
+    },
+    {
+      "round": 23,
+      "stage": "Regular Season",
+      "date": "2023-03-30",
+      "datetime": "2023-03-30T21:20:00+10:30",
+      "venue": "Unley Court 2",
+      "opponent": "America",
+      "bye": false,
+      "us": 7,
+      "them": 3
+    },
+    {
+      "round": 1,
+      "stage": "Finals",
+      "date": "2023-04-06",
+      "datetime": "2023-04-06T18:50:00+09:30",
+      "venue": "Unley Court 2",
+      "opponent": "Arraffoni",
+      "bye": false,
+      "us": 3,
+      "them": 4
+    }
+  ],
+  "squad": [
+    {
+      "name": "C Abrahamson",
+      "games": 18,
+      "last": "2023-04-06"
+    },
+    {
+      "name": "C S Avdoulas",
+      "games": 17,
+      "last": "2023-04-06"
+    },
+    {
+      "name": "C Marinos",
+      "games": 13,
+      "last": "2023-03-30"
+    },
+    {
+      "name": "E Gonzales",
+      "games": 17,
+      "last": "2023-03-30"
+    },
+    {
+      "name": "G Shakes",
+      "games": 16,
+      "last": "2023-04-06"
+    },
+    {
+      "name": "H Hewitt",
+      "games": 17,
+      "last": "2023-04-06"
+    },
+    {
+      "name": "J Smith",
+      "games": 13,
+      "last": "2023-04-06"
+    },
+    {
+      "name": "K Grocke",
+      "games": 16,
+      "last": "2023-04-06"
+    },
+    {
+      "name": "W Plagakis",
+      "games": 15,
+      "last": "2023-04-06"
+    },
+    {
+      "name": "W Plagakis",
+      "games": 3,
+      "last": "2023-01-12"
+    }
+  ],
+  "archived": "2026-10-28T03:37:00.996Z"
+}
