@@ -83,7 +83,7 @@
         .map((r) => {
           const o = outcome(r);
           return `<li><span class="badge ${o}" aria-label="${{ W: "Win", L: "Loss", D: "Draw" }[o]}">${o}</span>` +
-            `<span class="r-date">${fmtDate(r.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}${r.round ? ", Rd " + esc(r.round) : ""}</span>` +
+            `<span class="r-date">${fmtDate(r.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}${r.stage === "Grading" ? ", Grading" : r.round ? ", Rd " + esc(r.round) : ""}</span>` +
             `<span class="r-opp">vs ${esc(r.opponent)}</span>` +
             `<span class="r-score">${r.us}–${r.them}</span>` +
             (r.video ? `<a class="r-watch" href="https://www.youtube.com/watch?v=${esc(r.video.id)}">Watch the match</a>` : "") +
@@ -118,39 +118,62 @@
   $("updated").textContent = "Checked " + new Date(data.updated).toLocaleString("en-AU", { timeZone: TZ, weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
   $("source-link").href = data.comp.url;
 
-  // ---- History (archived competitions) ----
+  // ---- History: one entry per season; grading comps fold into their season ----
   try {
     const res = await fetch("data/archive/index.json", { cache: "no-store" });
-    const index = (await res.json()).filter((c) => c.id !== data.comp.id);
+    const all = await res.json();
+    const isGrading = (c) => /grading/i.test(c.name);
+    const bySeason = new Map();
+    for (const c of all) {
+      if (c.seasonId === data.seasonId || c.season === data.season) continue;
+      if (!bySeason.has(c.seasonId)) bySeason.set(c.seasonId, []);
+      bySeason.get(c.seasonId).push(c);
+    }
+    const seasons = [...bySeason.values()].map((comps) => {
+      const main = comps.find((c) => !isGrading(c)) || comps[0];
+      const rec = comps.reduce((r, c) => ({ w: r.w + c.record.w, d: r.d + c.record.d, l: r.l + c.record.l, f: r.f + c.record.f, a: r.a + c.record.a }), { w: 0, d: 0, l: 0, f: 0, a: 0 });
+      const start = comps.map((c) => c.start || "").sort()[0];
+      return { comps, main, rec, start, season: main.season };
+    }).sort((a, b) => b.start.localeCompare(a.start));
     const ord = (n) => n + (["th", "st", "nd", "rd"][((n % 100) - 20) % 10] || ["th", "st", "nd", "rd"][n % 100] || "th");
-    $("history").innerHTML = index.length
-      ? `<ul class="history">` + index.map((c) => {
-          const r = c.record;
-          return `<li><details data-id="${esc(c.id)}"><summary>` +
-            `<span class="h-season">${esc(c.season)}</span>` +
-            `<span class="h-comp">${esc(c.name)}</span>` +
-            `<span class="h-pos">${c.position ? ord(c.position) + " of " + c.teams : ""}</span>` +
+    const gradeName = (name) => name.replace(/^(Unley\/Immanuel|Unley|Immanuel)\s*[-–]?\s*/i, "").replace(/\s*[-–]\s*/g, " ").trim();
+
+    $("history").innerHTML = seasons.length
+      ? `<ul class="history">` + seasons.map((s, i) => {
+          const m = s.main, r = s.rec;
+          return `<li><details data-i="${i}"><summary>` +
+            `<span class="h-season">${esc(s.season)}</span>` +
+            `<span class="h-comp">${esc(gradeName(m.name))}</span>` +
+            `<span class="h-pos">${m.position ? ord(m.position) + " of " + m.teams : ""}</span>` +
             `<span class="h-rec">W${r.w} D${r.d} L${r.l}, ${r.f}–${r.a}</span>` +
             `</summary><div class="h-body">Loading…</div></details></li>`;
         }).join("") + `</ul>`
-      : `<p class="empty">Past seasons and earlier competitions are saved here automatically once a competition finishes or Slaymar moves on from it.</p>`;
+      : `<p class="empty">Past seasons are saved here automatically when each season finishes.</p>`;
+
     document.querySelectorAll(".history details").forEach((d) =>
       d.addEventListener("toggle", async () => {
         if (!d.open || d.dataset.loaded) return;
         d.dataset.loaded = "1";
+        const s = seasons[+d.dataset.i];
         const body = d.querySelector(".h-body");
         try {
-          const a = await (await fetch(`data/archive/${d.dataset.id}.json`)).json();
-          const games = a.fixtures.filter((g) => g.us !== null && g.them !== null);
+          const files = await Promise.all(s.comps.map((c) => fetch(`data/archive/${c.id}.json`).then((r) => r.json())));
+          const main = files.find((f) => f.comp.id === s.main.id);
+          const games = files
+            .flatMap((f) => f.fixtures.filter((g) => g.us !== null && g.them !== null)
+              .map((g) => ({ ...g, label: isGrading(f.comp) && f !== main ? "Grading" : (/regular/i.test(g.stage || "") ? "" : g.stage) })))
+            .sort((a, b) => a.datetime.localeCompare(b.datetime));
+          const squad = new Map();
+          files.forEach((f) => (f.squad || []).forEach((p) => squad.set(p.name, (squad.get(p.name) || 0) + p.games)));
           body.innerHTML =
             `<div class="table-scroll"><table class="ladder"><thead><tr><th class="num">#</th><th>Team</th><th class="num">P</th><th class="num">W</th><th class="num">D</th><th class="num">L</th><th class="num">GD</th><th class="num pts">Pts</th></tr></thead><tbody>` +
-            a.ladder.map((t) => `<tr class="${t.team === us ? "us" : ""}"><td class="num">${t.pos}</td><td>${esc(t.team)}</td><td class="num">${t.p}</td><td class="num">${t.w}</td><td class="num">${t.d}</td><td class="num">${t.l}</td><td class="num">${t.gd > 0 ? "+" + t.gd : t.gd}</td><td class="num pts">${t.pts}</td></tr>`).join("") +
+            main.ladder.map((t) => `<tr class="${t.team === us ? "us" : ""}"><td class="num">${t.pos}</td><td>${esc(t.team)}</td><td class="num">${t.p}</td><td class="num">${t.w}</td><td class="num">${t.d}</td><td class="num">${t.l}</td><td class="num">${t.gd > 0 ? "+" + t.gd : t.gd}</td><td class="num pts">${t.pts}</td></tr>`).join("") +
             `</tbody></table></div><ol class="results">` +
             games.map((g) => {
               const o = outcome(g);
-              return `<li><span class="badge ${o}">${o}</span><span class="r-date">${fmtDate(g.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}${g.stage && !/regular/i.test(g.stage) ? ", " + esc(g.stage) : ""}</span><span class="r-opp">vs ${esc(g.opponent)}</span><span class="r-score">${g.us}–${g.them}</span></li>`;
+              return `<li><span class="badge ${o}">${o}</span><span class="r-date">${fmtDate(g.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}${g.label ? ", " + esc(g.label) : ""}</span><span class="r-opp">vs ${esc(g.opponent)}</span><span class="r-score">${g.us}–${g.them}</span></li>`;
             }).join("") + `</ol>` +
-            (a.squad && a.squad.length ? `<p class="h-squad">Squad: ${a.squad.map((p) => esc(p.name) + " (" + p.games + ")").join(", ")}</p>` : "");
+            (squad.size ? `<p class="h-squad">Squad: ${[...squad].sort((a, b) => b[1] - a[1]).map(([n, g]) => esc(n) + " (" + g + ")").join(", ")}</p>` : "");
         } catch (e) {
           body.textContent = "Couldn't load this season. Try again later.";
           delete d.dataset.loaded;

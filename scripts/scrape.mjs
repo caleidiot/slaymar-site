@@ -248,10 +248,15 @@ const out = {
   updated: new Date().toISOString(),
   team: { name: CONFIG.teamName, id: (cur.ours.href.match(/id=(\d+)/) || [])[1] || null },
   season: currentSeason.name,
+  seasonId: currentSeason.id,
   comp: { id: cur.comp.id, name: cur.comp.name, url: cur.ladderUrl },
   next: next && { datetime: next.datetime, opponent: next.bye ? "Bye" : next.opponent, venue: next.venue, round: next.round },
   fixtures: cur.games,
-  results: played(cur.games).map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue })),
+  // Grading is just the start of the season: fold every comp from this season into one results list.
+  results: found
+    .flatMap((f) => played(f.games).map((g) => ({ ...g, stage: /grading/i.test(f.comp.name) && f !== cur ? "Grading" : g.stage })))
+    .sort((a, b) => a.datetime.localeCompare(b.datetime))
+    .map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue })),
   ladder: cur.ladder.map(({ href, ...r }) => r),
   squad: cur.team.squad,
   channel: { id: CONFIG.youtubeChannelId, url: CONFIG.youtubeUrl },
