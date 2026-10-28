@@ -143,12 +143,27 @@
     $("video").innerHTML = `<p class="empty">No uploads yet. New match videos on the <a href="${esc(data.channel.url)}">Slaymar FC channel</a> show up here automatically.</p>`;
   }
 
-  // ---- Squad ----
-  $("squad").innerHTML = (data.squad || [])
-    .slice()
-    .sort((a, b) => b.games - a.games || a.name.localeCompare(b.name))
-    .map((p) => `<li><span>${esc(p.name)}</span><span class="g">${p.games}</span></li>`)
-    .join("");
+  // ---- Squad: player cards from data/players.json, games from GameDay ----
+  try {
+    const roster = (await (await fetch("data/players.json", { cache: "no-store" })).json()).players || [];
+    const gd = new Map((data.squad || []).map((p) => [p.name.toLowerCase(), p]));
+    const linked = new Set();
+    const card = (p) => {
+      const g = p.gameday && gd.get(p.gameday.toLowerCase());
+      if (g) linked.add(g.name.toLowerCase());
+      return `<li class="card${p.current ? "" : " former"}">` +
+        `<img src="assets/players/${esc(p.image)}.webp" alt="${esc(p.name)}" width="427" height="440" loading="lazy">` +
+        `<span class="c-games">${g ? `<b>${g.games}</b> ${g.games === 1 ? "game" : "games"}` : p.current ? "&nbsp;" : "Former"}</span></li>`;
+    };
+    const cur = roster.filter((p) => p.current), old = roster.filter((p) => !p.current);
+    const others = (data.squad || []).filter((p) => !linked.has(p.name.toLowerCase()) && !roster.some((r) => r.gameday && r.gameday.toLowerCase() === p.name.toLowerCase()));
+    $("squad").innerHTML =
+      `<ul class="cards">${cur.map(card).join("")}</ul>` +
+      (others.length ? `<h3 class="sq-h">Also played this season</h3><ul class="squad">${others.sort((a, b) => b.games - a.games).map((p) => `<li><span>${esc(p.name)}</span><span class="g">${p.games}</span></li>`).join("")}</ul>` : "") +
+      (old.length ? `<h3 class="sq-h">Former players</h3><ul class="cards small">${old.map(card).join("")}</ul>` : "");
+  } catch (e) {
+    $("squad").innerHTML = `<ul class="squad">${(data.squad || []).map((p) => `<li><span>${esc(p.name)}</span><span class="g">${p.games}</span></li>`).join("")}</ul>`;
+  }
 
   // ---- Tabs ----
   const tabs = ["overview", "ladder", "results", "history", "squad"];
