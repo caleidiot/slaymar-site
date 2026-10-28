@@ -1,5 +1,5 @@
 {
-  "_note": "Squad list. 'name' is the kit name shown on the site. 'gameday' lists every spelling GameDay has used for that player, so games link up. Set 'current' to false for former players. 'image' is optional (file in assets/players/).",
+  "_note": "Squad list. 'name' is the kit name shown on the site. 'gameday' lists every spelling GameDay has used. 'aliases' are other names used in the goals sheet (e.g. 'Doug'). Set 'current' to false for former players. 'image' is optional (file in assets/players/).",
   "players": [
     {
       "name": "Cale",
@@ -23,7 +23,10 @@
       "gameday": [
         "C S Avdoulas"
       ],
-      "current": true
+      "current": true,
+      "aliases": [
+        "Doug"
+      ]
     },
     {
       "name": "Gorin",
@@ -47,7 +50,11 @@
       "gameday": [
         "C Marinos"
       ],
-      "current": true
+      "current": true,
+      "aliases": [
+        "Cratim",
+        "Crahzi"
+      ]
     },
     {
       "name": "Barry",
@@ -55,7 +62,11 @@
       "gameday": [
         "W Plagakis"
       ],
-      "current": true
+      "current": true,
+      "aliases": [
+        "Will",
+        "Barru"
+      ]
     },
     {
       "name": "Lauchlan",

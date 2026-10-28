@@ -143,6 +143,44 @@ function parseSeasons(html) {
   })).filter((s) => s.id);
 }
 
+// Goals sheet: row 1 holds each game's score as a pair of numeric cells (us, them);
+// the cells below each pair list scorers like "Dougie 19'". Games run left to right in date order.
+function parseCsv(text) {
+  const rows = []; let row = [], cell = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) {
+      if (ch === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+      else if (ch === '"') q = false;
+      else cell += ch;
+    } else if (ch === '"') q = true;
+    else if (ch === ",") { row.push(cell); cell = ""; }
+    else if (ch === "\n" || ch === "\r") { if (ch === "\r" && text[i + 1] === "\n") i++; row.push(cell); rows.push(row); row = []; cell = ""; }
+    else cell += ch;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows;
+}
+function parseGoalsSheet(text) {
+  const rows = parseCsv(text);
+  const head = (rows[0] || []).map((c) => c.trim());
+  const isNum = (c) => /^\d+$/.test(c || "");
+  const blocks = [];
+  for (let c = 0; c < head.length - 1; c++) if (isNum(head[c]) && isNum(head[c + 1])) { blocks.push(c); c++; }
+  const cell = (raw) => {
+    const s = clean(raw || "");
+    if (!s) return null;
+    const m = s.match(/^(.*?)\s*(\d{1,2})\s*['"’′`]*$/);
+    return m ? { name: m[1].trim() || null, min: +m[2] } : { name: s, min: null };
+  };
+  return blocks.map((c) => {
+    const us = [], them = [];
+    for (const r of rows.slice(1)) { const a = cell(r[c]); if (a) us.push(a); const b = cell(r[c + 1]); if (b) them.push(b); }
+    const byMin = (x, y) => (x.min ?? 99) - (y.min ?? 99);
+    return { us: +head[c], them: +head[c + 1], scorers: us.sort(byMin).map((g) => ({ player: g.name, min: g.min })), conceded: them.sort(byMin).map((g) => ({ min: g.min })) };
+  });
+}
+
 // ---------- main ----------
 const BACKFILL = args.includes("--backfill");
 const DATA_DIR = path.dirname(OUT);
@@ -230,6 +268,35 @@ if (BACKFILL) {
 const filter = (c) => c.name.toLowerCase().includes(CONFIG.compFilter.toLowerCase());
 const found = await scanSeason(currentHtml, filter);
 if (!found.length) throw new Error(`${CONFIG.teamName} not found in any matching competition`);
+
+// Attach goal scorers from the season's Google Sheet to this season's games.
+{
+  const seen = new Set();
+  const seasonGames = found.flatMap((f) => played(f.games)).sort((a, b) => a.datetime.localeCompare(b.datetime))
+    .filter((g) => { const k = g.datetime + g.opponent; return !seen.has(k) && seen.add(k); });
+  // Fall back to goals already saved in the archive if the sheet can't be read.
+  const saved = new Map();
+  for (const f of found) {
+    const a = await readJSON(path.join(ARCHIVE_DIR, `${f.comp.id}.json`), null);
+    (a?.fixtures || []).forEach((g) => g.goals && saved.set(g.datetime, g.goals));
+  }
+  let sheet = null;
+  if (CONFIG.goalsSheetCsv) {
+    try { sheet = parseGoalsSheet(FIXTURES ? await readFile(path.join(FIXTURES, "goals.csv"), "utf8") : await get(CONFIG.goalsSheetCsv)); }
+    catch (e) { console.warn("Goals sheet unavailable, keeping saved goals:", e.message); }
+  }
+  let gi = 0;
+  for (const block of sheet || []) {
+    // Match each sheet game to the next season game with the same score.
+    while (gi < seasonGames.length && !(seasonGames[gi].us === block.us && seasonGames[gi].them === block.them)) gi++;
+    if (gi >= seasonGames.length) { console.warn(`Sheet game ${block.us}-${block.them} has no matching result`); break; }
+    seasonGames[gi].goals = { scorers: block.scorers, conceded: block.conceded };
+    gi++;
+  }
+  for (const g of seasonGames) if (!g.goals && saved.has(g.datetime)) g.goals = saved.get(g.datetime);
+  console.log(`goals attached to ${seasonGames.filter((g) => g.goals).length}/${seasonGames.length} games`);
+}
+
 for (const f of found) await archive(f, { id: currentSeason.id, name: currentSeason.name });
 found.sort((a, b) => b.latest.localeCompare(a.latest) || Number(b.comp.id) - Number(a.comp.id));
 const cur = found[0];
@@ -278,7 +345,11 @@ const out = {
   results: found
     .flatMap((f) => played(f.games).map((g) => ({ ...g, stage: /grading/i.test(f.comp.name) && f !== cur ? "Grading" : g.stage })))
     .sort((a, b) => a.datetime.localeCompare(b.datetime))
-    .map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue })),
+    .filter((g, i, arr) => {
+      const same = arr.filter((x) => x.datetime === g.datetime && x.opponent === g.opponent);
+      return (same.find((x) => x.goals) || same[0]) === g;
+    })
+    .map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue, goals: g.goals || null })),
   ladder: cur.ladder.map(({ href, ...r }) => r),
   squad: cur.team.squad,
   opponents,

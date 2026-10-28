@@ -19,15 +19,56 @@
   try { roster = (await (await fetch("data/players.json", { cache: "no-store" })).json()).players || []; } catch (e) {}
   const nkey = (n) => String(n).toLowerCase().replace(/[^a-z]/g, "");
   const kitByGd = new Map();
-  roster.forEach((p) => [].concat(p.gameday || []).forEach((g) => kitByGd.set(nkey(g), p)));
-  const kit = (gdName) => (kitByGd.get(nkey(gdName)) || {}).name || gdName;
+  roster.forEach((p) => [p.name, ...[].concat(p.gameday || []), ...[].concat(p.aliases || [])].forEach((g) => kitByGd.set(nkey(g), p)));
+  const kit = (n) => {
+    const k = nkey(n);
+    const hit = kitByGd.get(k) || (k.length >= 3 && roster.find((p) => nkey(p.name).startsWith(k) || k.startsWith(nkey(p.name))));
+    return hit ? hit.name : n;
+  };
+  const BALL = `<svg class="ball" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="#fff" stroke="currentColor" stroke-width="1.5"/><path d="M12 7.2l3.3 2.4-1.3 3.9h-4l-1.3-3.9z" fill="currentColor"/><path d="M12 7.2V2.5M15.3 9.6l4.4-1.5M14 13.5l2.8 3.8M10 13.5l-2.8 3.8M8.7 9.6L4.3 8.1" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>`;
+  // Group goals by player: [{name, mins:[..]}], in order of first goal.
+  const groupScorers = (list) => {
+    const m = new Map();
+    list.forEach((g) => { const n = g.player ? kit(g.player) : "Unknown"; if (!m.has(n)) m.set(n, []); m.get(n).push(g.min); });
+    return [...m].map(([name, mins]) => ({ name, mins }));
+  };
+  const mins = (arr) => arr.filter((x) => x != null).map((x) => `${x}'`).join(" ");
+  const matchCard = (r) => {
+    const g = r.goals;
+    const ours = g ? groupScorers(g.scorers || []) : [];
+    const theirs = g ? (g.conceded || []) : [];
+    const missUs = g ? r.us - (g.scorers || []).length : r.us;
+    const missThem = g ? r.them - theirs.length : r.them;
+    const complete = g && missUs === 0 && missThem === 0 && [...g.scorers, ...theirs].every((x) => x.min != null);
+    const ht = complete ? `HT ${g.scorers.filter((x) => x.min <= 20).length}–${theirs.filter((x) => x.min <= 20).length}` : "";
+    const o = outcome(r);
+    return `<div class="mc mc-${o}">` +
+      `<div class="mc-top"><span class="mc-team">Slaymar FC</span><span class="mc-score"><b>${r.us}–${r.them}</b>${ht ? `<small>${ht}</small>` : ""}</span><span class="mc-team">${esc(r.opponent)}</span></div>` +
+      (g || r.us || r.them ? `<div class="mc-goals">` +
+        `<ul class="mc-us">${ours.map((s) => `<li>${esc(s.name)} <span>${mins(s.mins)}</span></li>`).join("")}${missUs > 0 ? `<li class="mc-miss">${missUs} not logged</li>` : ""}</ul>` +
+        `<span class="mc-ball">${(ours.length || theirs.length) ? BALL : ""}</span>` +
+        `<ul class="mc-them">${theirs.length ? `<li><span>${mins(theirs.map((x) => x.min))}</span></li>` : ""}${missThem > 0 ? `<li class="mc-miss">${missThem} not logged</li>` : ""}</ul>` +
+      `</div>` : "") +
+      `<p class="mc-meta">${[r.stage === "Grading" ? "Grading" : r.round ? "Round " + esc(r.round) : "", fmtDate(r.date + "T12:00:00+10:30", { weekday: "short", day: "numeric", month: "short" }), r.venue ? esc(r.venue) : ""].filter(Boolean).join(" &nbsp;/&nbsp; ")}</p>` +
+      (r.video ? `<a class="mc-watch" href="https://www.youtube.com/watch?v=${esc(r.video.id)}">Watch the match</a>` : "") +
+      `</div>`;
+  };
   const outcome = (r) => (r.us > r.them ? "W" : r.us < r.them ? "L" : "D");
   const fmtDate = (d, opts) => new Date(d).toLocaleDateString("en-AU", { timeZone: TZ, ...opts });
 
-  // Videos matched to a result: first upload from game day up to 10 days after.
+  // Videos matched to a result: by the dd/mm/yy date in the title, else first upload within 10 days.
   const videos = (data.videos || []).slice().sort((a, b) => new Date(a.published) - new Date(b.published));
-  const used = new Set();
+  const titleDate = (t) => {
+    const m = String(t).match(/(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);
+    if (!m) return null;
+    const y = m[3].length === 2 ? "20" + m[3] : m[3];
+    return `${y}-${m[2].padStart(2, "0")}-${m[1].padStart(2, "0")}`;
+  };
+  const byTitle = new Map();
+  videos.forEach((v) => { const d = titleDate(v.title); if (d && !byTitle.has(d)) byTitle.set(d, v); });
+  const used = new Set([...byTitle.values()].map((v) => v.id));
   const videoFor = (date) => {
+    if (byTitle.has(date)) return byTitle.get(date);
     const start = new Date(date + "T00:00:00+10:30").getTime();
     const v = videos.find((v) => {
       const t = new Date(v.published).getTime();
@@ -71,6 +112,9 @@
     $("last-opp").innerHTML =
       `<span class="result-tag">${{ W: "Won", L: "Lost", D: "Drew" }[o]}</span> vs ${esc(last.opponent)}` +
       (last.video ? `. <a href="https://www.youtube.com/watch?v=${esc(last.video.id)}">Watch it</a>` : "");
+    if (last.goals?.scorers?.length) {
+      $("last-opp").insertAdjacentHTML("afterend", `<p class="last-scorers">${BALL}<span>${groupScorers(last.goals.scorers).map((s) => esc(s.name) + (s.mins.length > 1 ? " ×" + s.mins.length : "")).join(", ")}</span></p>`);
+    }
   }
 
   // ---- Head to head ----
@@ -120,21 +164,26 @@
   // ---- Results ----
   const tally = results.reduce((acc, r) => ((acc[outcome(r)] += 1), acc), { W: 0, D: 0, L: 0 });
   $("record").textContent = `Won ${tally.W}, drew ${tally.D}, lost ${tally.L}`;
-  $("results").innerHTML = results.length
-    ? results
-        .map((r) => {
-          const o = outcome(r);
-          return `<li><span class="badge ${o}" aria-label="${{ W: "Win", L: "Loss", D: "Draw" }[o]}">${o}</span>` +
-            `<span class="r-date">${fmtDate(r.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}${r.stage === "Grading" ? ", Grading" : r.round ? ", Rd " + esc(r.round) : ""}</span>` +
-            `<span class="r-opp">vs ${esc(r.opponent)}</span>` +
-            `<span class="r-score">${r.us}–${r.them}</span>` +
-            (r.video ? `<a class="r-watch" href="https://www.youtube.com/watch?v=${esc(r.video.id)}">Watch the match</a>` : "") +
-            `</li>`;
-        })
-        .join("")
-    : `<li class="empty">No results yet this season.</li>`;
+  const resultRow = (r) => {
+    const o = outcome(r);
+    return `<li class="r-item"><details><summary>` +
+      `<span class="badge ${o}" aria-label="${{ W: "Win", L: "Loss", D: "Draw" }[o]}">${o}</span>` +
+      `<span class="r-date">${fmtDate(r.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}${r.stage === "Grading" ? ", Grading" : r.round ? ", Rd " + esc(r.round) : ""}</span>` +
+      `<span class="r-opp">vs ${esc(r.opponent)}</span>` +
+      `<span class="r-score">${r.us}–${r.them}</span>` +
+      `</summary>${matchCard(r)}</details></li>`;
+  };
+  $("results").innerHTML = results.length ? results.map(resultRow).join("") : `<li class="empty">No results yet this season.</li>`;
+  $("recent").innerHTML = results.length ? results.slice(0, 3).map(resultRow).join("") : `<li class="empty">No results yet this season.</li>`;
 
-  $("recent").innerHTML = $("results").innerHTML.split("</li>").slice(0, 3).join("</li>") + (results.length ? "</li>" : "");
+  // Season goals per player (from the goals sheet)
+  const seasonGoals = new Map();
+  results.forEach((r) => (r.goals?.scorers || []).forEach((g) => { if (!g.player || /^other$/i.test(g.player)) return; const n = kit(g.player); seasonGoals.set(n, (seasonGoals.get(n) || 0) + 1); }));
+  const top = [...seasonGoals].sort((a, b) => b[1] - a[1]);
+  if (top.length) {
+    document.querySelector('[data-panel="results"] .head').insertAdjacentHTML("afterend",
+      `<p class="scorers-line">${BALL}<span>${top.map(([n, c]) => `${esc(n)} <b>${c}</b>`).join(", ")}</span></p>`);
+  }
 
   // ---- Video ----
   const latest = (data.videos || [])[0];
@@ -164,8 +213,9 @@
     } catch (e) {}
     const card = (p) => {
       const g = games.get(p.name), c = career.get(p.name);
+      const gl = seasonGoals.get(p.name);
       const line = p.current
-        ? (g ? `<b>${g}</b> this season` : "No games yet this season")
+        ? (g ? `<b>${g}</b> ${g === 1 ? "game" : "games"}${gl ? `, <b>${gl}</b> ${gl === 1 ? "goal" : "goals"}` : ""}` : "No games yet this season")
         : (c ? `<b>${c}</b> games` : "Former");
       return `<li class="card${p.current ? "" : " former"}${p.image ? "" : " noimg"}">` +
         (p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="${esc(p.name)}" width="427" height="440" loading="lazy">` : `<span class="c-name">${esc(p.name)}</span>`) +
@@ -248,10 +298,7 @@
             `<div class="table-scroll"><table class="ladder"><thead><tr><th class="num">#</th><th>Team</th><th class="num">P</th><th class="num">W</th><th class="num">D</th><th class="num">L</th><th class="num">GD</th><th class="num pts">Pts</th></tr></thead><tbody>` +
             main.ladder.map((t) => `<tr class="${t.team === us ? "us" : ""}"><td class="num">${t.pos}</td><td>${esc(t.team)}</td><td class="num">${t.p}</td><td class="num">${t.w}</td><td class="num">${t.d}</td><td class="num">${t.l}</td><td class="num">${t.gd > 0 ? "+" + t.gd : t.gd}</td><td class="num pts">${t.pts}</td></tr>`).join("") +
             `</tbody></table></div><ol class="results">` +
-            games.map((g) => {
-              const o = outcome(g);
-              return `<li><span class="badge ${o}">${o}</span><span class="r-date">${fmtDate(g.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}${g.label ? ", " + esc(g.label) : ""}</span><span class="r-opp">vs ${esc(g.opponent)}</span><span class="r-score">${g.us}–${g.them}</span></li>`;
-            }).join("") + `</ol>` +
+            games.slice().reverse().map((g) => resultRow({ ...g, stage: g.label === "Grading" ? "Grading" : g.stage, round: g.label && g.label !== "Grading" ? g.label : g.round, video: videoFor(g.date) })).join("") + `</ol>` +
             (squad.size ? `<p class="h-squad">Squad: ${[...squad].sort((a, b) => b[1] - a[1]).map(([n, g]) => esc(n) + " (" + g + ")").join(", ")}</p>` : "");
         } catch (e) {
           body.textContent = "Couldn't load this season. Try again later.";
