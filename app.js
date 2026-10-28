@@ -151,21 +151,29 @@
     $("video").innerHTML = `<p class="empty">No uploads yet. New match videos on the <a href="${esc(data.channel.url)}">Slaymar FC channel</a> show up here automatically.</p>`;
   }
 
-  // ---- Squad: player cards, games played from GameDay ----
+  // ---- Squad: player cards, season games from GameDay, all-time from the archive ----
   {
+    const toKit = (n) => (kitByGd.get(nkey(n)) || {}).name || n;
     const games = new Map();
-    (data.squad || []).forEach((p) => {
-      const r = kitByGd.get(nkey(p.name));
-      const k = r ? r.name : p.name;
-      games.set(k, (games.get(k) || 0) + p.games);
-    });
+    (data.squad || []).forEach((p) => { const k = toKit(p.name); games.set(k, (games.get(k) || 0) + p.games); });
+    const career = new Map();
+    try {
+      const idx = await (await fetch("data/archive/index.json", { cache: "no-store" })).json();
+      const files = await Promise.all(idx.map((c) => fetch(`data/archive/${c.id}.json`).then((r) => r.json()).catch(() => null)));
+      files.filter(Boolean).forEach((f) => (f.squad || []).forEach((p) => { const k = toKit(p.name); career.set(k, (career.get(k) || 0) + p.games); }));
+    } catch (e) {}
     const card = (p) => {
-      const g = games.get(p.name);
-      return `<li class="card${p.current ? "" : " former"}">` +
+      const g = games.get(p.name), c = career.get(p.name);
+      const line = p.current
+        ? (g ? `<b>${g}</b> this season` : "No games yet this season")
+        : (c ? `<b>${c}</b> games` : "Former");
+      return `<li class="card${p.current ? "" : " former"}${p.image ? "" : " noimg"}">` +
         (p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="${esc(p.name)}" width="427" height="440" loading="lazy">` : `<span class="c-name">${esc(p.name)}</span>`) +
-        `<span class="c-games">${g ? `<b>${g}</b> ${g === 1 ? "game" : "games"}` : p.current ? "No games yet" : "Former"}</span></li>`;
+        `<span class="c-games">${line}</span>` +
+        (p.current && c ? `<span class="c-career">${c} all-time</span>` : "") + `</li>`;
     };
-    const cur = roster.filter((p) => p.current), old = roster.filter((p) => !p.current);
+    const cur = roster.filter((p) => p.current);
+    const old = roster.filter((p) => !p.current).sort((a, b) => (career.get(b.name) || 0) - (career.get(a.name) || 0));
     const others = [...games].filter(([k]) => !roster.some((r) => r.name === k));
     $("squad").innerHTML =
       (cur.length ? `<ul class="cards">${cur.map(card).join("")}</ul>` : "") +

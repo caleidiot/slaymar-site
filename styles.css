@@ -215,9 +215,15 @@ main { padding-top: 8px; }
 .cards.small { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
 .card { display: grid; justify-items: center; gap: 4px; }
 .card img { width: 100%; height: auto; display: block; }
-.card.former img { filter: grayscale(.85); opacity: .8; }
+.card.former img, .card.former .c-name { filter: grayscale(.85); opacity: .8; }
 .c-games { color: var(--muted); font-size: .95rem; }
-.c-name { font: 800 1.4rem/1 var(--display); text-transform: uppercase; padding: 40px 0; }
+.c-name {
+  display: grid; place-items: center; width: 100%; aspect-ratio: 427 / 440;
+  font: 900 1.6rem/1 var(--display); text-transform: uppercase; color: #fff;
+  background: linear-gradient(transparent 62%, #1e9be0 62%, #1e9be0 82%, transparent 82%), var(--court);
+  clip-path: inset(18% 4% 18% 4%);
+}
+.c-career { color: var(--muted); font-size: .8rem; margin-top: -2px; }
 .c-games b { font: 800 1.3rem/1 var(--display); color: var(--ink); margin-right: 2px; }
 .sq-h { font: 800 1.4rem/1 var(--display); text-transform: uppercase; margin: 32px 0 12px; }
 
