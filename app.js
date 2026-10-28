@@ -346,6 +346,18 @@
     dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
   }
 
+  // ---- Match cards: opening one closes the others ----
+  document.addEventListener("toggle", (e) => {
+    const d = e.target;
+    if (!(d instanceof HTMLDetailsElement) || !d.open || !d.parentElement?.classList.contains("r-item")) return;
+    const sum = d.querySelector("summary");
+    const before = sum.getBoundingClientRect().top;
+    document.querySelectorAll(".r-item > details[open]").forEach((o) => { if (o !== d) o.open = false; });
+    // Keep the tapped row where it was if a card above it just collapsed.
+    const after = sum.getBoundingClientRect().top;
+    if (Math.abs(after - before) > 2) window.scrollBy({ top: after - before, behavior: "instant" });
+  }, true);
+
   // ---- Tabs ----
   const tabs = ["overview", "ladder", "results", "history", "squad"];
   const show = () => {
