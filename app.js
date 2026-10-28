@@ -279,8 +279,15 @@
         `<div><h2 id="pdlg-name">${esc(name)}</h2><p class="p-status">${p.current ? "Current squad" : "Former player"}</p>` +
         (p.current ? `<h3>This season</h3><div class="p-stats">${stat(g, g === 1 ? "game" : "games")}${stat(log.length, log.length === 1 ? "goal" : "goals")}${stat(g ? (log.length / g).toFixed(1) : "0.0", "per game")}</div>` : "") +
         `<h3>All-time</h3><div class="p-stats">${stat(c, "games")}${stat(seasons.length, seasons.length === 1 ? "season" : "seasons")}</div></div></div>` +
-        (log.length ? `<h3>Goals this season</h3><ul class="p-goals">${log.map((x) => `<li>${BALL}<span class="p-min">${x.min != null ? x.min + "'" : ""}</span><span>vs ${esc(x.opp)}</span><span class="p-date">${fmtDate(x.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}</span></li>`).join("")}</ul>` : "") +
-        (seasons.length ? `<h3>Seasons</h3><ul class="p-seasons">${seasons.map(([s, n]) => `<li><span>${esc(s)}</span><b>${n}</b></li>`).join("")}</ul>` : "");
+        (log.length ? `<h3>Goals this season</h3><ul class="p-goals">${(() => {
+          const byGame = new Map();
+          log.forEach((x) => { const k = x.date + "|" + x.opp; if (!byGame.has(k)) byGame.set(k, { ...x, mins: [] }); byGame.get(k).mins.push(x.min); });
+          return [...byGame.values()].map((gm) =>
+            `<li><span class="p-opp">vs ${esc(gm.opp)}<small>${fmtDate(gm.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}</small></span>` +
+            `<span class="p-mins">${mins(gm.mins)}</span>` +
+            `<span class="p-count">${BALL}<b>${gm.mins.length}</b></span></li>`).join("");
+        })()}</ul>` : "") +
+        (seasons.length ? `<h3>Games by season</h3><ul class="p-seasons">${seasons.map(([s, n]) => `<li><span>${esc(s)}</span><span><b>${n}</b> ${n === 1 ? "game" : "games"}</span></li>`).join("")}</ul>` : "");
       if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
     };
     document.querySelector('[data-panel="squad"]').addEventListener("click", (e) => {
