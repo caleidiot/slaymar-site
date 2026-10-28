@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T09:46:14.933Z",
+  "updated": "2026-10-28T09:48:29.722Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -183,6 +183,14 @@
           {
             "player": "Dougie",
             "min": 32
+          },
+          {
+            "player": "Dougie",
+            "min": 34
+          },
+          {
+            "player": "Dougie",
+            "min": 36
           }
         ],
         "conceded": [
@@ -200,6 +208,9 @@
           },
           {
             "min": 27
+          },
+          {
+            "min": 35
           }
         ]
       }
@@ -213,7 +224,11 @@
       "opponent": "The Phil Ins",
       "bye": false,
       "us": 5,
-      "them": 7
+      "them": 7,
+      "goals": {
+        "scorers": [],
+        "conceded": []
+      }
     },
     {
       "round": 5,
@@ -387,6 +402,14 @@
           {
             "player": "Dougie",
             "min": 32
+          },
+          {
+            "player": "Dougie",
+            "min": 34
+          },
+          {
+            "player": "Dougie",
+            "min": 36
           }
         ],
         "conceded": [
@@ -404,6 +427,9 @@
           },
           {
             "min": 27
+          },
+          {
+            "min": 35
           }
         ]
       }
@@ -416,7 +442,10 @@
       "us": 5,
       "them": 7,
       "venue": "Unley Court 2",
-      "goals": null
+      "goals": {
+        "scorers": [],
+        "conceded": []
+      }
     }
   ],
   "ladder": [

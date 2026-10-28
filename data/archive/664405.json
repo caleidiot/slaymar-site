@@ -341,6 +341,14 @@
           {
             "player": "Dougie",
             "min": 32
+          },
+          {
+            "player": "Dougie",
+            "min": 34
+          },
+          {
+            "player": "Dougie",
+            "min": 36
           }
         ],
         "conceded": [
@@ -358,6 +366,9 @@
           },
           {
             "min": 27
+          },
+          {
+            "min": 35
           }
         ]
       }
@@ -371,7 +382,11 @@
       "opponent": "The Phil Ins",
       "bye": false,
       "us": 5,
-      "them": 7
+      "them": 7,
+      "goals": {
+        "scorers": [],
+        "conceded": []
+      }
     },
     {
       "round": 5,
@@ -422,5 +437,5 @@
       "last": "2026-10-22"
     }
   ],
-  "archived": "2026-10-28T09:46:14.675Z"
+  "archived": "2026-10-28T09:48:29.575Z"
 }
