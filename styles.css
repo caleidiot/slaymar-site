@@ -92,6 +92,24 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--tape); outline-
 .countdown:empty { display: none; }
 .result-tag { font-weight: 700; }
 
+/* ---------- Tabs ---------- */
+.tabs {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--ink);
+}
+.tabs-inner { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.tabs-inner::-webkit-scrollbar { display: none; }
+.tabs a {
+  flex: none; padding: 12px 12px 9px;
+  font: 700 1.15rem/1 var(--display); text-transform: uppercase; letter-spacing: .02em;
+  color: rgba(255,255,255,.7); text-decoration: none;
+  border-bottom: 3px solid transparent;
+}
+.tabs a:hover { color: #fff; }
+.tabs a[aria-current] { color: #fff; border-bottom-color: var(--tape); }
+.panel > .block:first-child { padding-top: 28px; }
+.head .sub a { font-weight: 700; color: var(--ink); }
+
 /* ---------- Sections ---------- */
 main { padding-top: 8px; }
 .block { padding: 40px 0 8px; }
@@ -213,6 +231,13 @@ main { padding-top: 8px; }
 .foot p { margin: 0 0 4px; }
 
 @media (max-width: 640px) {
+  .court { padding: 22px 0 18px; }
+  .tagline { margin: 8px 0 16px; font-size: .95rem; }
+  .board section { padding: 12px 14px; }
+  .board .when { margin-top: 4px; }
+  .countdown { margin-top: 8px; }
+  .tabs-inner { justify-content: space-between; gap: 0; padding: 0 4px; }
+  .tabs a { padding: 12px 6px 9px; font-size: 1.05rem; }
   .board { grid-template-columns: 1fr; }
   .board .last { border-left: 0; border-top: 2px solid var(--paint); }
   .ladder .opt { display: none; }

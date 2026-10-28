@@ -100,6 +100,15 @@
     })
     .join("");
 
+  // ---- Overview: ladder slice around us + last 3 results ----
+  {
+    const lad = data.ladder || [];
+    const i = Math.max(0, lad.findIndex((t) => t.team === us));
+    const from = Math.max(0, Math.min(i - 2, lad.length - 5));
+    $("mini-ladder").innerHTML = lad.slice(from, from + 5).map((t) =>
+      `<tr class="${t.team === us ? "us" : ""}${next && t.team === next.opponent ? " next-opp" : ""}"><td class="num">${t.pos}</td><td>${esc(t.team)}</td><td class="num">${t.p}</td><td class="num">${t.gd > 0 ? "+" + t.gd : t.gd}</td><td class="num pts">${t.pts}</td></tr>`).join("");
+  }
+
   // ---- Results ----
   const tally = results.reduce((acc, r) => ((acc[outcome(r)] += 1), acc), { W: 0, D: 0, L: 0 });
   $("record").textContent = `Won ${tally.W}, drew ${tally.D}, lost ${tally.L}`;
@@ -116,6 +125,8 @@
         })
         .join("")
     : `<li class="empty">No results yet this season.</li>`;
+
+  $("recent").innerHTML = $("results").innerHTML.split("</li>").slice(0, 3).join("</li>") + (results.length ? "</li>" : "");
 
   // ---- Video ----
   const latest = (data.videos || [])[0];
@@ -138,6 +149,18 @@
     .sort((a, b) => b.games - a.games || a.name.localeCompare(b.name))
     .map((p) => `<li><span>${esc(p.name)}</span><span class="g">${p.games}</span></li>`)
     .join("");
+
+  // ---- Tabs ----
+  const tabs = ["overview", "ladder", "results", "history", "squad"];
+  const show = () => {
+    const t = tabs.includes(location.hash.slice(1)) ? location.hash.slice(1) : "overview";
+    document.querySelectorAll(".panel").forEach((p) => (p.hidden = p.dataset.panel !== t));
+    document.querySelectorAll(".tabs a").forEach((a) => a.toggleAttribute("aria-current", a.dataset.tab === t));
+    const nav = document.querySelector(".tabs");
+    if (nav.getBoundingClientRect().top < 0) window.scrollTo({ top: nav.offsetTop, behavior: "instant" });
+  };
+  window.addEventListener("hashchange", show);
+  show();
 
   // ---- Footer ----
   $("updated").textContent = "Checked " + new Date(data.updated).toLocaleString("en-AU", { timeZone: TZ, weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });

@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -39,8 +40,19 @@
     </div>
   </header>
 
+  <nav class="tabs" aria-label="Sections">
+    <div class="wrap tabs-inner">
+      <a href="#overview" data-tab="overview">Home</a>
+      <a href="#ladder" data-tab="ladder">Ladder</a>
+      <a href="#results" data-tab="results">Results</a>
+      <a href="#history" data-tab="history">History</a>
+      <a href="#squad" data-tab="squad">Squad</a>
+    </div>
+  </nav>
+
   <main class="wrap">
-    <section class="block h2h-block" id="h2h-block" aria-labelledby="h2h-h" hidden>
+    <div class="panel" data-panel="overview">
+      <section class="block h2h-block" id="h2h-block" aria-labelledby="h2h-h" hidden>
       <div class="head">
         <h2 id="h2h-h">Head to head</h2>
         <p class="sub" id="h2h-sub"></p>
@@ -58,7 +70,39 @@
       </details>
     </section>
 
-    <section class="block" aria-labelledby="ladder-h">
+      <section class="block" aria-labelledby="mini-ladder-h">
+        <div class="head">
+          <h2 id="mini-ladder-h">Ladder</h2>
+          <p class="sub"><a href="#ladder">Full ladder</a></p>
+        </div>
+        <div class="table-scroll">
+          <table class="ladder">
+            <thead><tr><th scope="col" class="num">#</th><th scope="col">Team</th><th scope="col" class="num">P</th><th scope="col" class="num">GD</th><th scope="col" class="num pts">Pts</th></tr></thead>
+            <tbody id="mini-ladder"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="recent-h">
+        <div class="head">
+          <h2 id="recent-h">Recent</h2>
+          <p class="sub"><a href="#results">All results</a></p>
+        </div>
+        <ol class="results" id="recent"></ol>
+      </section>
+
+      <section class="block" aria-labelledby="video-h">
+      <div class="head">
+        <h2 id="video-h">Match video</h2>
+        <p class="sub"><a id="channel-link" href="https://www.youtube.com/@slaymarfc">YouTube channel</a></p>
+      </div>
+      <div id="video"></div>
+      <ul class="more-videos" id="more-videos"></ul>
+    </section>
+    </div>
+
+    <div class="panel" data-panel="ladder" hidden>
+      <section class="block" aria-labelledby="ladder-h">
       <div class="head">
         <h2 id="ladder-h">Ladder</h2>
         <p class="sub" id="comp-name"></p>
@@ -83,38 +127,37 @@
         </table>
       </div>
     </section>
+    </div>
 
-    <section class="block" aria-labelledby="results-h">
+    <div class="panel" data-panel="results" hidden>
+      <section class="block" aria-labelledby="results-h">
       <div class="head">
         <h2 id="results-h">Results</h2>
         <p class="sub" id="record"></p>
       </div>
       <ol class="results" id="results"></ol>
     </section>
+    </div>
 
-    <section class="block" aria-labelledby="video-h">
-      <div class="head">
-        <h2 id="video-h">Match video</h2>
-        <p class="sub"><a id="channel-link" href="https://www.youtube.com/@slaymarfc">YouTube channel</a></p>
-      </div>
-      <div id="video"></div>
-      <ul class="more-videos" id="more-videos"></ul>
-    </section>
-
-    <section class="block" aria-labelledby="squad-h">
-      <div class="head">
-        <h2 id="squad-h">Squad</h2>
-        <p class="sub">Games played this season</p>
-      </div>
-      <ul class="squad" id="squad"></ul>
-    </section>
-    <section class="block" aria-labelledby="history-h">
+    <div class="panel" data-panel="history" hidden>
+      <section class="block" aria-labelledby="history-h">
       <div class="head">
         <h2 id="history-h">History</h2>
         <p class="sub">Every season Slaymar has played</p>
       </div>
       <div id="history"></div>
     </section>
+    </div>
+
+    <div class="panel" data-panel="squad" hidden>
+      <section class="block" aria-labelledby="squad-h">
+      <div class="head">
+        <h2 id="squad-h">Squad</h2>
+        <p class="sub">Games played this season</p>
+      </div>
+      <ul class="squad" id="squad"></ul>
+    </section>
+    </div>
   </main>
 
   <footer class="wrap foot">
