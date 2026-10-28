@@ -28,16 +28,17 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Scrape GameDay and YouTube
-        run: npm run scrape
+        run: npm run scrape -- ${{ contains(github.event.head_commit.message, '[backfill]') && '--backfill' || '' }}
       - name: Commit data if changed
         run: |
           git config user.name "slaymar-bot"
           git config user.email "slaymar-bot@users.noreply.github.com"
-          # Ignore the timestamp so we only commit real changes.
-          if git diff --quiet -I '"updated":' -- data/site.json; then
+          git add data
+          # Ignore timestamps so we only commit real changes.
+          if git diff --cached --quiet -I '"updated":' -I '"archived":'; then
             echo "No data changes (deploying with fresh timestamp only)"
+            git reset -q
           else
-            git add data/site.json
             git commit -m "Update match data"
             git push
           fi
@@ -46,7 +47,7 @@ jobs:
           mkdir -p _site/data
           cp index.html styles.css app.js _site/
           cp -r assets _site/ 2>/dev/null || true
-          cp data/site.json _site/data/
+          cp -r data/. _site/data/
           [ -f CNAME ] && cp CNAME _site/ || true
       - uses: actions/upload-pages-artifact@v3
         with:

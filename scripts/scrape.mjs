@@ -1,6 +1,6 @@
 // Pulls Slaymar FC data from GameDay + YouTube and writes data/site.json.
 // Usage: node scripts/scrape.mjs [--fixtures dir] [--out file]
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import * as cheerio from "cheerio";
 
@@ -98,8 +98,11 @@ function parseTeamPage(html) {
 function parseSeasonFixture(html) {
   const $ = cheerio.load(html);
   const games = [];
+  let stage = "Regular Season";
   $("table tr").each((_, tr) => {
     const td = $(tr).find("td");
+    const msg = $(tr).find("td.message-row");
+    if (msg.length) { stage = clean(msg.text()) || stage; return; }
     if (td.length < 8) return;
     const [rnd, date, time, venue, us, , opp, them] = td.toArray().map((c) => clean($(c).text()));
     const dm = date.match(/(\d{2})\/(\d{2})\/(\d{2})/);
@@ -109,6 +112,7 @@ function parseSeasonFixture(html) {
     const isBye = /\bbye\b/i.test(opp) || (!opp && !venue);
     games.push({
       round: int(rnd) ?? rnd,
+      stage,
       date: `${y}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`,
       datetime: adelaideISO(y, mo, d, hh, mm),
       venue: venue || null,
@@ -130,35 +134,107 @@ function parseYouTube(xml) {
   })).filter((v) => v.id);
 }
 
-// ---------- main ----------
-let previous = {};
-try { previous = JSON.parse(await readFile(OUT, "utf8")); } catch {}
-
-const prevComp = previous.comp?.id || CONFIG.fallbackCompId;
-const compsHtml = await get(`${BASE}assoc_page.cgi?c=${CONFIG.assocPrefix}-0-${prevComp}-0&a=COMPS`);
-const candidates = parseComps(compsHtml).filter((c) => c.name.toLowerCase().includes(CONFIG.compFilter.toLowerCase()));
-if (!candidates.length) throw new Error("No competitions matched filter: " + CONFIG.compFilter);
-
-// Find every candidate comp that has our team, then pick the one with the latest game.
-const found = [];
-for (const c of candidates) {
-  const ladderUrl = `${BASE}comp_info.cgi?c=${CONFIG.assocPrefix}-0-${c.id}-0&pool=1&a=LADDER`;
-  let ladder;
-  try { ladder = parseLadder(await get(ladderUrl)); } catch (e) { console.warn("skip", c.name, e.message); continue; }
-  const ours = ladder.find((r) => r.team.toLowerCase() === CONFIG.teamName.toLowerCase());
-  if (!ours) continue;
-  const team = parseTeamPage(await get(ours.href));
-  const games = team.sfixUrl ? parseSeasonFixture(await get(team.sfixUrl)) : [];
-  const latest = games.reduce((m, g) => (g.datetime > m ? g.datetime : m), "");
-  found.push({ comp: c, ladderUrl, ladder, ours, team, games, latest });
-  console.log(`found ${CONFIG.teamName} in "${c.name}" (${c.id}), ${games.length} games, latest ${latest || "none"}`);
+function parseSeasons(html) {
+  const $ = cheerio.load(html);
+  return $("#id_seasonID option").toArray().map((o) => ({
+    id: ($(o).attr("value").match(/seasonID=(\d+)/) || [])[1],
+    name: clean($(o).text()),
+    selected: $(o).is("[selected]"),
+  })).filter((s) => s.id);
 }
+
+// ---------- main ----------
+const BACKFILL = args.includes("--backfill");
+const DATA_DIR = path.dirname(OUT);
+const ARCHIVE_DIR = path.join(DATA_DIR, "archive");
+await mkdir(ARCHIVE_DIR, { recursive: true });
+const sleep = (ms) => (FIXTURES ? null : new Promise((r) => setTimeout(r, ms)));
+const readJSON = async (f, fallback) => { try { return JSON.parse(await readFile(f, "utf8")); } catch { return fallback; } };
+
+let previous = await readJSON(OUT, {});
+const prevComp = previous.comp?.id || CONFIG.fallbackCompId;
+const client = (compId) => `${CONFIG.assocPrefix}-0-${compId}-0`;
+
+// Look through one season's comp list and return every comp Slaymar is in, fully scraped.
+async function scanSeason(compsHtml, filter) {
+  const comps = parseComps(compsHtml).filter(filter);
+  const found = [];
+  for (const c of comps) {
+    let ladderUrl = `${BASE}comp_info.cgi?c=${client(c.id)}&pool=1&a=LADDER`;
+    let ladder = [];
+    try {
+      ladder = parseLadder(await get(ladderUrl));
+      if (!ladder.length) { ladderUrl = `${BASE}comp_info.cgi?c=${client(c.id)}&a=LADDER`; ladder = parseLadder(await get(ladderUrl)); }
+    } catch (e) { console.warn("skip", c.name, e.message); continue; }
+    await sleep(250);
+    const ours = ladder.find((r) => r.team.toLowerCase() === CONFIG.teamName.toLowerCase());
+    if (!ours) continue;
+    const team = parseTeamPage(await get(ours.href));
+    const games = team.sfixUrl ? parseSeasonFixture(await get(team.sfixUrl)) : [];
+    const latest = games.reduce((m, g) => (g.datetime > m ? g.datetime : m), "");
+    found.push({ comp: c, ladderUrl, ladder, ours, team, games, latest });
+    console.log(`found ${CONFIG.teamName} in "${c.name}" (${c.id}), ${games.length} games`);
+  }
+  return found;
+}
+
+const played = (games) => games.filter((g) => !g.bye && g.us !== null && g.them !== null);
+const record = (games) => played(games).reduce((r, g) => {
+  r[g.us > g.them ? "w" : g.us < g.them ? "l" : "d"]++; r.f += g.us; r.a += g.them; return r;
+}, { w: 0, d: 0, l: 0, f: 0, a: 0 });
+
+// Archive: one file per competition, never deleted; index lists them all.
+async function archive(entry, season) {
+  const file = path.join(ARCHIVE_DIR, `${entry.comp.id}.json`);
+  const data = {
+    comp: { id: entry.comp.id, name: entry.comp.name, url: entry.ladderUrl },
+    season,
+    position: entry.ours.pos,
+    teams: entry.ladder.length,
+    record: record(entry.games),
+    ladder: entry.ladder.map(({ href, ...r }) => r),
+    fixtures: entry.games,
+    squad: entry.team.squad,
+    archived: new Date().toISOString(),
+  };
+  await writeFile(file, JSON.stringify(data, null, 2) + "\n");
+  const index = await readJSON(path.join(ARCHIVE_DIR, "index.json"), []);
+  const summary = {
+    id: data.comp.id, name: data.comp.name, season: season.name, seasonId: season.id,
+    position: data.position, teams: data.teams, record: data.record,
+    start: entry.games[0]?.date || null, end: entry.games.at(-1)?.date || null,
+  };
+  const i = index.findIndex((x) => x.id === summary.id);
+  if (i >= 0) index[i] = summary; else index.push(summary);
+  index.sort((a, b) => (b.start || "").localeCompare(a.start || ""));
+  await writeFile(path.join(ARCHIVE_DIR, "index.json"), JSON.stringify(index, null, 2) + "\n");
+}
+
+const compsUrl = (seasonId) => `${BASE}assoc_page.cgi?c=${client(prevComp)}&a=COMPS${seasonId ? "&seasonID=" + seasonId : ""}`;
+const currentHtml = await get(compsUrl());
+const seasons = parseSeasons(currentHtml);
+const currentSeason = seasons.find((s) => s.selected) || { id: null, name: "Current season" };
+
+if (BACKFILL) {
+  // One-off: search every past season, every senior comp, for Slaymar.
+  const notJunior = (c) => !/junior|youth|under \d+/i.test(c.name);
+  for (const s of seasons.filter((s) => !s.selected)) {
+    let html;
+    try { html = await get(compsUrl(s.id)); } catch (e) { console.warn("season skip", s.name, e.message); continue; }
+    const found = await scanSeason(html, notJunior);
+    for (const f of found) await archive(f, { id: s.id, name: s.name });
+    console.log(`${s.name}: ${found.length} comp(s)`);
+  }
+}
+
+const filter = (c) => c.name.toLowerCase().includes(CONFIG.compFilter.toLowerCase());
+const found = await scanSeason(currentHtml, filter);
 if (!found.length) throw new Error(`${CONFIG.teamName} not found in any matching competition`);
+for (const f of found) await archive(f, { id: currentSeason.id, name: currentSeason.name });
 found.sort((a, b) => b.latest.localeCompare(a.latest) || Number(b.comp.id) - Number(a.comp.id));
 const cur = found[0];
 
 const now = Date.now();
-const played = cur.games.filter((g) => !g.bye && g.us !== null && g.them !== null);
 const next = cur.games.find((g) => g.us === null && new Date(g.datetime).getTime() > now - 3 * 3600e3) || null;
 
 let videos = previous.videos || [];
@@ -171,10 +247,11 @@ try {
 const out = {
   updated: new Date().toISOString(),
   team: { name: CONFIG.teamName, id: (cur.ours.href.match(/id=(\d+)/) || [])[1] || null },
+  season: currentSeason.name,
   comp: { id: cur.comp.id, name: cur.comp.name, url: cur.ladderUrl },
   next: next && { datetime: next.datetime, opponent: next.bye ? "Bye" : next.opponent, venue: next.venue, round: next.round },
   fixtures: cur.games,
-  results: played.map((g) => ({ date: g.date, round: g.round, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue })),
+  results: played(cur.games).map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue })),
   ladder: cur.ladder.map(({ href, ...r }) => r),
   squad: cur.team.squad,
   channel: { id: CONFIG.youtubeChannelId, url: CONFIG.youtubeUrl },

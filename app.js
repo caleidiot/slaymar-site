@@ -117,4 +117,47 @@
   // ---- Footer ----
   $("updated").textContent = "Checked " + new Date(data.updated).toLocaleString("en-AU", { timeZone: TZ, weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
   $("source-link").href = data.comp.url;
+
+  // ---- History (archived competitions) ----
+  try {
+    const res = await fetch("data/archive/index.json", { cache: "no-store" });
+    const index = (await res.json()).filter((c) => c.id !== data.comp.id);
+    const ord = (n) => n + (["th", "st", "nd", "rd"][((n % 100) - 20) % 10] || ["th", "st", "nd", "rd"][n % 100] || "th");
+    $("history").innerHTML = index.length
+      ? `<ul class="history">` + index.map((c) => {
+          const r = c.record;
+          return `<li><details data-id="${esc(c.id)}"><summary>` +
+            `<span class="h-season">${esc(c.season)}</span>` +
+            `<span class="h-comp">${esc(c.name)}</span>` +
+            `<span class="h-pos">${c.position ? ord(c.position) + " of " + c.teams : ""}</span>` +
+            `<span class="h-rec">W${r.w} D${r.d} L${r.l}, ${r.f}–${r.a}</span>` +
+            `</summary><div class="h-body">Loading…</div></details></li>`;
+        }).join("") + `</ul>`
+      : `<p class="empty">Past seasons and earlier competitions are saved here automatically once a competition finishes or Slaymar moves on from it.</p>`;
+    document.querySelectorAll(".history details").forEach((d) =>
+      d.addEventListener("toggle", async () => {
+        if (!d.open || d.dataset.loaded) return;
+        d.dataset.loaded = "1";
+        const body = d.querySelector(".h-body");
+        try {
+          const a = await (await fetch(`data/archive/${d.dataset.id}.json`)).json();
+          const games = a.fixtures.filter((g) => g.us !== null && g.them !== null);
+          body.innerHTML =
+            `<div class="table-scroll"><table class="ladder"><thead><tr><th class="num">#</th><th>Team</th><th class="num">P</th><th class="num">W</th><th class="num">D</th><th class="num">L</th><th class="num">GD</th><th class="num pts">Pts</th></tr></thead><tbody>` +
+            a.ladder.map((t) => `<tr class="${t.team === us ? "us" : ""}"><td class="num">${t.pos}</td><td>${esc(t.team)}</td><td class="num">${t.p}</td><td class="num">${t.w}</td><td class="num">${t.d}</td><td class="num">${t.l}</td><td class="num">${t.gd > 0 ? "+" + t.gd : t.gd}</td><td class="num pts">${t.pts}</td></tr>`).join("") +
+            `</tbody></table></div><ol class="results">` +
+            games.map((g) => {
+              const o = outcome(g);
+              return `<li><span class="badge ${o}">${o}</span><span class="r-date">${fmtDate(g.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}${g.stage && !/regular/i.test(g.stage) ? ", " + esc(g.stage) : ""}</span><span class="r-opp">vs ${esc(g.opponent)}</span><span class="r-score">${g.us}–${g.them}</span></li>`;
+            }).join("") + `</ol>` +
+            (a.squad && a.squad.length ? `<p class="h-squad">Squad: ${a.squad.map((p) => esc(p.name) + " (" + p.games + ")").join(", ")}</p>` : "");
+        } catch (e) {
+          body.textContent = "Couldn't load this season. Try again later.";
+          delete d.dataset.loaded;
+        }
+      })
+    );
+  } catch (e) {
+    $("history").innerHTML = `<p class="empty">History will appear here after the next data update.</p>`;
+  }
 })();

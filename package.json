@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "scrape": "node scripts/scrape.mjs",
-    "test": "node scripts/scrape.mjs --fixtures test/fixtures --out /tmp/site-test.json"
+    "test": "node scripts/scrape.mjs --fixtures test/fixtures --out /tmp/slaymar-test/site.json"
   },
   "dependencies": {
     "cheerio": "^1.2.0"
