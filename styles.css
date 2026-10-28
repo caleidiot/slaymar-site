@@ -299,7 +299,8 @@ main { padding-top: 8px; }
 .sq-h { font: 800 1.4rem/1 var(--display); text-transform: uppercase; margin: 32px 0 12px; }
 
 /* Leaderboards */
-.boards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+.boards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 8px; }
+@media (max-width: 1000px) { .boards { grid-template-columns: 1fr 1fr; } .boards .lb:first-child { grid-column: 1 / -1; } }
 .lb { background: var(--ink); color: #fff; padding: 14px 14px 6px; }
 .lb h3 { margin: 0 0 8px; font: 800 1.4rem/1 var(--display); text-transform: uppercase; }
 .lb ol { list-style: none; margin: 0; padding: 0; }
@@ -353,16 +354,29 @@ main { padding-top: 8px; }
 .p-count b { font: 900 1.4rem/1 var(--display); }
 .p-seasons li { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--rule); }
 
+.mc-mvp { margin: 6px 0 0; text-align: center; font-size: .85rem; color: rgba(255,255,255,.7); }
+.mc-mvp b { color: var(--tape); font-weight: 700; margin-left: 4px; }
+.p-num { display: inline-block; margin-right: 10px; padding: 0 8px; background: var(--tape); color: var(--ink); font-size: .8em; vertical-align: .1em; }
+.p-honours { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.p-honours li { padding: 4px 10px; background: var(--ink); color: var(--tape); font-weight: 700; font-size: .85rem; }
+.p-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.p-table th { text-align: left; font: 600 .9rem/1 var(--display); color: var(--muted); padding: 6px 0; border-bottom: 1px solid var(--rule); }
+.p-table td { padding: 8px 0; border-bottom: 1px solid var(--rule); }
+.p-table .num { text-align: right; width: 4.2rem; }
+.p-table td.num { font-weight: 700; }
+.p-foot { margin: 8px 0 0; color: var(--muted); font-size: .8rem; }
+.h-body .scorers-line { margin: 12px 0 0; }
+
 /* ---------- History ---------- */
 .history { list-style: none; margin: 0; padding: 0; }
 .history > li { border-bottom: 1px solid var(--rule); }
-.history summary {
+.history > li > details > summary {
   display: grid; grid-template-columns: 9rem 1fr auto; gap: 2px 16px;
   padding: 12px 0; cursor: pointer; list-style: none;
 }
-.history summary::-webkit-details-marker { display: none; }
-.history summary::before { content: "+"; grid-row: 1 / 3; grid-column: 3; justify-self: end; font: 800 1.4rem/1 var(--display); }
-.history details[open] summary::before { content: "–"; }
+.history > li > details > summary::-webkit-details-marker { display: none; }
+.history > li > details > summary::before { content: "+"; grid-row: 1 / 3; grid-column: 3; justify-self: end; font: 800 1.4rem/1 var(--display); }
+.history > li > details[open] > summary::before { content: "–"; }
 .h-season { font: 800 1.2rem/1.2 var(--display); text-transform: uppercase; }
 .h-comp { grid-column: 2; color: var(--muted); }
 .h-pos { grid-column: 1; grid-row: 2; font-weight: 700; }
@@ -395,7 +409,7 @@ main { padding-top: 8px; }
   .mc-team { font-size: 1rem; }
   .mc-score b { font-size: 1.7rem; }
   .mc-goals { grid-template-columns: minmax(0, 1.7fr) 1.4rem minmax(0, 1fr); gap: 0 10px; padding: 14px 14px 6px; }
-  .history summary { grid-template-columns: 1fr auto; }
+  .history > li > details > summary { grid-template-columns: 1fr auto; }
   .boards { grid-template-columns: 1fr; }
   .p-hero { grid-template-columns: 38% 1fr; }
   .p-hero h2 { font-size: 2rem; }
@@ -404,5 +418,5 @@ main { padding-top: 8px; }
   .p-count { grid-column: 2; grid-row: 1 / 3; }
   .h-season { grid-column: 1; }
   .h-comp, .h-pos, .h-rec { grid-column: 1; grid-row: auto; }
-  .history summary::before { grid-row: 1; grid-column: 2; }
+  .history > li > details > summary::before { grid-row: 1; grid-column: 2; }
 }

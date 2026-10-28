@@ -1,5 +1,5 @@
 {
-  "_note": "Squad list. 'name' is the kit name shown on the site. 'gameday' lists every spelling GameDay has used. 'aliases' are other names used in the goals sheet (e.g. 'Doug'). Set 'current' to false for former players. 'image' is optional (file in assets/players/).",
+  "_note": "Squad list. 'name' is the kit name shown on the site. 'gameday' lists every spelling GameDay has used. 'aliases' are other names used in stats sheets (e.g. 'Doug', 'Will'). 'number' is the squad number. Set 'current' to false for former players. 'image' is the animated-graphic still, 'photo' the transparent cutout (both optional).",
   "players": [
     {
       "name": "Cale",
@@ -8,7 +8,11 @@
         "C Abrahamson"
       ],
       "current": true,
-      "photo": "cale"
+      "photo": "cale",
+      "aliases": [
+        "Calecula"
+      ],
+      "number": 24
     },
     {
       "name": "Foster",
@@ -17,7 +21,12 @@
         "J Foster"
       ],
       "current": true,
-      "photo": "foster"
+      "photo": "foster",
+      "aliases": [
+        "J. Foster",
+        "Jack F",
+        "Jack Foster"
+      ]
     },
     {
       "name": "Dougie",
@@ -27,9 +36,11 @@
       ],
       "current": true,
       "aliases": [
+        "Christian",
         "Doug"
       ],
-      "photo": "dougie"
+      "photo": "dougie",
+      "number": 13
     },
     {
       "name": "Gorin",
@@ -38,7 +49,11 @@
         "G Shakes"
       ],
       "current": true,
-      "photo": "gorin"
+      "photo": "gorin",
+      "aliases": [
+        "George"
+      ],
+      "number": 21
     },
     {
       "name": "Schmitt",
@@ -47,7 +62,11 @@
         "J Smith"
       ],
       "current": true,
-      "photo": "schmitt"
+      "photo": "schmitt",
+      "aliases": [
+        "Jess"
+      ],
+      "number": 9
     },
     {
       "name": "Crahtim",
@@ -57,10 +76,12 @@
       ],
       "current": true,
       "aliases": [
-        "Cratim",
-        "Crahzi"
+        "Crah",
+        "Crahzi",
+        "Cratim"
       ],
-      "photo": "crahtim"
+      "photo": "crahtim",
+      "number": 19
     },
     {
       "name": "Barry",
@@ -70,10 +91,11 @@
       ],
       "current": true,
       "aliases": [
-        "Will",
-        "Barru"
+        "Barru",
+        "Will"
       ],
-      "photo": "barry"
+      "photo": "barry",
+      "number": 8
     },
     {
       "name": "Lauchlan",
@@ -82,7 +104,11 @@
         "J Lockington"
       ],
       "current": false,
-      "photo": "lauchlan"
+      "photo": "lauchlan",
+      "aliases": [
+        "James"
+      ],
+      "number": 1
     },
     {
       "name": "Nich",
@@ -91,7 +117,11 @@
         "H Hewitt"
       ],
       "current": false,
-      "photo": "nich"
+      "photo": "nich",
+      "aliases": [
+        "Henry"
+      ],
+      "number": 17
     },
     {
       "name": "Steven",
@@ -102,7 +132,12 @@
         "Ethan 'benat' Gonzalez"
       ],
       "current": false,
-      "photo": "steven"
+      "photo": "steven",
+      "aliases": [
+        "Ethan",
+        "Steve"
+      ],
+      "number": 6
     },
     {
       "name": "Kobo",
@@ -113,7 +148,8 @@
       "aliases": [
         "Kobi"
       ],
-      "photo": "kobo"
+      "photo": "kobo",
+      "number": 4
     }
   ]
 }

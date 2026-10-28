@@ -25,30 +25,45 @@
     const hit = kitByGd.get(k) || (k.length >= 3 && roster.find((p) => nkey(p.name).startsWith(k) || k.startsWith(nkey(p.name))));
     return hit ? hit.name : n;
   };
+  // Historical scorers/MVPs imported from the old stats sheet, keyed "datetime|opponent".
+  let histGoals = {}, awards = { seasons: [] };
+  try { histGoals = await (await fetch("data/history-goals.json", { cache: "no-store" })).json(); } catch (e) {}
+  try { awards = await (await fetch("data/awards.json", { cache: "no-store" })).json(); } catch (e) {}
+  const withGoals = (g) => {
+    if (g.goals && (g.goals.scorers || []).length) return g;
+    const h = histGoals[`${g.datetime}|${g.opponent}`];
+    return h ? { ...g, goals: { scorers: h.scorers || [], conceded: [], historic: true, note: h.note }, mvp: h.mvp || g.mvp } : g;
+  };
+  const isOG = (n) => /own\s*goal/i.test(n || "");
   const BALL = `<img class="ball" src="assets/ball.png" alt="" width="64" height="64">`;
   // Group goals by player: [{name, mins:[..]}], in order of first goal.
   const groupScorers = (list) => {
     const m = new Map();
-    list.forEach((g) => { const n = g.player ? kit(g.player) : "Unknown"; if (!m.has(n)) m.set(n, []); m.get(n).push(g.min); });
+    list.forEach((g) => { const n = isOG(g.player) ? "Own goal" : g.player ? kit(g.player) : "Unknown"; if (!m.has(n)) m.set(n, []); m.get(n).push(g.min); });
     return [...m].map(([name, mins]) => ({ name, mins }));
   };
-  const mins = (arr) => arr.filter((x) => x != null).map((x) => `${x}'`).join(" ");
+  const mins = (arr) => {
+    const t = arr.filter((x) => x != null);
+    if (t.length) return t.map((x) => `${x}'`).join(" ");
+    return arr.length > 1 ? `×${arr.length}` : "";
+  };
   const matchCard = (r) => {
     const g = r.goals;
     const ours = g ? groupScorers(g.scorers || []) : [];
     const theirs = g ? (g.conceded || []) : [];
     const missUs = g ? r.us - (g.scorers || []).length : r.us;
-    const missThem = g ? r.them - theirs.length : r.them;
+    const missThem = g && !g.historic ? r.them - theirs.length : 0;
     const complete = g && missUs === 0 && missThem === 0 && [...g.scorers, ...theirs].every((x) => x.min != null);
     const ht = complete ? `HT ${g.scorers.filter((x) => x.min <= 20).length}–${theirs.filter((x) => x.min <= 20).length}` : "";
     const o = outcome(r);
     return `<div class="mc mc-${o}">` +
       `<div class="mc-top"><span class="mc-team">Slaymar FC</span><span class="mc-score"><b>${r.us}–${r.them}</b>${ht ? `<small>${ht}</small>` : ""}</span><span class="mc-team">${esc(r.opponent)}</span></div>` +
       ((ours.length || theirs.length || missUs > 0 || missThem > 0) ? `<div class="mc-goals">` +
-        `<ul class="mc-us">${ours.map((s) => `<li><span class="mc-n">${esc(s.name)}</span><span class="mc-m">${mins(s.mins)}</span></li>`).join("")}${missUs > 0 ? `<li class="mc-miss">${missUs} not logged</li>` : ""}</ul>` +
+        `<ul class="mc-us">${ours.map((s) => `<li><span class="mc-n">${esc(s.name)}</span><span class="mc-m">${mins(s.mins)}</span></li>`).join("")}${missUs > 0 ? `<li class="mc-miss">${g && g.note && !ours.length ? esc(g.note) : missUs + " not logged"}</li>` : ""}</ul>` +
         `<span class="mc-ball">${BALL}</span>` +
         `<ul class="mc-them">${theirs.map((x) => `<li><span class="mc-m">${x.min != null ? x.min + "'" : ""}</span></li>`).join("")}${missThem > 0 ? `<li class="mc-miss">${missThem} not logged</li>` : ""}</ul>` +
       `</div>` : "") +
+      (r.mvp ? `<p class="mc-mvp">MVP <b>${esc(kit(r.mvp))}</b></p>` : "") +
       `<p class="mc-meta">${[r.stage === "Grading" ? "Grading" : r.round ? "Round " + esc(r.round) : "", fmtDate(r.date + "T12:00:00+10:30", { weekday: "short", day: "numeric", month: "short" }), r.venue ? esc(r.venue) : ""].filter(Boolean).join(" &nbsp;/&nbsp; ")}</p>` +
       (r.video ? `<a class="mc-watch" href="https://www.youtube.com/watch?v=${esc(r.video.id)}">Watch the match</a>` : "") +
       `</div>`;
@@ -218,17 +233,43 @@
     }));
 
     // All-time games and per-season games (archive)
-    const career = new Map(), bySeason = new Map();
+    // bySeason: name -> Map(season -> {games, goals, mvps}); seasonsWithGoals: seasons that have any scorer data
+    const career = new Map(), careerGoals = new Map(), careerMvps = new Map(), bySeason = new Map(), seasonsWithGoals = new Set();
+    const seasonStart = new Map();
+    const bump = (name, season, field, n) => {
+      if (!bySeason.has(name)) bySeason.set(name, new Map());
+      const m = bySeason.get(name);
+      if (!m.has(season)) m.set(season, { games: 0, goals: 0, mvps: 0 });
+      m.get(season)[field] += n;
+    };
     try {
       const idx = await (await fetch("data/archive/index.json", { cache: "no-store" })).json();
       const files = await Promise.all(idx.map((c) => fetch(`data/archive/${c.id}.json`).then((r) => r.json()).catch(() => null)));
-      files.filter(Boolean).forEach((f) => (f.squad || []).forEach((p) => {
-        const k = toKit(p.name), season = f.season?.name || "Unknown";
-        career.set(k, (career.get(k) || 0) + p.games);
-        if (!bySeason.has(k)) bySeason.set(k, new Map());
-        const m = bySeason.get(k); m.set(season, (m.get(season) || 0) + p.games);
-      }));
+      const seenGame = new Set();
+      files.filter(Boolean).forEach((f) => {
+        const season = f.season?.name || "Unknown";
+        const st = (f.fixtures[0] || {}).date || "";
+        if (!seasonStart.has(season) || st < seasonStart.get(season)) seasonStart.set(season, st);
+        (f.squad || []).forEach((p) => { const k = toKit(p.name); career.set(k, (career.get(k) || 0) + p.games); bump(k, season, "games", p.games); });
+        f.fixtures.forEach((raw) => {
+          const g = withGoals(raw), key = g.datetime + "|" + g.opponent;
+          if (seenGame.has(key) || g.us == null) return;
+          seenGame.add(key);
+          (g.goals?.scorers || []).forEach((sc) => {
+            if (!sc.player || /^other$/i.test(sc.player) || isOG(sc.player)) return;
+            const k = toKit(sc.player); seasonsWithGoals.add(season);
+            careerGoals.set(k, (careerGoals.get(k) || 0) + 1); bump(k, season, "goals", 1);
+          });
+          if (g.mvp) String(g.mvp).split(/\s*&\s*/).forEach((n) => { const k = toKit(n); careerMvps.set(k, (careerMvps.get(k) || 0) + 1); bump(k, season, "mvps", 1); });
+        });
+      });
     } catch (e) {}
+    // Season awards from the old stats sheet (Golden Shoe / most MVPs per season)
+    const honours = new Map();
+    (awards.seasons || []).forEach((a) => {
+      const add = (list, label) => { if (!list || !list.length) return; const top = list[0][1]; list.filter((x) => x[1] === top && top > 0).forEach((x) => { const k = toKit(x[0]); if (!honours.has(k)) honours.set(k, []); honours.get(k).push(`${label}, ${a.season}`); }); };
+      add(a.goals, "Golden Shoe"); add(a.mvps, "Most MVPs"); add(a.assists, "Most assists");
+    });
 
     // Leaderboards with shared ranks (1, 2, 3, 3, 5)
     const board = (title, rows, sub, empty) => {
@@ -244,6 +285,7 @@
     const gamesTxt = (n) => { const g = games.get(n) || 0; return `${g} ${g === 1 ? "game" : "games"} this season`; };
     $("boards").innerHTML =
       board("Goals", goalsRows, gamesTxt, "No goals logged yet this season.") +
+      board("Goals, all-time", [...careerGoals].filter(([n]) => byName.has(n) || careerGoals.get(n) > 5), (n) => `${career.get(n) || 0} games`, "No goals logged yet.") +
       board("Games, all-time", [...career].filter(([n]) => byName.has(n) || career.get(n) > 5), (n) => (byName.get(n)?.current ? "Current" : "Former"), "No games yet.");
     $("squad-sub").textContent = data.season ? `${data.season}` : "";
 
@@ -252,7 +294,7 @@
       const g = games.get(p.name), gl = (goalLog.get(p.name) || []).length, c = career.get(p.name);
       const line = p.current
         ? (g ? `<b>${g}</b> ${g === 1 ? "game" : "games"}${gl ? `, <b>${gl}</b> ${gl === 1 ? "goal" : "goals"}` : ""}` : "No games yet")
-        : (c ? `<b>${c}</b> games` : "Former");
+        : (c ? `<b>${c}</b> games${careerGoals.get(p.name) ? `, <b>${careerGoals.get(p.name)}</b> goals` : ""}` : "Former");
       return `<li class="card${p.current ? "" : " former"}"><button type="button" data-player="${esc(p.name)}">` +
         (p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="${esc(p.name)}" width="427" height="440" loading="lazy">`
           : p.photo ? `<span class="c-photo"><img src="assets/players/photos/${esc(p.photo)}.webp" alt="" loading="lazy"><span>${esc(p.name)}</span></span>`
@@ -272,13 +314,18 @@
     const openPlayer = (name) => {
       const p = byName.get(name) || { name, current: false };
       const g = games.get(name) || 0, log = goalLog.get(name) || [], c = career.get(name) || 0;
-      const seasons = [...(bySeason.get(name) || new Map())];
+      const seasons = [...(bySeason.get(name) || new Map())].sort((a, b) => (seasonStart.get(b[0]) || "").localeCompare(seasonStart.get(a[0]) || ""));
+      const cg = careerGoals.get(name) || 0;
+      const cm = (awards.seasons || []).reduce((t, a) => t + ((a.mvps || []).filter((x) => toKit(x[0]) === name).reduce((u, x) => u + x[1], 0)), 0);
       const stat = (v, l) => `<div class="p-stat"><b>${v}</b><span>${l}</span></div>`;
+      const num = p.number != null ? `<span class="p-num">${p.number}</span>` : "";
+      const hon = honours.get(name) || [];
       $("pdlg-body").innerHTML =
         `<div class="p-hero">${p.photo ? `<img class="p-photo" src="assets/players/photos/${esc(p.photo)}.webp" alt="">` : p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="" width="427" height="440">` : `<span class="c-name">${esc(name)}</span>`}` +
-        `<div><h2 id="pdlg-name">${esc(name)}</h2><p class="p-status">${p.current ? "Current squad" : "Former player"}</p>` +
+        `<div><h2 id="pdlg-name">${num}${esc(name)}</h2><p class="p-status">${p.current ? "Current squad" : "Former player"}</p>` +
         (p.current ? `<h3>This season</h3><div class="p-stats">${stat(g, g === 1 ? "game" : "games")}${stat(log.length, log.length === 1 ? "goal" : "goals")}${stat(g ? (log.length / g).toFixed(1) : "0.0", "per game")}</div>` : "") +
-        `<h3>All-time</h3><div class="p-stats">${stat(c, "games")}${stat(seasons.length, seasons.length === 1 ? "season" : "seasons")}</div></div></div>` +
+        `<h3>All-time</h3><div class="p-stats">${stat(c, "games")}${stat(cg, "goals")}${cm ? stat(cm, cm === 1 ? "MVP" : "MVPs") : ""}</div></div></div>` +
+        (hon.length ? `<ul class="p-honours">${hon.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>` : "") +
         (log.length ? `<h3>Goals this season</h3><ul class="p-goals">${(() => {
           const byGame = new Map();
           log.forEach((x) => { const k = x.date + "|" + x.opp; if (!byGame.has(k)) byGame.set(k, { ...x, mins: [] }); byGame.get(k).mins.push(x.min); });
@@ -287,7 +334,9 @@
             `<span class="p-mins">${mins(gm.mins)}</span>` +
             `<span class="p-count">${BALL}<b>${gm.mins.length}</b></span></li>`).join("");
         })()}</ul>` : "") +
-        (seasons.length ? `<h3>Games by season</h3><ul class="p-seasons">${seasons.map(([s, n]) => `<li><span>${esc(s)}</span><span><b>${n}</b> ${n === 1 ? "game" : "games"}</span></li>`).join("")}</ul>` : "");
+        (seasons.length ? `<h3>Season by season</h3><table class="p-table"><thead><tr><th>Season</th><th class="num">Games</th><th class="num">Goals</th></tr></thead><tbody>` +
+          seasons.map(([sn, v]) => { const has = seasonsWithGoals.has(sn); return `<tr><td>${esc(sn)}</td><td class="num">${v.games}</td><td class="num">${has ? v.goals : "–"}</td></tr>`; }).join("") +
+          `</tbody></table><p class="p-foot">– means goals weren't tracked that season.</p>` : "");
       if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
     };
     document.querySelector('[data-panel="squad"]').addEventListener("click", (e) => {
@@ -355,17 +404,20 @@
           const files = await Promise.all(s.comps.map((c) => fetch(`data/archive/${c.id}.json`).then((r) => r.json())));
           const main = files.find((f) => f.comp.id === s.main.id);
           const games = files
-            .flatMap((f) => f.fixtures.filter((g) => g.us !== null && g.them !== null)
+            .flatMap((f) => f.fixtures.filter((g) => g.us !== null && g.them !== null).map(withGoals)
               .map((g) => ({ ...g, label: isGrading(f.comp) && f !== main ? "Grading" : (/regular/i.test(g.stage || "") ? "" : g.stage) })))
             .sort((a, b) => a.datetime.localeCompare(b.datetime));
           const squad = new Map();
           files.forEach((f) => (f.squad || []).forEach((p) => { const k = kit(p.name); squad.set(k, (squad.get(k) || 0) + p.games); }));
+          const sg = new Map();
+          games.forEach((g) => (g.goals?.scorers || []).forEach((sc) => { if (!sc.player || isOG(sc.player) || /^other$/i.test(sc.player)) return; const k = kit(sc.player); sg.set(k, (sg.get(k) || 0) + 1); }));
           body.innerHTML =
             `<div class="table-scroll"><table class="ladder"><thead><tr><th class="num">#</th><th>Team</th><th class="num">P</th><th class="num">W</th><th class="num">D</th><th class="num">L</th><th class="num">GD</th><th class="num pts">Pts</th></tr></thead><tbody>` +
             main.ladder.map((t) => `<tr class="${t.team === us ? "us" : ""}"><td class="num">${t.pos}</td><td>${esc(t.team)}</td><td class="num">${t.p}</td><td class="num">${t.w}</td><td class="num">${t.d}</td><td class="num">${t.l}</td><td class="num">${t.gd > 0 ? "+" + t.gd : t.gd}</td><td class="num pts">${t.pts}</td></tr>`).join("") +
             `</tbody></table></div><ol class="results">` +
             games.slice().reverse().map((g) => resultRow({ ...g, stage: g.label === "Grading" ? "Grading" : g.stage, round: g.label && g.label !== "Grading" ? g.label : g.round, video: videoFor(g.date) })).join("") + `</ol>` +
-            (squad.size ? `<p class="h-squad">Squad: ${[...squad].sort((a, b) => b[1] - a[1]).map(([n, g]) => esc(n) + " (" + g + ")").join(", ")}</p>` : "");
+            (sg.size ? `<p class="scorers-line">${BALL}<span>${[...sg].sort((a, b) => b[1] - a[1]).map(([n, c]) => `${esc(n)} <b>${c}</b>`).join(", ")}</span></p>` : "") +
+            (squad.size ? `<p class="h-squad">Games played: ${[...squad].sort((a, b) => b[1] - a[1]).map(([n, g]) => esc(n) + " " + g).join(", ")}</p>` : "");
         } catch (e) {
           body.textContent = "Couldn't load this season. Try again later.";
           delete d.dataset.loaded;
