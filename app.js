@@ -25,7 +25,7 @@
     const hit = kitByGd.get(k) || (k.length >= 3 && roster.find((p) => nkey(p.name).startsWith(k) || k.startsWith(nkey(p.name))));
     return hit ? hit.name : n;
   };
-  const BALL = `<svg class="ball" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="#fff" stroke="currentColor" stroke-width="1.5"/><path d="M12 7.2l3.3 2.4-1.3 3.9h-4l-1.3-3.9z" fill="currentColor"/><path d="M12 7.2V2.5M15.3 9.6l4.4-1.5M14 13.5l2.8 3.8M10 13.5l-2.8 3.8M8.7 9.6L4.3 8.1" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>`;
+  const BALL = `<img class="ball" src="assets/ball.png" alt="" width="64" height="64">`;
   // Group goals by player: [{name, mins:[..]}], in order of first goal.
   const groupScorers = (list) => {
     const m = new Map();
