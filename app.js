@@ -267,8 +267,8 @@
     // Season awards from the old stats sheet (Golden Shoe / most MVPs per season)
     const honours = new Map();
     (awards.seasons || []).forEach((a) => {
-      const add = (list, label) => { if (!list || !list.length) return; const top = list[0][1]; list.filter((x) => x[1] === top && top > 0).forEach((x) => { const k = toKit(x[0]); if (!honours.has(k)) honours.set(k, []); honours.get(k).push(`${label}, ${a.season}`); }); };
-      add(a.goals, "Golden Shoe"); add(a.mvps, "Most MVPs"); add(a.assists, "Most assists");
+      const add = (list, label, icon) => { if (!list || !list.length) return; const top = list[0][1]; list.filter((x) => x[1] === top && top > 0).forEach((x) => { const k = toKit(x[0]); if (!honours.has(k)) honours.set(k, []); honours.get(k).push({ label, season: a.season, icon, n: top }); }); };
+      add(a.goals, "Golden Shoe", "golden-shoe"); add(a.mvps, "Most MVPs", "trophy"); add(a.assists, "Most assists", "trophy");
     });
 
     // Leaderboards with shared ranks (1, 2, 3, 3, 5)
@@ -325,7 +325,7 @@
         `<div><h2 id="pdlg-name">${num}${esc(name)}</h2><p class="p-status">${p.current ? "Current squad" : "Former player"}</p>` +
         (p.current ? `<h3>This season</h3><div class="p-stats">${stat(g, g === 1 ? "game" : "games")}${stat(log.length, log.length === 1 ? "goal" : "goals")}${stat(g ? (log.length / g).toFixed(1) : "0.0", "per game")}</div>` : "") +
         `<h3>All-time</h3><div class="p-stats">${stat(c, "games")}${stat(cg, "goals")}${cm ? stat(cm, cm === 1 ? "MVP" : "MVPs") : ""}</div></div></div>` +
-        (hon.length ? `<ul class="p-honours">${hon.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>` : "") +
+        (hon.length ? `<h3>Honours</h3><ul class="p-honours">${hon.map((h) => `<li><img src="assets/${h.icon}.png" alt="" width="64" height="64"><span><b>${esc(h.label)}</b><small>${esc(h.season)}, ${h.n} ${h.label === "Golden Shoe" ? "goals" : h.label === "Most MVPs" ? "MVPs" : "assists"}</small></span></li>`).join("")}</ul>` : "") +
         (log.length ? `<h3>Goals this season</h3><ul class="p-goals">${(() => {
           const byGame = new Map();
           log.forEach((x) => { const k = x.date + "|" + x.opp; if (!byGame.has(k)) byGame.set(k, { ...x, mins: [] }); byGame.get(k).mins.push(x.min); });

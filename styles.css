@@ -361,8 +361,12 @@ main { padding-top: 8px; }
 .mc-mvp { margin: 6px 0 0; text-align: center; font-size: .85rem; color: rgba(255,255,255,.7); }
 .mc-mvp b { color: var(--tape); font-weight: 700; margin-left: 4px; }
 .p-num { display: inline-block; margin-right: 10px; padding: 0 8px; background: var(--tape); color: var(--ink); font-size: .8em; vertical-align: .1em; }
-.p-honours { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-.p-honours li { padding: 4px 10px; background: var(--ink); color: var(--tape); font-weight: 700; font-size: .85rem; }
+.p-honours { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.p-honours li { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--ink); color: #fff; }
+.p-honours img { width: 36px; height: 36px; flex: none; }
+.p-honours span { display: grid; }
+.p-honours b { color: var(--tape); font-weight: 700; }
+.p-honours small { font-size: .8rem; opacity: .75; }
 .p-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .p-table th { text-align: left; font: 600 .9rem/1 var(--display); color: var(--muted); padding: 6px 0; border-bottom: 1px solid var(--rule); }
 .p-table td { padding: 8px 0; border-bottom: 1px solid var(--rule); }
