@@ -13,6 +13,14 @@
   }
 
   const us = data.team.name;
+
+  // Kit names: map every GameDay spelling to the name in data/players.json.
+  let roster = [];
+  try { roster = (await (await fetch("data/players.json", { cache: "no-store" })).json()).players || []; } catch (e) {}
+  const nkey = (n) => String(n).toLowerCase().replace(/[^a-z]/g, "");
+  const kitByGd = new Map();
+  roster.forEach((p) => [].concat(p.gameday || []).forEach((g) => kitByGd.set(nkey(g), p)));
+  const kit = (gdName) => (kitByGd.get(nkey(gdName)) || {}).name || gdName;
   const outcome = (r) => (r.us > r.them ? "W" : r.us < r.them ? "L" : "D");
   const fmtDate = (d, opts) => new Date(d).toLocaleDateString("en-AU", { timeZone: TZ, ...opts });
 
@@ -143,26 +151,26 @@
     $("video").innerHTML = `<p class="empty">No uploads yet. New match videos on the <a href="${esc(data.channel.url)}">Slaymar FC channel</a> show up here automatically.</p>`;
   }
 
-  // ---- Squad: player cards from data/players.json, games from GameDay ----
-  try {
-    const roster = (await (await fetch("data/players.json", { cache: "no-store" })).json()).players || [];
-    const gd = new Map((data.squad || []).map((p) => [p.name.toLowerCase(), p]));
-    const linked = new Set();
+  // ---- Squad: player cards, games played from GameDay ----
+  {
+    const games = new Map();
+    (data.squad || []).forEach((p) => {
+      const r = kitByGd.get(nkey(p.name));
+      const k = r ? r.name : p.name;
+      games.set(k, (games.get(k) || 0) + p.games);
+    });
     const card = (p) => {
-      const g = p.gameday && gd.get(p.gameday.toLowerCase());
-      if (g) linked.add(g.name.toLowerCase());
+      const g = games.get(p.name);
       return `<li class="card${p.current ? "" : " former"}">` +
-        `<img src="assets/players/${esc(p.image)}.webp" alt="${esc(p.name)}" width="427" height="440" loading="lazy">` +
-        `<span class="c-games">${g ? `<b>${g.games}</b> ${g.games === 1 ? "game" : "games"}` : p.current ? "&nbsp;" : "Former"}</span></li>`;
+        (p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="${esc(p.name)}" width="427" height="440" loading="lazy">` : `<span class="c-name">${esc(p.name)}</span>`) +
+        `<span class="c-games">${g ? `<b>${g}</b> ${g === 1 ? "game" : "games"}` : p.current ? "No games yet" : "Former"}</span></li>`;
     };
     const cur = roster.filter((p) => p.current), old = roster.filter((p) => !p.current);
-    const others = (data.squad || []).filter((p) => !linked.has(p.name.toLowerCase()) && !roster.some((r) => r.gameday && r.gameday.toLowerCase() === p.name.toLowerCase()));
+    const others = [...games].filter(([k]) => !roster.some((r) => r.name === k));
     $("squad").innerHTML =
-      `<ul class="cards">${cur.map(card).join("")}</ul>` +
-      (others.length ? `<h3 class="sq-h">Also played this season</h3><ul class="squad">${others.sort((a, b) => b.games - a.games).map((p) => `<li><span>${esc(p.name)}</span><span class="g">${p.games}</span></li>`).join("")}</ul>` : "") +
+      (cur.length ? `<ul class="cards">${cur.map(card).join("")}</ul>` : "") +
+      (others.length ? `<h3 class="sq-h">Fill-ins this season</h3><ul class="squad">${others.sort((a, b) => b[1] - a[1]).map(([n, g]) => `<li><span>${esc(n)}</span><span class="g">${g}</span></li>`).join("")}</ul>` : "") +
       (old.length ? `<h3 class="sq-h">Former players</h3><ul class="cards small">${old.map(card).join("")}</ul>` : "");
-  } catch (e) {
-    $("squad").innerHTML = `<ul class="squad">${(data.squad || []).map((p) => `<li><span>${esc(p.name)}</span><span class="g">${p.games}</span></li>`).join("")}</ul>`;
   }
 
   // ---- Tabs ----
@@ -227,7 +235,7 @@
               .map((g) => ({ ...g, label: isGrading(f.comp) && f !== main ? "Grading" : (/regular/i.test(g.stage || "") ? "" : g.stage) })))
             .sort((a, b) => a.datetime.localeCompare(b.datetime));
           const squad = new Map();
-          files.forEach((f) => (f.squad || []).forEach((p) => squad.set(p.name, (squad.get(p.name) || 0) + p.games)));
+          files.forEach((f) => (f.squad || []).forEach((p) => { const k = kit(p.name); squad.set(k, (squad.get(k) || 0) + p.games); }));
           body.innerHTML =
             `<div class="table-scroll"><table class="ladder"><thead><tr><th class="num">#</th><th>Team</th><th class="num">P</th><th class="num">W</th><th class="num">D</th><th class="num">L</th><th class="num">GD</th><th class="num pts">Pts</th></tr></thead><tbody>` +
             main.ladder.map((t) => `<tr class="${t.team === us ? "us" : ""}"><td class="num">${t.pos}</td><td>${esc(t.team)}</td><td class="num">${t.p}</td><td class="num">${t.w}</td><td class="num">${t.d}</td><td class="num">${t.l}</td><td class="num">${t.gd > 0 ? "+" + t.gd : t.gd}</td><td class="num pts">${t.pts}</td></tr>`).join("") +

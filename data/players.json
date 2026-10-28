@@ -1,15 +1,15 @@
 {
-  "_note": "Edit this file to manage the squad. 'gameday' must match the name GameDay shows (e.g. 'J Foster') so games played link up. Set 'current' to false for former players.",
+  "_note": "Squad list. 'name' is the kit name shown on the site. 'gameday' lists every spelling GameDay has used for that player, so games link up. Set 'current' to false for former players. 'image' is optional (file in assets/players/).",
   "players": [
-    { "name": "Cale",     "image": "cale",     "gameday": null, "current": true },
-    { "name": "Foster",   "image": "foster",   "gameday": "J Foster", "current": true },
-    { "name": "Dougie",   "image": "dougie",   "gameday": null, "current": true },
-    { "name": "Gorin",    "image": "gorin",    "gameday": null, "current": true },
-    { "name": "Schmitt",  "image": "schmitt",  "gameday": null, "current": true },
-    { "name": "Crahtim",  "image": "crahtim",  "gameday": null, "current": true },
-    { "name": "Barry",    "image": "barry",    "gameday": null, "current": true },
-    { "name": "Lauchlan", "image": "lauchlan", "gameday": null, "current": false },
-    { "name": "Nich",     "image": "nich",     "gameday": null, "current": false },
-    { "name": "Steven",   "image": "steven",   "gameday": null, "current": false }
+    { "name": "Cale",     "image": "cale",     "gameday": ["C Abrahamson"], "current": true },
+    { "name": "Foster",   "image": "foster",   "gameday": ["J Foster"],     "current": true },
+    { "name": "Dougie",   "image": "dougie",   "gameday": ["C S Avdoulas"], "current": true },
+    { "name": "Gorin",    "image": "gorin",    "gameday": ["G Shakes"],     "current": true },
+    { "name": "Schmitt",  "image": "schmitt",  "gameday": ["J Smith"],      "current": true },
+    { "name": "Crahtim",  "image": "crahtim",  "gameday": ["C Marinos"],    "current": true },
+    { "name": "Barry",    "image": "barry",    "gameday": ["W Plagakis"],   "current": true },
+    { "name": "Lauchlan", "image": "lauchlan", "gameday": [], "current": false },
+    { "name": "Nich",     "image": "nich",     "gameday": [], "current": false },
+    { "name": "Steven",   "image": "steven",   "gameday": [], "current": false }
   ]
 }

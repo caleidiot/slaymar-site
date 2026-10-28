@@ -217,6 +217,7 @@ main { padding-top: 8px; }
 .card img { width: 100%; height: auto; display: block; }
 .card.former img { filter: grayscale(.85); opacity: .8; }
 .c-games { color: var(--muted); font-size: .95rem; }
+.c-name { font: 800 1.4rem/1 var(--display); text-transform: uppercase; padding: 40px 0; }
 .c-games b { font: 800 1.3rem/1 var(--display); color: var(--ink); margin-right: 2px; }
 .sq-h { font: 800 1.4rem/1 var(--display); text-transform: uppercase; margin: 32px 0 12px; }
 
