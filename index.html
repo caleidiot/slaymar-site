@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slaymar FC</title>
+  <meta name="description" content="Slaymar FC: Thursday night futsal at Unley. Fixtures, ladder, results and match videos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="court">
+    <svg class="lines" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect x="8" y="8" width="384" height="184" />
+      <line x1="200" y1="8" x2="200" y2="192" />
+      <circle cx="200" cy="100" r="30" />
+      <path d="M8 52 A48 48 0 0 1 8 148" />
+      <path d="M392 52 A48 48 0 0 0 392 148" />
+    </svg>
+    <div class="wrap hero">
+      <h1 class="crest">Slaymar<span>FC</span></h1>
+      <p class="tagline">Unprofessional indoor football. Thursdays at Unley.</p>
+
+      <div class="board">
+        <section class="next" aria-labelledby="next-h">
+          <h2 id="next-h">Next game</h2>
+          <p class="opp" id="next-opp">–</p>
+          <p class="when" id="next-when"></p>
+          <p class="countdown" id="next-count" aria-live="polite"></p>
+        </section>
+        <section class="last" aria-labelledby="last-h">
+          <h2 id="last-h">Last result</h2>
+          <p class="score" id="last-score">–</p>
+          <p class="when" id="last-opp"></p>
+        </section>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="block" aria-labelledby="ladder-h">
+      <div class="head">
+        <h2 id="ladder-h">Ladder</h2>
+        <p class="sub" id="comp-name"></p>
+      </div>
+      <div class="table-scroll">
+        <table class="ladder">
+          <thead>
+            <tr>
+              <th scope="col" class="num">#</th>
+              <th scope="col">Team</th>
+              <th scope="col" class="num">P</th>
+              <th scope="col" class="num">W</th>
+              <th scope="col" class="num">D</th>
+              <th scope="col" class="num">L</th>
+              <th scope="col" class="num opt">F</th>
+              <th scope="col" class="num opt">A</th>
+              <th scope="col" class="num">GD</th>
+              <th scope="col" class="num pts">Pts</th>
+            </tr>
+          </thead>
+          <tbody id="ladder-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="results-h">
+      <div class="head">
+        <h2 id="results-h">Results</h2>
+        <p class="sub" id="record"></p>
+      </div>
+      <ol class="results" id="results"></ol>
+    </section>
+
+    <section class="block" aria-labelledby="video-h">
+      <div class="head">
+        <h2 id="video-h">Match video</h2>
+        <p class="sub"><a id="channel-link" href="https://www.youtube.com/@slaymarfc">YouTube channel</a></p>
+      </div>
+      <div id="video"></div>
+      <ul class="more-videos" id="more-videos"></ul>
+    </section>
+
+    <section class="block" aria-labelledby="squad-h">
+      <div class="head">
+        <h2 id="squad-h">Squad</h2>
+        <p class="sub">Games played this season</p>
+      </div>
+      <ul class="squad" id="squad"></ul>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p id="updated"></p>
+    <p>Data from <a id="source-link" href="https://websites.mygameday.app/">GameDay</a>. Life Be In It SA, Unley/Immanuel Thursday Senior Open.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

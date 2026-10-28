@@ -1,0 +1,187 @@
+:root {
+  --court: #1d4ea0;      /* hall floor blue */
+  --court-deep: #143a7a;
+  --paint: #ffffff;      /* court line paint */
+  --tape: #f6c90e;       /* marking-tape yellow, used for Slaymar only */
+  --ink: #16202e;
+  --floor: #eef1f5;      /* page background */
+  --muted: #5b6777;
+  --rule: #d5dbe3;
+  --win: #1f8a4c;
+  --loss: #c23b2b;
+  --draw: #7a8494;
+  --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--floor);
+  color: var(--ink);
+  font: 400 1rem/1.5 var(--body);
+}
+a { color: inherit; text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--tape); outline-offset: 2px; }
+
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+
+/* ---------- Hero: the court ---------- */
+.court {
+  position: relative;
+  overflow: hidden;
+  background: var(--court);
+  color: var(--paint);
+  padding: 40px 0 32px;
+}
+.lines {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  fill: none; stroke: rgba(255,255,255,.16); stroke-width: 1.5;
+}
+.hero { position: relative; }
+
+.crest {
+  margin: 0;
+  font: 900 clamp(4rem, 17vw, 9.5rem)/.82 var(--display);
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+.crest span {
+  display: inline-block;
+  margin-left: .12em;
+  font-size: .32em;
+  vertical-align: top;
+  margin-top: .2em;
+  padding: .05em .25em;
+  background: var(--tape);
+  color: var(--ink);
+}
+.tagline { margin: 14px 0 28px; font-size: 1.05rem; color: rgba(255,255,255,.85); }
+
+.board {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  border: 2px solid var(--paint);
+}
+.board section { padding: 18px 20px; }
+.board .last { border-left: 2px solid var(--paint); background: var(--court-deep); }
+.board h2 {
+  margin: 0 0 6px;
+  font: 600 1rem/1.2 var(--display);
+  letter-spacing: .04em;
+  color: rgba(255,255,255,.75);
+}
+.opp, .score {
+  margin: 0;
+  font: 800 clamp(2rem, 7vw, 3.2rem)/1 var(--display);
+  text-transform: uppercase;
+}
+.opp::before { content: "vs "; font-weight: 600; opacity: .7; }
+.score { font-variant-numeric: tabular-nums; }
+.when { margin: 8px 0 0; color: rgba(255,255,255,.85); }
+.countdown {
+  margin: 12px 0 0;
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--tape);
+  color: var(--ink);
+  font-weight: 700;
+}
+.countdown:empty { display: none; }
+.result-tag { font-weight: 700; }
+
+/* ---------- Sections ---------- */
+main { padding-top: 8px; }
+.block { padding: 40px 0 8px; }
+.head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 6px; margin-bottom: 16px;
+}
+.head h2 { margin: 0; font: 800 2.2rem/1 var(--display); text-transform: uppercase; }
+.sub { margin: 0; color: var(--muted); font-size: .95rem; }
+
+/* ---------- Ladder ---------- */
+.table-scroll { overflow-x: auto; }
+.ladder { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.ladder th {
+  font: 600 .95rem/1 var(--display);
+  letter-spacing: .03em;
+  color: var(--muted);
+  text-align: left;
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--rule);
+}
+.ladder td { padding: 10px 6px; border-bottom: 1px solid var(--rule); }
+.ladder .num { text-align: right; width: 2.6em; }
+.ladder td.pts { font-weight: 700; }
+.ladder tr.us td { background: var(--tape); font-weight: 700; border-bottom-color: var(--tape); }
+.ladder tr.next-opp td:nth-child(2)::after {
+  content: "Next"; margin-left: 8px; padding: 1px 6px;
+  font-size: .75rem; font-weight: 700; background: var(--court); color: #fff; vertical-align: 1px;
+}
+.gd-pos { color: var(--win); }
+.gd-neg { color: var(--loss); }
+.ladder tr.us .gd-pos, .ladder tr.us .gd-neg { color: inherit; }
+
+/* ---------- Results ---------- */
+.results { list-style: none; margin: 0; padding: 0; }
+.results li {
+  display: grid;
+  grid-template-columns: 2.4rem 5.5rem 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.badge {
+  display: grid; place-items: center;
+  width: 2rem; height: 2rem;
+  font: 800 1.1rem/1 var(--display); color: #fff;
+}
+.badge.W { background: var(--win); }
+.badge.L { background: var(--loss); }
+.badge.D { background: var(--draw); }
+.r-date { color: var(--muted); font-size: .9rem; }
+.r-score { font: 800 1.6rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.r-watch { grid-column: 3 / 5; font-size: .9rem; margin-top: -4px; }
+
+/* ---------- Video ---------- */
+.video-frame { position: relative; aspect-ratio: 16 / 9; background: var(--ink); }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-title { margin: 10px 0 0; font-weight: 700; }
+.empty {
+  padding: 24px; border: 2px dashed var(--rule); color: var(--muted);
+}
+.more-videos { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 8px; }
+.more-videos:empty { display: none; }
+.more-videos a { display: flex; gap: 12px; align-items: center; text-decoration: none; }
+.more-videos img { width: 120px; aspect-ratio: 16/9; object-fit: cover; flex: none; }
+.more-videos span { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Squad ---------- */
+.squad {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0 24px;
+}
+.squad li {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--rule);
+}
+.squad .g { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- Footer ---------- */
+.foot { padding-top: 40px; padding-bottom: 40px; color: var(--muted); font-size: .9rem; }
+.foot p { margin: 0 0 4px; }
+
+@media (max-width: 640px) {
+  .board { grid-template-columns: 1fr; }
+  .board .last { border-left: 0; border-top: 2px solid var(--paint); }
+  .ladder .opt { display: none; }
+  .results li { grid-template-columns: 2.2rem 1fr auto; }
+  .r-date { grid-column: 2; grid-row: 2; margin-top: -8px; }
+  .r-opp { grid-column: 2; grid-row: 1; }
+  .r-score { grid-column: 3; grid-row: 1 / 3; }
+  .r-watch { grid-column: 2 / 4; }
+}

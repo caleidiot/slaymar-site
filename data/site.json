@@ -1,0 +1,46 @@
+{
+  "updated": "2026-10-28T13:10:00+10:30",
+  "source": "sample",
+  "team": { "name": "Slaymar FC", "id": "26983581" },
+  "comp": {
+    "id": "664405",
+    "name": "Unley/Immanuel - Thursday Senior Open Futsal Grading 2",
+    "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-664405-0&pool=1&a=LADDER"
+  },
+  "next": {
+    "datetime": "2026-10-29T20:30:00+10:30",
+    "opponent": "America",
+    "venue": "Unley Court 3"
+  },
+  "results": [
+    { "date": "2026-10-22", "opponent": "The Phil Ins", "us": 5, "them": 7 },
+    { "date": "2026-10-15", "opponent": "Rolling Stone Futsal Club", "us": 13, "them": 6 },
+    { "date": "2026-10-08", "opponent": "No Chance FC", "us": 4, "them": 3 },
+    { "date": "2026-10-01", "opponent": "The Baldy Boys", "us": 9, "them": 5 }
+  ],
+  "ladder": [
+    { "pos": 1, "team": "RKO Reborn", "p": 4, "w": 4, "d": 0, "l": 0, "b": 0, "f": 34, "a": 18, "gd": 16, "pts": 12 },
+    { "pos": 2, "team": "Slaymar FC", "p": 4, "w": 3, "d": 0, "l": 1, "b": 0, "f": 31, "a": 21, "gd": 10, "pts": 10 },
+    { "pos": 3, "team": "McHeaver", "p": 4, "w": 3, "d": 0, "l": 1, "b": 0, "f": 26, "a": 21, "gd": 5, "pts": 10 },
+    { "pos": 4, "team": "No Chance FC", "p": 4, "w": 2, "d": 0, "l": 2, "b": 0, "f": 19, "a": 14, "gd": 5, "pts": 8 },
+    { "pos": 5, "team": "Silver Foxes", "p": 3, "w": 2, "d": 0, "l": 0, "b": 1, "f": 9, "a": 6, "gd": 3, "pts": 8 },
+    { "pos": 6, "team": "The Phil Ins", "p": 4, "w": 2, "d": 0, "l": 2, "b": 0, "f": 22, "a": 21, "gd": 1, "pts": 8 },
+    { "pos": 7, "team": "America", "p": 4, "w": 1, "d": 2, "l": 1, "b": 0, "f": 22, "a": 24, "gd": -2, "pts": 8 },
+    { "pos": 8, "team": "Brazukas", "p": 3, "w": 1, "d": 1, "l": 0, "b": 1, "f": 13, "a": 10, "gd": 3, "pts": 7 },
+    { "pos": 9, "team": "Comparative Advantage", "p": 3, "w": 0, "d": 1, "l": 1, "b": 1, "f": 10, "a": 12, "gd": -2, "pts": 5 },
+    { "pos": 10, "team": "Extremely Average Futsal Club", "p": 4, "w": 0, "d": 0, "l": 3, "b": 1, "f": 13, "a": 22, "gd": -9, "pts": 5 },
+    { "pos": 11, "team": "The Baldy Boys", "p": 4, "w": 0, "d": 0, "l": 3, "b": 1, "f": 12, "a": 25, "gd": -13, "pts": 5 },
+    { "pos": 12, "team": "Rolling Stone Futsal Club", "p": 4, "w": 0, "d": 0, "l": 4, "b": 0, "f": 18, "a": 35, "gd": -17, "pts": 4 }
+  ],
+  "squad": [
+    { "name": "C Abrahamson", "games": 4 },
+    { "name": "C S Avdoulas", "games": 4 },
+    { "name": "C Marinos", "games": 3 },
+    { "name": "G Shakes", "games": 4 },
+    { "name": "J Foster", "games": 2 },
+    { "name": "J Smith", "games": 2 },
+    { "name": "W Plagakis", "games": 4 }
+  ],
+  "channel": { "id": "UC_xn1ezjoM-ticFsGNraSig", "url": "https://www.youtube.com/@slaymarfc" },
+  "videos": []
+}
