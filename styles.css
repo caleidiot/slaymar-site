@@ -271,6 +271,58 @@ main { padding-top: 8px; }
 .c-games b { font: 800 1.3rem/1 var(--display); color: var(--ink); margin-right: 2px; }
 .sq-h { font: 800 1.4rem/1 var(--display); text-transform: uppercase; margin: 32px 0 12px; }
 
+/* Leaderboards */
+.boards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+.lb { background: var(--ink); color: #fff; padding: 14px 14px 6px; }
+.lb h3 { margin: 0 0 8px; font: 800 1.4rem/1 var(--display); text-transform: uppercase; }
+.lb ol { list-style: none; margin: 0; padding: 0; }
+.lb li button {
+  width: 100%; display: grid; grid-template-columns: 1.6rem 48px 1fr auto; align-items: center; gap: 10px;
+  padding: 7px 0; background: none; border: 0; border-top: 1px solid rgba(255,255,255,.1);
+  color: inherit; font: inherit; text-align: left; cursor: pointer;
+}
+.lb li:first-child button { border-top: 0; }
+.lb li button:hover .b-name { text-decoration: underline; text-underline-offset: 3px; }
+.b-rank { opacity: .7; text-align: center; font-variant-numeric: tabular-nums; }
+.lb img, .t-init { width: 48px; height: 48px; display: block; background: var(--court); object-fit: cover; }
+.t-init { display: grid; place-items: center; font: 800 1.3rem/1 var(--display); }
+.b-name { font-weight: 700; display: grid; }
+.b-name small { font-weight: 400; opacity: .65; font-size: .8rem; }
+.b-val { font: 900 1.6rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.lb-empty { opacity: .7; margin: 4px 0 12px; }
+.sq-hint { margin: -6px 0 14px; color: var(--muted); font-size: .9rem; }
+.card button { display: grid; justify-items: center; gap: 4px; width: 100%; padding: 0; background: none; border: 0; font: inherit; color: inherit; cursor: pointer; }
+.card button:hover img { transform: translateY(-3px); }
+.card img { transition: transform .15s ease; }
+
+/* Player dialog */
+.pdlg {
+  width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); padding: 0; border: 0;
+  background: var(--floor); color: var(--ink); overflow: auto; position: fixed;
+}
+.pdlg form { margin: 0; }
+.pdlg::backdrop { background: rgba(10,20,40,.7); }
+.pdlg-x {
+  position: absolute; top: 0; right: 0; z-index: 2; width: 44px; height: 44px; border: 0;
+  background: var(--ink); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer;
+}
+#pdlg-body { padding: 0 16px 20px; }
+.p-hero { display: grid; grid-template-columns: 42% 1fr; gap: 16px; align-items: start; background: var(--court); color: #fff; margin: 0 -16px 8px; padding: 16px; }
+.p-hero img { width: 100%; height: auto; display: block; }
+.p-hero h2 { margin: 0; font: 900 2.4rem/1 var(--display); text-transform: uppercase; }
+.p-status { margin: 2px 0 10px; opacity: .8; font-size: .9rem; }
+.p-hero h3 { margin: 10px 0 4px; font: 700 .95rem/1 var(--display); letter-spacing: .03em; opacity: .8; }
+.p-stats { display: flex; gap: 16px; flex-wrap: wrap; }
+.p-stat { display: grid; }
+.p-stat b { font: 900 1.9rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.p-stat span { font-size: .8rem; opacity: .8; }
+#pdlg-body > h3 { font: 800 1.3rem/1 var(--display); text-transform: uppercase; margin: 18px 0 8px; }
+.p-goals, .p-seasons { list-style: none; margin: 0; padding: 0; }
+.p-goals li { display: grid; grid-template-columns: 1.2rem 2.6rem 1fr auto; gap: 8px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+.p-min { font-weight: 700; font-variant-numeric: tabular-nums; }
+.p-date { color: var(--muted); font-size: .85rem; }
+.p-seasons li { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+
 /* ---------- History ---------- */
 .history { list-style: none; margin: 0; padding: 0; }
 .history > li { border-bottom: 1px solid var(--rule); }
@@ -313,6 +365,9 @@ main { padding-top: 8px; }
   .mc-team { font-size: 1rem; }
   .mc-score b { font-size: 1.7rem; }
   .history summary { grid-template-columns: 1fr auto; }
+  .boards { grid-template-columns: 1fr; }
+  .p-hero { grid-template-columns: 38% 1fr; }
+  .p-hero h2 { font-size: 2rem; }
   .h-season { grid-column: 1; }
   .h-comp, .h-pos, .h-rec { grid-column: 1; grid-row: auto; }
   .history summary::before { grid-row: 1; grid-column: 2; }

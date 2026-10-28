@@ -200,35 +200,92 @@
     $("video").innerHTML = `<p class="empty">No uploads yet. New match videos on the <a href="${esc(data.channel.url)}">Slaymar FC channel</a> show up here automatically.</p>`;
   }
 
-  // ---- Squad: player cards, season games from GameDay, all-time from the archive ----
+  // ---- Squad: leaderboards, player cards, player detail ----
   {
-    const toKit = (n) => (kitByGd.get(nkey(n)) || {}).name || n;
+    const toKit = (n) => kit(n);
+    const byName = new Map(roster.map((p) => [p.name, p]));
+    const thumb = (n) => { const p = byName.get(n); return p && p.image ? `<img src="assets/players/thumbs/${esc(p.image)}.webp" alt="" width="48" height="48" loading="lazy">` : `<span class="t-init">${esc(n.slice(0, 1))}</span>`; };
+
+    // Season games (GameDay) and goals (sheet)
     const games = new Map();
     (data.squad || []).forEach((p) => { const k = toKit(p.name); games.set(k, (games.get(k) || 0) + p.games); });
-    const career = new Map();
+    const goalLog = new Map();
+    results.forEach((r) => (r.goals?.scorers || []).forEach((g) => {
+      if (!g.player || /^other$/i.test(g.player)) return;
+      const k = toKit(g.player);
+      if (!goalLog.has(k)) goalLog.set(k, []);
+      goalLog.get(k).push({ min: g.min, opp: r.opponent, date: r.date });
+    }));
+
+    // All-time games and per-season games (archive)
+    const career = new Map(), bySeason = new Map();
     try {
       const idx = await (await fetch("data/archive/index.json", { cache: "no-store" })).json();
       const files = await Promise.all(idx.map((c) => fetch(`data/archive/${c.id}.json`).then((r) => r.json()).catch(() => null)));
-      files.filter(Boolean).forEach((f) => (f.squad || []).forEach((p) => { const k = toKit(p.name); career.set(k, (career.get(k) || 0) + p.games); }));
+      files.filter(Boolean).forEach((f) => (f.squad || []).forEach((p) => {
+        const k = toKit(p.name), season = f.season?.name || "Unknown";
+        career.set(k, (career.get(k) || 0) + p.games);
+        if (!bySeason.has(k)) bySeason.set(k, new Map());
+        const m = bySeason.get(k); m.set(season, (m.get(season) || 0) + p.games);
+      }));
     } catch (e) {}
+
+    // Leaderboards with shared ranks (1, 2, 3, 3, 5)
+    const board = (title, rows, sub, empty) => {
+      rows.sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]));
+      let rank = 0, prev = null;
+      const lis = rows.slice(0, 10).map(([n, v], i) => {
+        if (v !== prev) { rank = i + 1; prev = v; }
+        return `<li><button type="button" data-player="${esc(n)}"><span class="b-rank">${rank}</span>${thumb(n)}<span class="b-name">${esc(n)}<small>${sub(n)}</small></span><span class="b-val">${v}</span></button></li>`;
+      }).join("");
+      return `<div class="lb"><h3>${title}</h3>${rows.length ? `<ol>${lis}</ol>` : `<p class="lb-empty">${empty}</p>`}</div>`;
+    };
+    const goalsRows = [...goalLog].map(([n, l]) => [n, l.length]);
+    const gamesTxt = (n) => { const g = games.get(n) || 0; return `${g} ${g === 1 ? "game" : "games"} this season`; };
+    $("boards").innerHTML =
+      board("Goals", goalsRows, gamesTxt, "No goals logged yet this season.") +
+      board("Games, all-time", [...career].filter(([n]) => byName.has(n) || career.get(n) > 5), (n) => (byName.get(n)?.current ? "Current" : "Former"), "No games yet.");
+    $("squad-sub").textContent = data.season ? `${data.season}` : "";
+
+    // Cards
     const card = (p) => {
-      const g = games.get(p.name), c = career.get(p.name);
-      const gl = seasonGoals.get(p.name);
+      const g = games.get(p.name), gl = (goalLog.get(p.name) || []).length, c = career.get(p.name);
       const line = p.current
-        ? (g ? `<b>${g}</b> ${g === 1 ? "game" : "games"}${gl ? `, <b>${gl}</b> ${gl === 1 ? "goal" : "goals"}` : ""}` : "No games yet this season")
+        ? (g ? `<b>${g}</b> ${g === 1 ? "game" : "games"}${gl ? `, <b>${gl}</b> ${gl === 1 ? "goal" : "goals"}` : ""}` : "No games yet")
         : (c ? `<b>${c}</b> games` : "Former");
-      return `<li class="card${p.current ? "" : " former"}${p.image ? "" : " noimg"}">` +
+      return `<li class="card${p.current ? "" : " former"}"><button type="button" data-player="${esc(p.name)}">` +
         (p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="${esc(p.name)}" width="427" height="440" loading="lazy">` : `<span class="c-name">${esc(p.name)}</span>`) +
-        `<span class="c-games">${line}</span>` +
-        (p.current && c ? `<span class="c-career">${c} all-time</span>` : "") + `</li>`;
+        `<span class="c-games">${line}</span></button></li>`;
     };
     const cur = roster.filter((p) => p.current);
-    const old = roster.filter((p) => !p.current).sort((a, b) => (career.get(b.name) || 0) - (career.get(a.name) || 0));
-    const others = [...games].filter(([k]) => !roster.some((r) => r.name === k));
+    const old = roster.filter((p) => !p.current).sort((x, y) => (career.get(y.name) || 0) - (career.get(x.name) || 0));
+    const others = [...games].filter(([k]) => !byName.has(k));
     $("squad").innerHTML =
       (cur.length ? `<ul class="cards">${cur.map(card).join("")}</ul>` : "") +
-      (others.length ? `<h3 class="sq-h">Fill-ins this season</h3><ul class="squad">${others.sort((a, b) => b[1] - a[1]).map(([n, g]) => `<li><span>${esc(n)}</span><span class="g">${g}</span></li>`).join("")}</ul>` : "") +
+      (others.length ? `<h3 class="sq-h">Fill-ins this season</h3><ul class="squad">${others.sort((x, y) => y[1] - x[1]).map(([n, g]) => `<li><span>${esc(n)}</span><span class="g">${g}</span></li>`).join("")}</ul>` : "") +
       (old.length ? `<h3 class="sq-h">Former players</h3><ul class="cards small">${old.map(card).join("")}</ul>` : "");
+
+    // Player detail
+    const dlg = $("pdlg");
+    const openPlayer = (name) => {
+      const p = byName.get(name) || { name, current: false };
+      const g = games.get(name) || 0, log = goalLog.get(name) || [], c = career.get(name) || 0;
+      const seasons = [...(bySeason.get(name) || new Map())];
+      const stat = (v, l) => `<div class="p-stat"><b>${v}</b><span>${l}</span></div>`;
+      $("pdlg-body").innerHTML =
+        `<div class="p-hero">${p.image ? `<img src="assets/players/${esc(p.image)}.webp" alt="" width="427" height="440">` : `<span class="c-name">${esc(name)}</span>`}` +
+        `<div><h2 id="pdlg-name">${esc(name)}</h2><p class="p-status">${p.current ? "Current squad" : "Former player"}</p>` +
+        (p.current ? `<h3>This season</h3><div class="p-stats">${stat(g, g === 1 ? "game" : "games")}${stat(log.length, log.length === 1 ? "goal" : "goals")}${stat(g ? (log.length / g).toFixed(1) : "0.0", "per game")}</div>` : "") +
+        `<h3>All-time</h3><div class="p-stats">${stat(c, "games")}${stat(seasons.length, seasons.length === 1 ? "season" : "seasons")}</div></div></div>` +
+        (log.length ? `<h3>Goals this season</h3><ul class="p-goals">${log.map((x) => `<li>${BALL}<span class="p-min">${x.min != null ? x.min + "'" : ""}</span><span>vs ${esc(x.opp)}</span><span class="p-date">${fmtDate(x.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}</span></li>`).join("")}</ul>` : "") +
+        (seasons.length ? `<h3>Seasons</h3><ul class="p-seasons">${seasons.map(([s, n]) => `<li><span>${esc(s)}</span><b>${n}</b></li>`).join("")}</ul>` : "");
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+    };
+    document.querySelector('[data-panel="squad"]').addEventListener("click", (e) => {
+      const b = e.target.closest("[data-player]");
+      if (b) openPlayer(b.dataset.player);
+    });
+    dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
   }
 
   // ---- Tabs ----

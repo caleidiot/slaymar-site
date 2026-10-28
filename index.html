@@ -153,10 +153,17 @@
       <section class="block" aria-labelledby="squad-h">
       <div class="head">
         <h2 id="squad-h">Squad</h2>
-        <p class="sub">Games played this season, from GameDay</p>
+        <p class="sub" id="squad-sub"></p>
       </div>
+      <div class="boards" id="boards"></div>
+      <h3 class="sq-h">Players</h3>
+      <p class="sq-hint">Tap a player for their stats.</p>
       <div id="squad"></div>
     </section>
+    <dialog class="pdlg" id="pdlg" aria-labelledby="pdlg-name">
+      <form method="dialog"><button class="pdlg-x" aria-label="Close">×</button></form>
+      <div id="pdlg-body"></div>
+    </dialog>
     </div>
   </main>
 
