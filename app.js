@@ -65,6 +65,31 @@
       (last.video ? `. <a href="https://www.youtube.com/watch?v=${esc(last.video.id)}">Watch it</a>` : "");
   }
 
+  // ---- Head to head ----
+  const opps = data.opponents || [];
+  if (opps.length) {
+    const nextKey = next && next.opponent ? next.opponent.toLowerCase().trim() : null;
+    const vs = nextKey && opps.find((o) => o.team.toLowerCase().trim() === nextKey);
+    const winPct = (o) => Math.round((o.w / o.p) * 100);
+    if (vs) {
+      $("h2h-sub").textContent = `vs ${vs.team}, all time`;
+      $("h2h-rec").innerHTML =
+        `<span><b>${vs.p}</b> played</span><span class="w"><b>${vs.w}</b> won</span><span><b>${vs.d}</b> drawn</span><span class="l"><b>${vs.l}</b> lost</span><span><b>${vs.f}–${vs.a}</b> goals</span>`;
+      $("h2h-games").innerHTML = vs.games.slice(0, 5).map((g) => {
+        const o = outcome(g);
+        return `<li class="${o}" title="${esc(g.season || "")}"><span class="s">${g.us}–${g.them}</span><span class="d">${fmtDate(g.date + "T12:00:00+10:30", { month: "short", year: "2-digit" })}</span></li>`;
+      }).join("");
+    } else if (next && next.opponent && next.opponent !== "Bye") {
+      $("h2h-sub").textContent = `vs ${next.opponent}`;
+      $("h2h-rec").textContent = "First meeting.";
+    } else {
+      $("h2h-sub").textContent = "All opponents";
+    }
+    $("h2h-table").innerHTML = opps.map((o) =>
+      `<tr class="${vs && o === vs ? "us" : ""}"><td>${esc(o.team)}</td><td class="num">${o.p}</td><td class="num">${o.w}</td><td class="num">${o.d}</td><td class="num">${o.l}</td><td class="num">${o.f}</td><td class="num">${o.a}</td></tr>`).join("");
+    $("h2h-block").hidden = false;
+  }
+
   // ---- Ladder ----
   $("comp-name").innerHTML = `<a href="${esc(data.comp.url)}">${esc(data.comp.name)}</a>`;
   $("ladder-body").innerHTML = (data.ladder || [])

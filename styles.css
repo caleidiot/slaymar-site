@@ -103,6 +103,24 @@ main { padding-top: 8px; }
 .head h2 { margin: 0; font: 800 2.2rem/1 var(--display); text-transform: uppercase; }
 .sub { margin: 0; color: var(--muted); font-size: .95rem; }
 
+/* ---------- Head to head ---------- */
+.h2h-rec { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0 0 14px; }
+.h2h-rec b { font: 800 1.6rem/1 var(--display); margin-right: 4px; font-variant-numeric: tabular-nums; }
+.h2h-rec .w b { color: var(--win); }
+.h2h-rec .l b { color: var(--loss); }
+.h2h-games { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; flex-wrap: wrap; }
+.h2h-games li {
+  display: grid; justify-items: center; min-width: 3.6rem; padding: 6px 8px; color: #fff;
+}
+.h2h-games li.W { background: var(--win); }
+.h2h-games li.L { background: var(--loss); }
+.h2h-games li.D { background: var(--draw); }
+.h2h-games .s { font: 800 1.15rem/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.h2h-games .d { font-size: .75rem; opacity: .9; }
+.h2h-all { margin-top: 14px; }
+.h2h-all summary { cursor: pointer; font-weight: 700; padding: 6px 0; }
+.h2h-all .ladder td:first-child { white-space: normal; }
+
 /* ---------- Ladder ---------- */
 .table-scroll { overflow-x: auto; }
 .ladder { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }

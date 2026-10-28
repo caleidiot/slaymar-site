@@ -244,6 +244,28 @@ try {
   console.warn("YouTube feed unavailable, keeping previous videos:", e.message);
 }
 
+// Head-to-head across every archived comp (current season included, since it's archived each run).
+const h2h = new Map();
+const norm = (n) => n.toLowerCase().replace(/\s+/g, " ").trim();
+const archiveFiles = (await readJSON(path.join(ARCHIVE_DIR, "index.json"), [])).map((c) => c.id);
+const seen = new Set();
+for (const id of archiveFiles) {
+  const a = await readJSON(path.join(ARCHIVE_DIR, `${id}.json`), null);
+  if (!a) continue;
+  for (const g of played(a.fixtures)) {
+    if (!g.opponent) continue;
+    const key = norm(g.opponent);
+    if (seen.has(g.date + key)) continue;
+    seen.add(g.date + key);
+    if (!h2h.has(key)) h2h.set(key, { team: g.opponent.trim(), p: 0, w: 0, d: 0, l: 0, f: 0, a: 0, games: [] });
+    const o = h2h.get(key);
+    o.p++; o[g.us > g.them ? "w" : g.us < g.them ? "l" : "d"]++; o.f += g.us; o.a += g.them;
+    o.games.push({ date: g.date, us: g.us, them: g.them, season: a.season?.name || null });
+  }
+}
+for (const o of h2h.values()) o.games.sort((x, y) => y.date.localeCompare(x.date));
+const opponents = [...h2h.values()].sort((x, y) => y.p - x.p || x.team.localeCompare(y.team));
+
 const out = {
   updated: new Date().toISOString(),
   team: { name: CONFIG.teamName, id: (cur.ours.href.match(/id=(\d+)/) || [])[1] || null },
@@ -259,6 +281,7 @@ const out = {
     .map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue })),
   ladder: cur.ladder.map(({ href, ...r }) => r),
   squad: cur.team.squad,
+  opponents,
   channel: { id: CONFIG.youtubeChannelId, url: CONFIG.youtubeUrl },
   videos,
 };
