@@ -1,0 +1,28 @@
+{
+  "name": "Slaymar FC",
+  "short_name": "Slaymar",
+  "description": "Fixtures, ladder, results and match videos. Thursday futsal at Unley.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1d4ea0",
+  "theme_color": "#1d4ea0",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -69,7 +69,9 @@
       `</div>`;
   };
   const outcome = (r) => (r.us > r.them ? "W" : r.us < r.them ? "L" : "D");
-  const fmtDate = (d, opts) => new Date(d).toLocaleDateString("en-AU", { timeZone: TZ, ...opts });
+  const fmtDate = (d, opts) => new Date(d).toLocaleDateString("en-AU", { timeZone: TZ, ...opts }).replace(/\bJune\b/, "Jun").replace(/\bJuly\b/, "Jul").replace(/\bSept\b/, "Sep");
+  const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const shortDate = (iso, withYear) => { const [y, m, d] = iso.slice(0, 10).split("-").map(Number); return `${d} ${MON[m - 1]}${withYear ? " " + String(y).slice(2) : ""}`; };
 
   // Videos matched to a result: by the dd/mm/yy date in the title, else first upload within 10 days.
   const videos = (data.videos || []).slice().sort((a, b) => new Date(a.published) - new Date(b.published));
@@ -95,33 +97,52 @@
   const results = (data.results || []).slice().sort((a, b) => b.date.localeCompare(a.date));
   results.slice().reverse().forEach((r) => (r.video = videoFor(r.date)));
 
-  // ---- Next game ----
-  const next = data.next;
-  if (next && new Date(next.datetime) > Date.now() - 2 * 3600e3) {
+  // ---- Next game (worked out in the browser so match-night states are live) ----
+  const now = Date.now();
+  const GAME_MS = 50 * 60e3; // 40 min + half-time and changeovers
+  const fixtures = (data.fixtures || []).filter((f) => f.datetime);
+  const unplayed = fixtures.filter((f) => f.us == null && !f.bye);
+  // The next game is the first unplayed fixture that hasn't finished yet.
+  const next = unplayed.find((f) => new Date(f.datetime).getTime() + GAME_MS > now) || null;
+  // A game that has finished but has no score on GameDay yet.
+  const pending = unplayed.filter((f) => new Date(f.datetime).getTime() + GAME_MS <= now).pop() || null;
+  const timeStr = (iso) => new Date(iso).toLocaleTimeString("en-AU", { timeZone: TZ, hour: "numeric", minute: "2-digit" });
+  const dayKey = (t) => new Date(t).toLocaleDateString("en-CA", { timeZone: TZ });
+  const nextLabel = document.getElementById("next-h");
+  if (next) {
+    const ko = new Date(next.datetime).getTime();
+    const isToday = dayKey(ko) === dayKey(now);
     $("next-opp").textContent = next.opponent;
-    if (next.opponent === "Bye") document.querySelector(".opp").classList.add("bye");
-    $("next-when").textContent =
-      fmtDate(next.datetime, { weekday: "long", day: "numeric", month: "short" }) + ", " +
-      new Date(next.datetime).toLocaleTimeString("en-AU", { timeZone: TZ, hour: "numeric", minute: "2-digit" }) +
-      (next.venue ? ", " + next.venue : "") +
-      (next.round ? ". Round " + next.round : "");
+    $("next-when").textContent = (isToday ? "Tonight" : fmtDate(next.datetime, { weekday: "long", day: "numeric", month: "short" })) + ", " +
+      timeStr(next.datetime) + (next.venue ? ", " + next.venue : "") + (next.round ? ". Round " + next.round : "");
+    if (isToday) nextLabel.textContent = "Match day";
     const tick = () => {
-      const ms = new Date(next.datetime) - Date.now();
-      if (ms <= 0) return ($("next-count").textContent = ms > -50 * 60e3 ? "On now" : "");
+      const ms = ko - Date.now();
+      if (ms <= 0) { $("next-count").textContent = ms > -GAME_MS ? "On now" : ""; nextLabel.textContent = ms > -GAME_MS ? "Live" : nextLabel.textContent; return; }
       const d = Math.floor(ms / 864e5), h = Math.floor((ms % 864e5) / 3600e3), m = Math.floor((ms % 3600e3) / 60e3);
-      $("next-count").textContent = d > 0 ? `${d}d ${h}h to kick-off` : `${h}h ${m}m to kick-off`;
+      $("next-count").textContent = d > 0 ? `${d}d ${h}h to kick-off` : h > 0 ? `${h}h ${m}m to kick-off` : `${m}m to kick-off`;
     };
     tick();
     setInterval(tick, 30e3);
+    // Calendar: subscribe to the season's fixtures (auto-updates) via webcal, or Google.
+    const feed = `${location.host}${location.pathname.replace(/[^/]*$/, "")}data/fixtures.ics`;
+    $("next-count").insertAdjacentHTML("afterend",
+      `<p class="cal"><a href="webcal://${feed}">Add fixtures to calendar</a>` +
+      `<a href="https://calendar.google.com/calendar/r?cid=${encodeURIComponent("webcal://" + feed)}" target="_blank" rel="noopener">Google Calendar</a></p>`);
   } else {
     $("next-opp").textContent = "TBC";
     document.querySelector(".opp").classList.add("tbc");
     $("next-when").textContent = "Next fixture not published yet.";
   }
 
-  // ---- Last result ----
+  // ---- Last result (or result pending) + form guide ----
   const last = results[0];
-  if (last) {
+  if (pending && (!last || pending.date > last.date)) {
+    document.getElementById("last-h").textContent = "Last game";
+    $("last-score").textContent = "Pending";
+    $("last-score").classList.add("pending");
+    $("last-opp").innerHTML = `vs ${esc(pending.opponent)}. Score shows once GameDay posts it.`;
+  } else if (last) {
     const o = outcome(last);
     $("last-score").textContent = `${last.us}–${last.them}`;
     $("last-opp").innerHTML =
@@ -130,6 +151,11 @@
     if (last.goals?.scorers?.length) {
       $("last-opp").insertAdjacentHTML("afterend", `<p class="last-scorers">${BALL}<span>${groupScorers(last.goals.scorers).map((s) => esc(s.name) + (s.mins.length > 1 ? " ×" + s.mins.length : "")).join(", ")}</span></p>`);
     }
+  }
+  if (results.length) {
+    const form = results.slice(0, 5).reverse();
+    document.querySelector(".board .last").insertAdjacentHTML("beforeend",
+      `<div class="form" aria-label="Form, last ${form.length} games, oldest first"><span class="form-l">Form</span>${form.map((r) => { const o = outcome(r); return `<span class="fdot ${o}" title="${o === "W" ? "Won" : o === "L" ? "Lost" : "Drew"} ${r.us}–${r.them} vs ${esc(r.opponent)}">${o}</span>`; }).join("")}</div>`);
   }
 
   // ---- Head to head ----
@@ -183,9 +209,10 @@
     const o = outcome(r);
     return `<li class="r-item"><details><summary>` +
       `<span class="badge ${o}" aria-label="${{ W: "Win", L: "Loss", D: "Draw" }[o]}">${o}</span>` +
-      `<span class="r-date">${fmtDate(r.date + "T12:00:00+10:30", { day: "numeric", month: "short" })}${r.stage === "Grading" ? ", Grading" : r.round ? ", Rd " + esc(r.round) : ""}</span>` +
-      `<span class="r-opp">vs ${esc(r.opponent)}</span>` +
+      `<span class="r-main"><span class="r-opp">vs ${esc(r.opponent)}</span>` +
+      `<span class="r-date">${shortDate(r.date)}${r.stage === "Grading" ? ", Grading" : r.round ? ", Rd " + esc(r.round) : ""}</span></span>` +
       `<span class="r-score">${r.us}–${r.them}</span>` +
+      `<span class="chev" aria-hidden="true"></span>` +
       `</summary>${matchCard(r)}</details></li>`;
   };
   $("results").innerHTML = results.length ? results.map(resultRow).join("") : `<li class="empty">No results yet this season.</li>`;
@@ -196,23 +223,46 @@
   results.forEach((r) => (r.goals?.scorers || []).forEach((g) => { if (!g.player || /^other$/i.test(g.player)) return; const n = kit(g.player); seasonGoals.set(n, (seasonGoals.get(n) || 0) + 1); }));
   const top = [...seasonGoals].sort((a, b) => b[1] - a[1]);
   if (top.length) {
-    document.querySelector('[data-panel="results"] .head').insertAdjacentHTML("afterend",
+    document.getElementById("results-h").parentElement.insertAdjacentHTML("afterend",
       `<p class="scorers-line">${BALL}<span>${top.map(([n, c]) => `${esc(n)} <b>${c}</b>`).join(", ")}</span></p>`);
   }
 
-  // ---- Video ----
+  // ---- Video: high-res poster that turns into the player on tap ----
   const latest = (data.videos || [])[0];
   if (data.channel && data.channel.url) $("channel-link").href = data.channel.url;
+  const poster = (id, size) => `https://i.ytimg.com/vi/${esc(id)}/${size}.jpg`;
+  const vlabel = (v) => { const d = titleDate(v.title); return d ? shortDate(d, true) : fmtDate(v.published, { day: "numeric", month: "short", year: "2-digit" }); };
   if (latest) {
     $("video").innerHTML =
-      `<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${esc(latest.id)}" title="${esc(latest.title)}" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>` +
+      `<button type="button" class="video-frame vf" data-id="${esc(latest.id)}" aria-label="Play ${esc(latest.title)}">` +
+      `<img src="${poster(latest.id, "maxresdefault")}" data-fallback="${poster(latest.id, "sddefault")}|${poster(latest.id, "hqdefault")}" alt="">` +
+      `<span class="vf-play" aria-hidden="true"></span></button>` +
       `<p class="video-title">${esc(latest.title)}</p>`;
-    $("more-videos").innerHTML = data.videos
-      .slice(1, 5)
-      .map((v) => `<li><a href="https://www.youtube.com/watch?v=${esc(v.id)}"><img src="https://i.ytimg.com/vi/${esc(v.id)}/mqdefault.jpg" alt="" loading="lazy"><span>${esc(v.title)}</span></a></li>`)
-      .join("");
+    $("more-videos").innerHTML = data.videos.slice(1, 5).map((v) =>
+      `<li><a href="https://www.youtube.com/watch?v=${esc(v.id)}"><img src="${poster(v.id, "hqdefault")}" alt="" loading="lazy" width="480" height="360"><span class="mv-t">${esc(v.title)}<small>${vlabel(v)}</small></span></a></li>`).join("");
+    const img = document.querySelector(".vf img");
+    // maxresdefault doesn't exist for every upload; YouTube then serves a tiny placeholder (or a 404).
+    const nextFallback = () => { const f = (img.dataset.fallback || "").split("|").filter(Boolean); if (!f.length) return; img.src = f.shift(); img.dataset.fallback = f.join("|"); };
+    img.addEventListener("error", nextFallback);
+    img.addEventListener("load", () => { if (img.naturalWidth <= 120) nextFallback(); });
+    document.querySelector(".vf").addEventListener("click", (e) => {
+      const btn = e.currentTarget;
+      btn.outerHTML = `<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${esc(btn.dataset.id)}?autoplay=1&rel=0" title="${esc(latest.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`;
+    });
   } else {
     $("video").innerHTML = `<p class="empty">No uploads yet. New match videos on the <a href="${esc(data.channel.url)}">Slaymar FC channel</a> show up here automatically.</p>`;
+  }
+
+  // ---- Fixtures: everything still to play this season ----
+  {
+    const upcoming = fixtures.filter((f) => f.us == null && new Date(f.datetime).getTime() + GAME_MS > now);
+    $("fixtures").innerHTML = upcoming.length
+      ? upcoming.map((f) => f.bye
+          ? `<li class="fx bye"><span class="fx-date">${shortDate(f.date)}</span><span class="fx-main">Bye</span><span></span></li>`
+          : `<li class="fx${next && f === next ? " is-next" : ""}"><span class="fx-date">${fmtDate(f.datetime, { weekday: "short" })} ${shortDate(f.date)}<small>${timeStr(f.datetime)}</small></span>` +
+            `<span class="fx-main">vs ${esc(f.opponent)}<small>${[f.round ? "Rd " + esc(f.round) : "", f.venue ? esc(f.venue) : ""].filter(Boolean).join(", ")}</small></span>` +
+            `<span class="fx-tag">${next && f === next ? "Next" : ""}</span></li>`).join("")
+      : `<li class="empty">No more fixtures published yet. GameDay usually posts the next round a few days ahead.</li>`;
   }
 
   // ---- Squad: leaderboards, player cards, player detail ----
@@ -374,7 +424,7 @@
   show();
 
   // ---- Footer ----
-  $("updated").textContent = "Checked " + new Date(data.updated).toLocaleString("en-AU", { timeZone: TZ, weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
+  $("updated").textContent = "Updated " + new Date(data.updated).toLocaleString("en-AU", { timeZone: TZ, weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
   $("source-link").href = data.comp.url;
 
   // ---- History: one entry per season; grading comps fold into their season ----

@@ -357,5 +357,25 @@ const out = {
   videos,
 };
 if (!out.ladder.length) throw new Error("Ladder parsed empty; refusing to overwrite data");
+
+// Calendar feed: every fixture this season, so people can subscribe once and stay updated.
+{
+  const z = (t) => new Date(t).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  const esc = (t) => String(t).replace(/[,;\\]/g, (m) => "\\" + m);
+  const where = (v) => esc((v ? v + ", " : "") + (/immanuel/i.test(v || "") ? "Immanuel College, Novar Gardens SA" : "Unley High School, Kitchener St, Netherby SA"));
+  const events = cur.games.filter((g) => !g.bye && g.opponent).map((g) => {
+    const start = new Date(g.datetime).getTime();
+    const score = g.us != null && g.them != null ? ` (${g.us}-${g.them})` : "";
+    return ["BEGIN:VEVENT", `UID:${z(start)}-${(g.opponent || "").replace(/[^A-Za-z0-9]/g, "")}@slaymar.com`, `DTSTAMP:${z(Date.now())}`,
+      `DTSTART:${z(start)}`, `DTEND:${z(start + 40 * 60e3)}`, `SUMMARY:${esc("Slaymar FC vs " + g.opponent + score)}`,
+      `LOCATION:${where(g.venue)}`, "DESCRIPTION:https://slaymar.com",
+      ...(g.us == null ? ["BEGIN:VALARM", "TRIGGER:-PT2H", "ACTION:DISPLAY", `DESCRIPTION:${esc("Slaymar FC vs " + g.opponent)}`, "END:VALARM"] : []),
+      "END:VEVENT"].join("\r\n");
+  });
+  const cal = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//slaymar.com//fixtures//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+    "X-WR-CALNAME:Slaymar FC", "X-WR-TIMEZONE:Australia/Adelaide", "REFRESH-INTERVAL;VALUE=DURATION:PT6H", "X-PUBLISHED-TTL:PT6H",
+    ...events, "END:VCALENDAR"].join("\r\n") + "\r\n";
+  await writeFile(path.join(DATA_DIR, "fixtures.ics"), cal);
+}
 await writeFile(OUT, JSON.stringify(out, null, 2) + "\n");
 console.log(`wrote ${OUT}: ${out.results.length} results, next ${out.next ? out.next.opponent + " " + out.next.datetime : "none"}, ${videos.length} videos`);
