@@ -28,6 +28,8 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Scrape GameDay and YouTube
+        env:
+          MVP_SUMMARY_URL: ${{ secrets.MVP_SUMMARY_URL }}
         run: npm run scrape -- ${{ contains(github.event.head_commit.message, '[backfill]') && '--backfill' || '' }}
       - name: Commit data if changed
         run: |

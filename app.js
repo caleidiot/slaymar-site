@@ -35,6 +35,14 @@
     return h ? { ...g, goals: { scorers: h.scorers || [], conceded: [], historic: true, note: h.note }, mvp: h.mvp || g.mvp } : g;
   };
   const isOG = (n) => /own\s*goal/i.test(n || "");
+  // Season MVP vote (secret until revealed): we only know which game weeks have a ballot in.
+  const mvp = data.mvp || null;
+  const seasonStartDate = ((data.results || [])[0] || {}).date || "9999";
+  const mvpFor = (r) => {
+    if (!mvp || !r.date || r.date < seasonStartDate) return null;
+    if (mvp.revealed && mvp.games && mvp.games[r.date]) return { state: "revealed", name: mvp.games[r.date] };
+    return { state: (mvp.ballots || []).includes(r.date) ? "sealed" : "open" };
+  };
   const BALL = `<img class="ball" src="assets/ball.png" alt="" width="64" height="64">`;
   // Group goals by player: [{name, mins:[..]}], in order of first goal.
   const groupScorers = (list) => {
@@ -63,7 +71,15 @@
         `<span class="mc-ball">${BALL}</span>` +
         `<ul class="mc-them">${theirs.map((x) => `<li><span class="mc-m">${x.min != null ? x.min + "'" : ""}</span></li>`).join("")}${missThem > 0 ? `<li class="mc-miss">${missThem} not logged</li>` : ""}</ul>` +
       `</div>` : "") +
-      (r.mvp ? `<p class="mc-mvp">MVP <b>${esc(kit(r.mvp))}</b></p>` : "") +
+      (() => {
+        if (r.mvp) return `<p class="mc-mvp">MVP <b>${esc(kit(r.mvp))}</b></p>`;
+        const m = mvpFor(r);
+        if (!m) return "";
+        if (m.state === "revealed") return `<p class="mc-mvp"><img src="assets/trophy.png" alt="" width="64" height="64">MVP <b>${esc(kit(m.name))}</b></p>`;
+        return m.state === "sealed"
+          ? `<p class="mc-mvp sealed"><img src="assets/trophy.png" alt="" width="64" height="64">MVP vote in, sealed until season end</p>`
+          : `<p class="mc-mvp sealed"><img src="assets/trophy.png" alt="" width="64" height="64">MVP vote still open</p>`;
+      })() +
       `<p class="mc-meta">${[r.stage === "Grading" ? "Grading" : r.round ? "Round " + esc(r.round) : "", fmtDate(r.date + "T12:00:00+10:30", { weekday: "short", day: "numeric", month: "short" }), r.venue ? esc(r.venue) : ""].filter(Boolean).join(" &nbsp;/&nbsp; ")}</p>` +
       (r.video ? `<a class="mc-watch" href="https://www.youtube.com/watch?v=${esc(r.video.id)}">Watch the match</a>` : "") +
       `</div>`;
@@ -334,8 +350,21 @@
     const goalsRows = [...goalLog].map(([n, l]) => [n, l.length]);
     const seasonGamesTxt = (n) => { const g = games.get(n) || 0; return `${g} ${g === 1 ? "game" : "games"}`; };
     const seasonGoalsTxt = (n) => { const g = (goalLog.get(n) || []).length; return g ? `${g} ${g === 1 ? "goal" : "goals"}` : "No goals yet"; };
+    // Season MVP card: sealed tracker until the reveal, then the standings
+    function mvpCard() {
+      if (!mvp) return "";
+      if (mvp.revealed && (mvp.standings || []).length) {
+        return board("Season MVP", mvp.standings.map((x) => [kit(x.player), x.points]), () => "MVP points", "");
+      }
+      const played = results.slice().reverse();
+      const inCount = played.filter((r) => (mvp.ballots || []).includes(r.date)).length;
+      return `<div class="lb mvp-card"><h3>Season MVP</h3>` +
+        `<div class="mvp-seal"><img src="assets/trophy.png" alt="" width="64" height="64"><div><b>Sealed</b><span>3-2-1 votes from a random teammate after every game. Revealed after the last game of the season.</span></div></div>` +
+        `<p class="mvp-count">${inCount} of ${played.length} ${played.length === 1 ? "ballot" : "ballots"} in</p>` +
+        `<ol class="mvp-weeks">${played.map((r) => { const ok = (mvp.ballots || []).includes(r.date); return `<li class="${ok ? "in" : "open"}" title="vs ${esc(r.opponent)}, ${shortDate(r.date)}: ${ok ? "ballot in" : "ballot still open"}"><img src="assets/trophy.png" alt=""><span>${shortDate(r.date)}</span></li>`; }).join("")}</ol></div>`;
+    }
     // Squad tab: this season only
-    $("boards").innerHTML = board("Top scorers", goalsRows, seasonGamesTxt, "No goals logged yet this season.");
+    $("boards").innerHTML = board("Top scorers", goalsRows, seasonGamesTxt, "No goals logged yet this season.") + mvpCard();
     $("squad-sub").textContent = data.season || "";
     // History tab: all-time, current and former
     const status = (n) => (byName.get(n)?.current ? "Current squad" : "Former");

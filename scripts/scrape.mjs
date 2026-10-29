@@ -333,6 +333,18 @@ for (const id of archiveFiles) {
 for (const o of h2h.values()) o.games.sort((x, y) => y.date.localeCompare(x.date));
 const opponents = [...h2h.values()].sort((x, y) => y.p - x.p || x.team.localeCompare(y.team));
 
+// MVP votes: only the dates that have a ballot come through while voting is secret.
+let mvp = previous.mvp || null;
+if (process.env.MVP_SUMMARY_URL && !FIXTURES) {
+  try {
+    const u = new URL(process.env.MVP_SUMMARY_URL); u.searchParams.set("summary", "1");
+    const j = JSON.parse(await get(u.href));
+    if (!Array.isArray(j.ballots)) throw new Error("unexpected response");
+    mvp = { ballots: j.ballots.map(String).sort(), revealed: !!j.revealed };
+    if (j.revealed) { mvp.standings = j.standings || []; mvp.games = j.games || {}; }
+  } catch (e) { console.warn("MVP summary unavailable, keeping previous:", e.message); }
+}
+
 const out = {
   updated: new Date().toISOString(),
   team: { name: CONFIG.teamName, id: (cur.ours.href.match(/id=(\d+)/) || [])[1] || null },
@@ -353,6 +365,7 @@ const out = {
   ladder: cur.ladder.map(({ href, ...r }) => r),
   squad: cur.team.squad,
   opponents,
+  mvp,
   channel: { id: CONFIG.youtubeChannelId, url: CONFIG.youtubeUrl },
   videos,
 };
