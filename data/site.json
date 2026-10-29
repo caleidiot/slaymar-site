@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T01:00:13.741Z",
+  "updated": "2026-10-29T10:01:32.087Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -464,6 +464,19 @@
     },
     {
       "pos": 2,
+      "team": "Brazukas",
+      "p": 4,
+      "w": 2,
+      "b": 1,
+      "d": 1,
+      "l": 0,
+      "f": 31,
+      "a": 14,
+      "gd": 17,
+      "pts": 10
+    },
+    {
+      "pos": 3,
       "team": "Slaymar FC",
       "p": 4,
       "w": 3,
@@ -476,7 +489,7 @@
       "pts": 10
     },
     {
-      "pos": 3,
+      "pos": 4,
       "team": "McHeaver",
       "p": 4,
       "w": 3,
@@ -489,7 +502,20 @@
       "pts": 10
     },
     {
-      "pos": 4,
+      "pos": 5,
+      "team": "The Phil Ins",
+      "p": 5,
+      "w": 2,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 27,
+      "a": 21,
+      "gd": 6,
+      "pts": 8
+    },
+    {
+      "pos": 6,
       "team": "No Chance FC",
       "p": 4,
       "w": 2,
@@ -502,7 +528,7 @@
       "pts": 8
     },
     {
-      "pos": 5,
+      "pos": 7,
       "team": "Silver Foxes",
       "p": 3,
       "w": 2,
@@ -515,20 +541,7 @@
       "pts": 8
     },
     {
-      "pos": 6,
-      "team": "The Phil Ins",
-      "p": 4,
-      "w": 2,
-      "b": 0,
-      "d": 0,
-      "l": 2,
-      "f": 22,
-      "a": 21,
-      "gd": 1,
-      "pts": 8
-    },
-    {
-      "pos": 7,
+      "pos": 8,
       "team": "America",
       "p": 4,
       "w": 1,
@@ -541,20 +554,20 @@
       "pts": 8
     },
     {
-      "pos": 8,
-      "team": "Brazukas",
-      "p": 3,
+      "pos": 9,
+      "team": "Extremely Average Futsal Club",
+      "p": 5,
       "w": 1,
       "b": 1,
-      "d": 1,
-      "l": 0,
-      "f": 13,
-      "a": 10,
-      "gd": 3,
-      "pts": 7
+      "d": 0,
+      "l": 3,
+      "f": 18,
+      "a": 27,
+      "gd": -9,
+      "pts": 8
     },
     {
-      "pos": 9,
+      "pos": 10,
       "team": "Comparative Advantage",
       "p": 3,
       "w": 0,
@@ -564,19 +577,6 @@
       "f": 10,
       "a": 12,
       "gd": -2,
-      "pts": 5
-    },
-    {
-      "pos": 10,
-      "team": "Extremely Average Futsal Club",
-      "p": 4,
-      "w": 0,
-      "b": 1,
-      "d": 0,
-      "l": 3,
-      "f": 13,
-      "a": 22,
-      "gd": -9,
       "pts": 5
     },
     {
@@ -595,15 +595,15 @@
     {
       "pos": 12,
       "team": "Rolling Stone Futsal Club",
-      "p": 4,
+      "p": 5,
       "w": 0,
       "b": 0,
       "d": 0,
-      "l": 4,
-      "f": 18,
-      "a": 35,
-      "gd": -17,
-      "pts": 4
+      "l": 5,
+      "f": 22,
+      "a": 53,
+      "gd": -31,
+      "pts": 5
     }
   ],
   "squad": [
