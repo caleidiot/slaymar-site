@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T12:32:06.385Z",
+  "updated": "2026-10-29T18:29:52.841Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -11,12 +11,7 @@
     "name": "Unley/Immanuel - Thursday Senior Open Futsal Grading 2",
     "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-664405-0&pool=1&a=LADDER"
   },
-  "next": {
-    "datetime": "2026-10-29T20:30:00+10:30",
-    "opponent": "America",
-    "venue": "Unley Court 3",
-    "round": 5
-  },
+  "next": null,
   "fixtures": [
     {
       "round": 1,
@@ -238,8 +233,8 @@
       "venue": "Unley Court 3",
       "opponent": "America",
       "bye": false,
-      "us": null,
-      "them": null
+      "us": 4,
+      "them": 6
     }
   ],
   "results": [
@@ -446,24 +441,60 @@
         "scorers": [],
         "conceded": []
       }
+    },
+    {
+      "date": "2026-10-29",
+      "round": 5,
+      "stage": "Regular Season",
+      "opponent": "America",
+      "us": 4,
+      "them": 6,
+      "venue": "Unley Court 3",
+      "goals": null
     }
   ],
   "ladder": [
     {
       "pos": 1,
       "team": "RKO Reborn",
-      "p": 4,
-      "w": 4,
+      "p": 5,
+      "w": 5,
       "b": 0,
       "d": 0,
       "l": 0,
-      "f": 34,
-      "a": 18,
-      "gd": 16,
-      "pts": 12
+      "f": 43,
+      "a": 22,
+      "gd": 21,
+      "pts": 15
     },
     {
       "pos": 2,
+      "team": "Slaymar FC",
+      "p": 5,
+      "w": 3,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 35,
+      "a": 27,
+      "gd": 8,
+      "pts": 11
+    },
+    {
+      "pos": 3,
+      "team": "America",
+      "p": 5,
+      "w": 2,
+      "b": 0,
+      "d": 2,
+      "l": 1,
+      "f": 28,
+      "a": 28,
+      "gd": 0,
+      "pts": 11
+    },
+    {
+      "pos": 4,
       "team": "Brazukas",
       "p": 4,
       "w": 2,
@@ -476,20 +507,7 @@
       "pts": 10
     },
     {
-      "pos": 3,
-      "team": "Slaymar FC",
-      "p": 4,
-      "w": 3,
-      "b": 0,
-      "d": 0,
-      "l": 1,
-      "f": 31,
-      "a": 21,
-      "gd": 10,
-      "pts": 10
-    },
-    {
-      "pos": 4,
+      "pos": 5,
       "team": "McHeaver",
       "p": 4,
       "w": 3,
@@ -502,7 +520,33 @@
       "pts": 10
     },
     {
-      "pos": 5,
+      "pos": 6,
+      "team": "No Chance FC",
+      "p": 5,
+      "w": 2,
+      "b": 0,
+      "d": 0,
+      "l": 3,
+      "f": 26,
+      "a": 22,
+      "gd": 4,
+      "pts": 9
+    },
+    {
+      "pos": 7,
+      "team": "Silver Foxes",
+      "p": 4,
+      "w": 2,
+      "b": 1,
+      "d": 0,
+      "l": 1,
+      "f": 13,
+      "a": 15,
+      "gd": -2,
+      "pts": 9
+    },
+    {
+      "pos": 8,
       "team": "The Phil Ins",
       "p": 5,
       "w": 2,
@@ -515,46 +559,20 @@
       "pts": 8
     },
     {
-      "pos": 6,
-      "team": "No Chance FC",
-      "p": 4,
-      "w": 2,
-      "b": 0,
-      "d": 0,
-      "l": 2,
-      "f": 19,
-      "a": 14,
-      "gd": 5,
-      "pts": 8
-    },
-    {
-      "pos": 7,
-      "team": "Silver Foxes",
-      "p": 3,
-      "w": 2,
-      "b": 1,
-      "d": 0,
-      "l": 0,
-      "f": 9,
-      "a": 6,
-      "gd": 3,
-      "pts": 8
-    },
-    {
-      "pos": 8,
-      "team": "America",
+      "pos": 9,
+      "team": "Comparative Advantage",
       "p": 4,
       "w": 1,
-      "b": 0,
-      "d": 2,
+      "b": 1,
+      "d": 1,
       "l": 1,
-      "f": 22,
-      "a": 24,
-      "gd": -2,
+      "f": 18,
+      "a": 19,
+      "gd": -1,
       "pts": 8
     },
     {
-      "pos": 9,
+      "pos": 10,
       "team": "Extremely Average Futsal Club",
       "p": 5,
       "w": 1,
@@ -565,19 +583,6 @@
       "a": 27,
       "gd": -9,
       "pts": 8
-    },
-    {
-      "pos": 10,
-      "team": "Comparative Advantage",
-      "p": 3,
-      "w": 0,
-      "b": 1,
-      "d": 1,
-      "l": 1,
-      "f": 10,
-      "a": 12,
-      "gd": -2,
-      "pts": 5
     },
     {
       "pos": 11,
@@ -609,23 +614,23 @@
   "squad": [
     {
       "name": "C Abrahamson",
-      "games": 4,
-      "last": "2026-10-22"
+      "games": 5,
+      "last": "2026-10-29"
     },
     {
       "name": "C S Avdoulas",
-      "games": 4,
-      "last": "2026-10-22"
+      "games": 5,
+      "last": "2026-10-29"
     },
     {
       "name": "C Marinos",
-      "games": 3,
-      "last": "2026-10-15"
+      "games": 4,
+      "last": "2026-10-29"
     },
     {
       "name": "G Shakes",
-      "games": 4,
-      "last": "2026-10-22"
+      "games": 5,
+      "last": "2026-10-29"
     },
     {
       "name": "J Foster",
@@ -634,25 +639,31 @@
     },
     {
       "name": "J Smith",
-      "games": 2,
-      "last": "2026-10-22"
+      "games": 3,
+      "last": "2026-10-29"
     },
     {
       "name": "W Plagakis",
-      "games": 4,
-      "last": "2026-10-22"
+      "games": 5,
+      "last": "2026-10-29"
     }
   ],
   "opponents": [
     {
       "team": "America",
-      "p": 12,
+      "p": 13,
       "w": 6,
       "d": 1,
-      "l": 5,
-      "f": 62,
-      "a": 51,
+      "l": 6,
+      "f": 66,
+      "a": 57,
       "games": [
+        {
+          "date": "2026-10-29",
+          "us": 4,
+          "them": 6,
+          "season": "Summer 2026/27"
+        },
         {
           "date": "2024-08-01",
           "us": 0,
@@ -1859,6 +1870,11 @@
   },
   "videos": [
     {
+      "id": "WyAreairU0s",
+      "title": "Best goals of Winter 2024 #futsal",
+      "published": "2026-10-29T12:40:41+00:00"
+    },
+    {
       "id": "Aq8RIsQWtQc",
       "title": "SLAYMAR FC vs ROLLING STONE FC - Full Match - 15/10/26 (Grading 3)",
       "published": "2026-10-17T05:28:26+00:00"
@@ -1927,11 +1943,6 @@
       "id": "88JaD4X0nqU",
       "title": "SLAYMAR FC vs PUYOL PANTS DOWN - Full Match - 25/7/24",
       "published": "2024-08-13T11:28:52+00:00"
-    },
-    {
-      "id": "BV_eCJOOzdg",
-      "title": "SLAYMAR FC vs GOAL DIGGERS - Full Match - 18/7/24",
-      "published": "2024-08-01T11:09:07+00:00"
     }
   ]
 }
