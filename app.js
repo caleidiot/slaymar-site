@@ -73,12 +73,8 @@
       `</div>` : "") +
       (() => {
         if (r.mvp) return `<p class="mc-mvp">MVP <b>${esc(kit(r.mvp))}</b></p>`;
-        const m = mvpFor(r);
-        if (!m) return "";
-        if (m.state === "revealed") return `<p class="mc-mvp"><img src="assets/trophy.png" alt="" width="64" height="64">MVP <b>${esc(kit(m.name))}</b></p>`;
-        return m.state === "sealed"
-          ? `<p class="mc-mvp sealed"><img src="assets/trophy.png" alt="" width="64" height="64">MVP vote in, sealed until season end</p>`
-          : `<p class="mc-mvp sealed"><img src="assets/trophy.png" alt="" width="64" height="64">MVP vote still open</p>`;
+        const m = mvpFor(r); // only shows once the season's votes are revealed
+        return m && m.state === "revealed" ? `<p class="mc-mvp"><img src="assets/trophy.png" alt="" width="64" height="64">MVP <b>${esc(kit(m.name))}</b></p>` : "";
       })() +
       `<p class="mc-meta">${[r.stage === "Grading" ? "Grading" : r.round ? "Round " + esc(r.round) : "", fmtDate(r.date + "T12:00:00+10:30", { weekday: "short", day: "numeric", month: "short" }), r.venue ? esc(r.venue) : ""].filter(Boolean).join(" &nbsp;/&nbsp; ")}</p>` +
       (r.video ? `<a class="mc-watch" href="https://www.youtube.com/watch?v=${esc(r.video.id)}">Watch the match</a>` : "") +
@@ -356,12 +352,7 @@
       if (mvp.revealed && (mvp.standings || []).length) {
         return board("Season MVP", mvp.standings.map((x) => [kit(x.player), x.points]), () => "MVP points", "");
       }
-      const played = results.slice().reverse();
-      const inCount = played.filter((r) => (mvp.ballots || []).includes(r.date)).length;
-      return `<div class="lb mvp-card"><h3>Season MVP</h3>` +
-        `<div class="mvp-seal"><img src="assets/trophy.png" alt="" width="64" height="64"><div><b>Sealed</b><span>3-2-1 votes from a random teammate after every game. Revealed after the last game of the season.</span></div></div>` +
-        `<p class="mvp-count">${inCount} of ${played.length} ${played.length === 1 ? "ballot" : "ballots"} in</p>` +
-        `<ol class="mvp-weeks">${played.map((r) => { const ok = (mvp.ballots || []).includes(r.date); return `<li class="${ok ? "in" : "open"}" title="vs ${esc(r.opponent)}, ${shortDate(r.date)}: ${ok ? "ballot in" : "ballot still open"}"><img src="assets/trophy.png" alt=""><span>${shortDate(r.date)}</span></li>`; }).join("")}</ol></div>`;
+      return ""; // ballots are tracked in the background; nothing shows until the reveal
     }
     // Squad tab: this season only
     $("boards").innerHTML = board("Top scorers", goalsRows, seasonGamesTxt, "No goals logged yet this season.") + mvpCard();
