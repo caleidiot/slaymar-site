@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T10:04:49.805Z",
+  "updated": "2026-10-30T18:02:26.459Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -1870,6 +1870,11 @@
   },
   "videos": [
     {
+      "id": "nOUwDszeVCc",
+      "title": "SLAYMAR FC vs AMERICA - Full Match - 29/10/26 (Grading 5)",
+      "published": "2026-10-30T12:54:27+00:00"
+    },
+    {
       "id": "WyAreairU0s",
       "title": "Best goals of Winter 2024 #futsal",
       "published": "2026-10-29T12:40:41+00:00"
@@ -1938,11 +1943,6 @@
       "id": "4jnaKrTOKOI",
       "title": "SLAYMAR FC vs AMERICA - Full Match - 1/8/24",
       "published": "2024-08-17T14:40:20+00:00"
-    },
-    {
-      "id": "88JaD4X0nqU",
-      "title": "SLAYMAR FC vs PUYOL PANTS DOWN - Full Match - 25/7/24",
-      "published": "2024-08-13T11:28:52+00:00"
     }
   ]
 }
