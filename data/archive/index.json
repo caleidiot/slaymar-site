@@ -1,5 +1,22 @@
 [
   {
+    "id": "664406",
+    "name": "Unley/Immanuel - Thursday Senior Open Futsal A/B Grade",
+    "season": "Summer 2026/27",
+    "seasonId": "6046520",
+    "position": null,
+    "teams": 13,
+    "record": {
+      "w": 0,
+      "d": 0,
+      "l": 0,
+      "f": 0,
+      "a": 0
+    },
+    "start": "2026-11-05",
+    "end": "2026-11-05"
+  },
+  {
     "id": "664405",
     "name": "Unley/Immanuel - Thursday Senior Open Futsal Grading 2",
     "season": "Summer 2026/27",

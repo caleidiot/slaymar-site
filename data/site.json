@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T19:43:08.116Z",
+  "updated": "2026-11-01T22:39:00.752Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -7,241 +7,34 @@
   "season": "Summer 2026/27",
   "seasonId": "6046520",
   "comp": {
-    "id": "664405",
-    "name": "Unley/Immanuel - Thursday Senior Open Futsal C/D Grade",
-    "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-664405-0&pool=1&a=LADDER"
+    "id": "664406",
+    "name": "Unley/Immanuel - Thursday Senior Open Futsal A/B Grade",
+    "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-664406-0&pool=1&a=LADDER"
   },
-  "next": null,
+  "next": {
+    "datetime": "2026-11-05T19:40:00+10:30",
+    "opponent": "Unathletico Madrid",
+    "venue": "Unley Court 1",
+    "round": 1
+  },
   "fixtures": [
     {
       "round": 1,
       "stage": "Regular Season",
-      "date": "2026-10-01",
-      "datetime": "2026-10-01T19:40:00+09:30",
-      "venue": "Unley Court 3",
-      "opponent": "The Baldy Boys",
-      "bye": false,
-      "us": 9,
-      "them": 5,
-      "goals": {
-        "scorers": [
-          {
-            "player": "Cratim",
-            "min": 4
-          },
-          {
-            "player": "Foster",
-            "min": 14
-          },
-          {
-            "player": "Doug",
-            "min": 16
-          },
-          {
-            "player": "Dougie",
-            "min": 19
-          },
-          {
-            "player": "Crahtim",
-            "min": 21
-          },
-          {
-            "player": "Dougie",
-            "min": 28
-          },
-          {
-            "player": "Crahtim",
-            "min": 36
-          },
-          {
-            "player": "Dougie",
-            "min": 37
-          },
-          {
-            "player": "Will",
-            "min": 40
-          }
-        ],
-        "conceded": [
-          {
-            "min": 19
-          },
-          {
-            "min": 20
-          },
-          {
-            "min": 22
-          },
-          {
-            "min": 33
-          },
-          {
-            "min": 39
-          }
-        ]
-      }
-    },
-    {
-      "round": 2,
-      "stage": "Regular Season",
-      "date": "2026-10-08",
-      "datetime": "2026-10-08T21:20:00+10:30",
-      "venue": "Unley Court 2",
-      "opponent": "No Chance FC",
-      "bye": false,
-      "us": 4,
-      "them": 3,
-      "goals": {
-        "scorers": [
-          {
-            "player": "Foster",
-            "min": 20
-          },
-          {
-            "player": "Foster",
-            "min": 26
-          },
-          {
-            "player": "Dougie",
-            "min": 28
-          },
-          {
-            "player": "Foster",
-            "min": 30
-          }
-        ],
-        "conceded": [
-          {
-            "min": 10
-          },
-          {
-            "min": 11
-          },
-          {
-            "min": 17
-          }
-        ]
-      }
-    },
-    {
-      "round": 3,
-      "stage": "Regular Season",
-      "date": "2026-10-15",
-      "datetime": "2026-10-15T22:10:00+10:30",
+      "date": "2026-11-05",
+      "datetime": "2026-11-05T19:40:00+10:30",
       "venue": "Unley Court 1",
-      "opponent": "Rolling Stone Futsal Club",
+      "opponent": "Unathletico Madrid",
       "bye": false,
-      "us": 13,
-      "them": 6,
-      "goals": {
-        "scorers": [
-          {
-            "player": "Will",
-            "min": 5
-          },
-          {
-            "player": "Will",
-            "min": 6
-          },
-          {
-            "player": "Crahtim",
-            "min": 7
-          },
-          {
-            "player": "Dougie",
-            "min": 14
-          },
-          {
-            "player": "Dougie",
-            "min": 15
-          },
-          {
-            "player": "Will",
-            "min": 17
-          },
-          {
-            "player": "Crahtim",
-            "min": 18
-          },
-          {
-            "player": "Dougie",
-            "min": 21
-          },
-          {
-            "player": "Dougie",
-            "min": 31
-          },
-          {
-            "player": "Crahtim",
-            "min": 32
-          },
-          {
-            "player": "Dougie",
-            "min": 32
-          },
-          {
-            "player": "Dougie",
-            "min": 34
-          },
-          {
-            "player": "Dougie",
-            "min": 36
-          }
-        ],
-        "conceded": [
-          {
-            "min": 8
-          },
-          {
-            "min": 14
-          },
-          {
-            "min": 15
-          },
-          {
-            "min": 25
-          },
-          {
-            "min": 27
-          },
-          {
-            "min": 35
-          }
-        ]
-      }
-    },
-    {
-      "round": 4,
-      "stage": "Regular Season",
-      "date": "2026-10-22",
-      "datetime": "2026-10-22T18:50:00+10:30",
-      "venue": "Unley Court 2",
-      "opponent": "The Phil Ins",
-      "bye": false,
-      "us": 5,
-      "them": 7,
-      "goals": {
-        "scorers": [],
-        "conceded": []
-      }
-    },
-    {
-      "round": 5,
-      "stage": "Regular Season",
-      "date": "2026-10-29",
-      "datetime": "2026-10-29T20:30:00+10:30",
-      "venue": "Unley Court 3",
-      "opponent": "America",
-      "bye": false,
-      "us": 4,
-      "them": 6
+      "us": null,
+      "them": null
     }
   ],
   "results": [
     {
       "date": "2026-10-01",
       "round": 1,
-      "stage": "Regular Season",
+      "stage": "Grading",
       "opponent": "The Baldy Boys",
       "us": 9,
       "them": 5,
@@ -307,7 +100,7 @@
     {
       "date": "2026-10-08",
       "round": 2,
-      "stage": "Regular Season",
+      "stage": "Grading",
       "opponent": "No Chance FC",
       "us": 4,
       "them": 3,
@@ -347,7 +140,7 @@
     {
       "date": "2026-10-15",
       "round": 3,
-      "stage": "Regular Season",
+      "stage": "Grading",
       "opponent": "Rolling Stone Futsal Club",
       "us": 13,
       "them": 6,
@@ -432,7 +225,7 @@
     {
       "date": "2026-10-22",
       "round": 4,
-      "stage": "Regular Season",
+      "stage": "Grading",
       "opponent": "The Phil Ins",
       "us": 5,
       "them": 7,
@@ -445,7 +238,7 @@
     {
       "date": "2026-10-29",
       "round": 5,
-      "stage": "Regular Season",
+      "stage": "Grading",
       "opponent": "America",
       "us": 4,
       "them": 6,
@@ -456,159 +249,172 @@
   "ladder": [
     {
       "pos": 1,
-      "team": "RKO Reborn",
+      "team": "The Ants FC",
       "p": 5,
       "w": 5,
       "b": 0,
       "d": 0,
       "l": 0,
-      "f": 43,
-      "a": 22,
-      "gd": 21,
+      "f": 50,
+      "a": 19,
+      "gd": 31,
       "pts": 15
     },
     {
       "pos": 2,
-      "team": "Slaymar FC",
+      "team": "Unley Browns Ressies",
       "p": 5,
       "w": 3,
-      "b": 0,
-      "d": 0,
-      "l": 2,
-      "f": 35,
-      "a": 27,
-      "gd": 8,
-      "pts": 11
-    },
-    {
-      "pos": 3,
-      "team": "America",
-      "p": 5,
-      "w": 2,
-      "b": 0,
-      "d": 2,
-      "l": 1,
-      "f": 28,
-      "a": 28,
-      "gd": 0,
-      "pts": 11
-    },
-    {
-      "pos": 4,
-      "team": "Brazukas",
-      "p": 4,
-      "w": 2,
       "b": 1,
       "d": 1,
       "l": 0,
-      "f": 31,
-      "a": 14,
-      "gd": 17,
-      "pts": 10
+      "f": 28,
+      "a": 19,
+      "gd": 9,
+      "pts": 13
+    },
+    {
+      "pos": 3,
+      "team": "Unathletico Madrid",
+      "p": 5,
+      "w": 4,
+      "b": 0,
+      "d": 0,
+      "l": 1,
+      "f": 33,
+      "a": 25,
+      "gd": 8,
+      "pts": 13
+    },
+    {
+      "pos": 4,
+      "team": "Fillis Mis",
+      "p": 5,
+      "w": 3,
+      "b": 1,
+      "d": 0,
+      "l": 1,
+      "f": 33,
+      "a": 23,
+      "gd": 10,
+      "pts": 12
     },
     {
       "pos": 5,
-      "team": "McHeaver",
+      "team": "WOSSC Wombats",
       "p": 4,
       "w": 3,
       "b": 0,
       "d": 0,
       "l": 1,
-      "f": 26,
-      "a": 21,
-      "gd": 5,
+      "f": 48,
+      "a": 20,
+      "gd": 28,
       "pts": 10
     },
     {
       "pos": 6,
-      "team": "No Chance FC",
+      "team": "Dice FC",
       "p": 5,
       "w": 2,
       "b": 0,
-      "d": 0,
-      "l": 3,
-      "f": 26,
-      "a": 22,
-      "gd": 4,
-      "pts": 9
+      "d": 1,
+      "l": 2,
+      "f": 28,
+      "a": 21,
+      "gd": 7,
+      "pts": 10
     },
     {
       "pos": 7,
-      "team": "Silver Foxes",
-      "p": 4,
-      "w": 2,
+      "team": "Futbol Club Kitchen de Stevens",
+      "p": 5,
+      "w": 1,
       "b": 1,
-      "d": 0,
-      "l": 1,
-      "f": 13,
-      "a": 15,
-      "gd": -2,
+      "d": 1,
+      "l": 2,
+      "f": 12,
+      "a": 22,
+      "gd": -10,
       "pts": 9
     },
     {
       "pos": 8,
-      "team": "The Phil Ins",
-      "p": 5,
+      "team": "Adelaide united fc",
+      "p": 4,
       "w": 2,
-      "b": 0,
+      "b": 1,
       "d": 0,
-      "l": 2,
-      "f": 27,
-      "a": 21,
-      "gd": 6,
+      "l": 0,
+      "f": 17,
+      "a": 3,
+      "gd": 14,
       "pts": 8
     },
     {
       "pos": 9,
-      "team": "Comparative Advantage",
-      "p": 4,
+      "team": "Happs United",
+      "p": 5,
       "w": 1,
       "b": 1,
-      "d": 1,
-      "l": 1,
-      "f": 18,
-      "a": 19,
-      "gd": -1,
+      "d": 0,
+      "l": 3,
+      "f": 22,
+      "a": 42,
+      "gd": -20,
       "pts": 8
     },
     {
       "pos": 10,
-      "team": "Extremely Average Futsal Club",
+      "team": "Avas Army",
       "p": 5,
       "w": 1,
-      "b": 1,
-      "d": 0,
-      "l": 3,
-      "f": 18,
-      "a": 27,
-      "gd": -9,
-      "pts": 8
+      "b": 0,
+      "d": 1,
+      "l": 2,
+      "f": 36,
+      "a": 39,
+      "gd": -3,
+      "pts": 7
     },
     {
       "pos": 11,
-      "team": "The Baldy Boys",
-      "p": 4,
-      "w": 0,
-      "b": 1,
+      "team": "The Caper Mates",
+      "p": 5,
+      "w": 1,
+      "b": 0,
       "d": 0,
-      "l": 3,
-      "f": 12,
-      "a": 25,
-      "gd": -13,
-      "pts": 5
+      "l": 4,
+      "f": 18,
+      "a": 27,
+      "gd": -9,
+      "pts": 7
     },
     {
       "pos": 12,
-      "team": "Rolling Stone Futsal Club",
+      "team": "Indoor Bleagles",
       "p": 5,
+      "w": 0,
+      "b": 1,
+      "d": 0,
+      "l": 4,
+      "f": 16,
+      "a": 36,
+      "gd": -20,
+      "pts": 6
+    },
+    {
+      "pos": 13,
+      "team": "AFC Hinge Ressies",
+      "p": 4,
       "w": 0,
       "b": 0,
       "d": 0,
-      "l": 5,
-      "f": 22,
-      "a": 53,
-      "gd": -31,
-      "pts": 5
+      "l": 4,
+      "f": 15,
+      "a": 50,
+      "gd": -35,
+      "pts": 4
     }
   ],
   "squad": [
