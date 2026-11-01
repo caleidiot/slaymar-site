@@ -13,6 +13,8 @@
   }
 
   const us = data.team.name;
+  // Pre-season ladder (nobody has played): no positions yet.
+  if ((data.ladder || []).length && data.ladder.every((t) => !t.p)) data.ladder.forEach((t) => (t.pos = "–"));
 
   // Kit names: map every GameDay spelling to the name in data/players.json.
   let roster = [];
