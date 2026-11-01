@@ -193,25 +193,80 @@ let previous = await readJSON(OUT, {});
 const prevComp = previous.comp?.id || CONFIG.fallbackCompId;
 const client = (compId) => `${CONFIG.assocPrefix}-0-${compId}-0`;
 
+// GameDay comp pages embed every match as JSON ("var matches = [...]"). This works even before
+// a ladder exists (new competitions), so it's the main way we find Slaymar and its fixtures.
+function parseMatchesJSON(html) {
+  const i = html.indexOf("var matches = ");
+  if (i < 0) return null;
+  try { return JSON.parse(html.slice(i + 14, html.indexOf("];", i) + 1)); } catch { return null; }
+}
+const num = (v) => (/^\s*\d+\s*$/.test(String(v ?? "")) ? parseInt(v, 10) : null);
+function gamesFromMatches(matches, teamName) {
+  const me = teamName.toLowerCase();
+  const games = [];
+  let teamId = null;
+  for (const m of matches) {
+    const home = clean(m.HomeName || ""), away = clean(m.AwayName || "");
+    const isHome = home.toLowerCase() === me, isAway = away.toLowerCase() === me;
+    if (!isHome && !isAway) continue;
+    teamId = teamId || (isHome ? m.HomeID : m.AwayID);
+    const [d, t] = String(m.TimeDateRaw || "").split(" ");
+    const [y, mo, dd] = (d || "").split("-").map(Number);
+    const [hh, mi] = (t || "12:00").split(":").map(Number);
+    if (!y) continue;
+    const opp = isHome ? away : home;
+    const bye = !!Number(m.isBye) || !opp || /^bye$/i.test(opp);
+    const hs = num(m.HomeScore), as = num(m.AwayScore);
+    games.push({
+      round: num(m.Round) ?? m.Round,
+      stage: clean(m.MatchName || "") || "Regular Season",
+      date: d,
+      datetime: adelaideISO(y, mo, dd, hh, mi),
+      venue: clean(m.VenueName || "") || null,
+      opponent: bye ? null : opp,
+      bye,
+      us: hs == null || as == null ? null : isHome ? hs : as,
+      them: hs == null || as == null ? null : isHome ? as : hs,
+    });
+  }
+  games.sort((a, b) => a.datetime.localeCompare(b.datetime));
+  return { games, teamId };
+}
+// Before round 1 there's no ladder yet: list every team on zero.
+function zeroLadder(matches) {
+  const teams = [...new Set(matches.flatMap((m) => [clean(m.HomeName || ""), clean(m.AwayName || "")]).filter((n) => n && !/^bye$|^placeholder$/i.test(n)))].sort();
+  return teams.map((team, i) => ({ pos: i + 1, team, p: 0, w: 0, b: 0, d: 0, l: 0, f: 0, a: 0, gd: 0, pts: 0 }));
+}
+
 // Look through one season's comp list and return every comp Slaymar is in, fully scraped.
 async function scanSeason(compsHtml, filter) {
   const comps = parseComps(compsHtml).filter(filter);
   const found = [];
   for (const c of comps) {
+    let matches = null;
+    try { matches = parseMatchesJSON(await get(`${BASE}comp_info.cgi?a=ROUND&round=-1&client=${client(c.id)}&pool=1`)); } catch (e) { console.warn("matches skip", c.name, e.message); }
+    await sleep(250);
     let ladderUrl = `${BASE}comp_info.cgi?c=${client(c.id)}&pool=1&a=LADDER`;
     let ladder = [];
     try {
       ladder = parseLadder(await get(ladderUrl));
-      if (!ladder.length) { ladderUrl = `${BASE}comp_info.cgi?c=${client(c.id)}&a=LADDER`; ladder = parseLadder(await get(ladderUrl)); }
-    } catch (e) { console.warn("skip", c.name, e.message); continue; }
+      if (!ladder.length) { const alt = `${BASE}comp_info.cgi?c=${client(c.id)}&a=LADDER`; const l2 = parseLadder(await get(alt)); if (l2.length) { ladder = l2; ladderUrl = alt; } }
+    } catch (e) { console.warn("ladder skip", c.name, e.message); }
     await sleep(250);
-    const ours = ladder.find((r) => r.team.toLowerCase() === CONFIG.teamName.toLowerCase());
-    if (!ours) continue;
-    const team = parseTeamPage(await get(ours.href));
-    const games = team.sfixUrl ? parseSeasonFixture(await get(team.sfixUrl)) : [];
+    const fromJSON = matches ? gamesFromMatches(matches, CONFIG.teamName) : { games: [], teamId: null };
+    let ours = ladder.find((r) => r.team.toLowerCase() === CONFIG.teamName.toLowerCase());
+    if (!ours && !fromJSON.games.length) continue;
+    const teamId = fromJSON.teamId || (ours && (ours.href.match(/id=(\d+)/) || [])[1]);
+    const teamUrl = ours ? ours.href : `${BASE}team_info.cgi?id=${teamId}&client=${client(c.id)}&compID=${c.id}`;
+    if (!ladder.length && matches) ladder = zeroLadder(matches);
+    if (!ours) ours = { pos: (ladder.find((r) => r.team.toLowerCase() === CONFIG.teamName.toLowerCase()) || {}).pos || null, team: CONFIG.teamName, href: teamUrl };
+    let team = { squad: [], sfixUrl: null };
+    try { team = parseTeamPage(await get(teamUrl)); } catch (e) { console.warn("team page skip", c.name, e.message); }
+    let games = fromJSON.games;
+    if (!games.length && team.sfixUrl) games = parseSeasonFixture(await get(team.sfixUrl));
     const latest = games.reduce((m, g) => (g.datetime > m ? g.datetime : m), "");
-    found.push({ comp: c, ladderUrl, ladder, ours, team, games, latest });
-    console.log(`found ${CONFIG.teamName} in "${c.name}" (${c.id}), ${games.length} games`);
+    found.push({ comp: c, ladderUrl, ladder, ours, team, games, latest, teamId });
+    console.log(`found ${CONFIG.teamName} in "${c.name}" (${c.id}), ${games.length} games, latest ${latest}`);
   }
   return found;
 }
@@ -224,6 +279,8 @@ const record = (games) => played(games).reduce((r, g) => {
 // Archive: one file per competition, never deleted; index lists them all.
 async function archive(entry, season) {
   const file = path.join(ARCHIVE_DIR, `${entry.comp.id}.json`);
+  const existing = await readJSON(file, null);
+  if (existing && /grading/i.test(existing.comp?.name || "") && !/grading/i.test(entry.comp.name)) entry.comp = { ...entry.comp, name: existing.comp.name };
   const data = {
     comp: { id: entry.comp.id, name: entry.comp.name, url: entry.ladderUrl },
     season,
@@ -269,6 +326,19 @@ const filter = (c) => c.name.toLowerCase().includes(CONFIG.compFilter.toLowerCas
 const found = await scanSeason(currentHtml, filter);
 if (!found.length) throw new Error(`${CONFIG.teamName} not found in any matching competition`);
 
+found.sort((a, b) => b.latest.localeCompare(a.latest) || Number(b.comp.id) - Number(a.comp.id));
+const cur = found[0];
+// A comp we've moved on from this season (grading, which GameDay then reuses for another grade) is frozen:
+// keep its archived games, squad and name rather than whatever GameDay shows there now.
+const frozen = new Map();
+for (const f of found) {
+  if (f === cur) continue;
+  const exists = await readJSON(path.join(ARCHIVE_DIR, `${f.comp.id}.json`), null);
+  if (!exists) continue;
+  frozen.set(f, exists);
+  f.games = exists.fixtures; f.team = { ...f.team, squad: exists.squad || [] }; f.comp = { ...f.comp, name: exists.comp.name };
+}
+
 // Attach goal scorers from the season's Google Sheet to this season's games.
 {
   const seen = new Set();
@@ -297,9 +367,13 @@ if (!found.length) throw new Error(`${CONFIG.teamName} not found in any matching
   console.log(`goals attached to ${seasonGames.filter((g) => g.goals).length}/${seasonGames.length} games`);
 }
 
-for (const f of found) await archive(f, { id: currentSeason.id, name: currentSeason.name });
-found.sort((a, b) => b.latest.localeCompare(a.latest) || Number(b.comp.id) - Number(a.comp.id));
-const cur = found[0];
+for (const f of found) {
+  if (frozen.has(f)) {
+    const ex = frozen.get(f); ex.fixtures = f.games; ex.archived = new Date().toISOString();
+    await writeFile(path.join(ARCHIVE_DIR, `${f.comp.id}.json`), JSON.stringify(ex, null, 2) + "\n");
+  } else await archive(f, { id: currentSeason.id, name: currentSeason.name });
+}
+
 
 const now = Date.now();
 const next = cur.games.find((g) => g.us === null && new Date(g.datetime).getTime() > now - 3 * 3600e3) || null;
@@ -355,7 +429,7 @@ const out = {
   fixtures: cur.games,
   // Grading is just the start of the season: fold every comp from this season into one results list.
   results: found
-    .flatMap((f) => played(f.games).map((g) => ({ ...g, stage: /grading/i.test(f.comp.name) && f !== cur ? "Grading" : g.stage })))
+    .flatMap((f) => played(f.games).map((g) => ({ ...g, stage: f !== cur ? "Grading" : g.stage })))
     .sort((a, b) => a.datetime.localeCompare(b.datetime))
     .filter((g, i, arr) => {
       const same = arr.filter((x) => x.datetime === g.datetime && x.opponent === g.opponent);
@@ -363,7 +437,12 @@ const out = {
     })
     .map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue, goals: g.goals || null })),
   ladder: cur.ladder.map(({ href, ...r }) => r),
-  squad: cur.team.squad,
+  // Games this season across grading + the league
+  squad: Object.values(found.flatMap((f) => f.team.squad || []).reduce((m, p) => {
+    const k = p.name.toLowerCase();
+    m[k] = m[k] ? { ...m[k], games: m[k].games + p.games, last: [m[k].last, p.last].sort().at(-1) } : { ...p };
+    return m;
+  }, {})),
   opponents,
   mvp,
   channel: { id: CONFIG.youtubeChannelId, url: CONFIG.youtubeUrl },

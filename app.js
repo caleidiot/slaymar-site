@@ -205,6 +205,14 @@
     })
     .join("");
 
+  // Before round 1 the ladder is everyone on zero: say so rather than show a fake order.
+  const ladderEmpty = (data.ladder || []).every((t) => !t.p);
+  if (ladderEmpty) {
+    const note = `<p class="ladder-note">Season starts ${next ? fmtDate(next.datetime, { weekday: "long", day: "numeric", month: "short" }) : "soon"}. The ladder fills in after round 1.</p>`;
+    document.querySelector('[data-panel="ladder"] .table-scroll').insertAdjacentHTML("beforebegin", note);
+    document.querySelector("#mini-ladder").closest(".table-scroll").insertAdjacentHTML("beforebegin", note);
+  }
+
   // ---- Overview: ladder slice around us + last 3 results ----
   {
     const lad = data.ladder || [];

@@ -176,6 +176,8 @@ main { padding-top: 8px; }
 .gd-neg { color: var(--loss); }
 .ladder tr.us .gd-pos, .ladder tr.us .gd-neg { color: inherit; }
 
+.ladder-note { margin: 0 0 12px; padding: 10px 12px; background: var(--tape); font-weight: 700; }
+
 /* ---------- Results ---------- */
 .results { list-style: none; margin: 0; padding: 0; }
 .results li {
