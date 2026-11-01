@@ -258,7 +258,8 @@ async function scanSeason(compsHtml, filter) {
     if (!ours && !fromJSON.games.length) continue;
     const teamId = fromJSON.teamId || (ours && (ours.href.match(/id=(\d+)/) || [])[1]);
     const teamUrl = ours ? ours.href : `${BASE}team_info.cgi?id=${teamId}&client=${client(c.id)}&compID=${c.id}`;
-    if (!ladder.length && matches) ladder = zeroLadder(matches);
+    // No games played yet: GameDay's ladder can be incomplete, so build it from the fixture list instead.
+    if (matches && (!ladder.length || ladder.every((r) => !r.p))) ladder = zeroLadder(matches);
     if (!ours) ours = { pos: (ladder.find((r) => r.team.toLowerCase() === CONFIG.teamName.toLowerCase()) || {}).pos || null, team: CONFIG.teamName, href: teamUrl };
     let team = { squad: [], sfixUrl: null };
     try { team = parseTeamPage(await get(teamUrl)); } catch (e) { console.warn("team page skip", c.name, e.message); }
