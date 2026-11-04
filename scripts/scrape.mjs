@@ -326,7 +326,16 @@ if (BACKFILL) {
 
 const filter = (c) => c.name.toLowerCase().includes(CONFIG.compFilter.toLowerCase());
 const found = await scanSeason(currentHtml, filter);
-if (!found.length) throw new Error(`${CONFIG.teamName} not found in any matching competition`);
+if (!found.length) {
+  // Usually GameDay having a moment (empty page, maintenance, rate limit). Keep the last good data
+  // and let the site deploy as-is; only fail loudly if it's been stale for over two days.
+  const comps = parseComps(currentHtml);
+  const ageH = previous.updated ? (Date.now() - new Date(previous.updated).getTime()) / 3600e3 : Infinity;
+  const msg = `${CONFIG.teamName} not found in any matching competition (${comps.length} comps on the page, ${currentHtml.length} bytes). Keeping data from ${previous.updated || "never"}.`;
+  if (ageH > 48) throw new Error(msg + " Data is over 48h old.");
+  console.warn("WARNING: " + msg);
+  process.exit(0);
+}
 
 found.sort((a, b) => b.latest.localeCompare(a.latest) || Number(b.comp.id) - Number(a.comp.id));
 const cur = found[0];
