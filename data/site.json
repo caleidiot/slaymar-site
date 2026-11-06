@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T23:40:11.379Z",
+  "updated": "2026-11-06T06:51:27.033Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -21,8 +21,8 @@
       "venue": "Unley Court 1",
       "opponent": "Unathletico Madrid",
       "bye": false,
-      "us": null,
-      "them": null
+      "us": 5,
+      "them": 0
     }
   ],
   "results": [
@@ -239,6 +239,16 @@
       "them": 6,
       "venue": "Unley Court 3",
       "goals": null
+    },
+    {
+      "date": "2026-11-05",
+      "round": 1,
+      "stage": "Regular Season",
+      "opponent": "Unathletico Madrid",
+      "us": 5,
+      "them": 0,
+      "venue": "Unley Court 1",
+      "goals": null
     }
   ],
   "ladder": [
@@ -283,6 +293,19 @@
     },
     {
       "pos": 4,
+      "team": "Slaymar FC",
+      "p": 6,
+      "w": 4,
+      "b": 0,
+      "d": 0,
+      "l": 2,
+      "f": 40,
+      "a": 27,
+      "gd": 13,
+      "pts": 14
+    },
+    {
+      "pos": 5,
       "team": "Unley Browns Ressies",
       "p": 6,
       "w": 3,
@@ -295,7 +318,7 @@
       "pts": 14
     },
     {
-      "pos": 5,
+      "pos": 6,
       "team": "WOSSC Wombats",
       "p": 5,
       "w": 4,
@@ -308,9 +331,9 @@
       "pts": 13
     },
     {
-      "pos": 6,
+      "pos": 7,
       "team": "Unathletico Madrid",
-      "p": 5,
+      "p": 6,
       "w": 4,
       "b": 0,
       "d": 0,
@@ -321,7 +344,7 @@
       "pts": 13
     },
     {
-      "pos": 7,
+      "pos": 8,
       "team": "Adelaide united fc",
       "p": 5,
       "w": 3,
@@ -331,19 +354,6 @@
       "f": 26,
       "a": 11,
       "gd": 15,
-      "pts": 11
-    },
-    {
-      "pos": 8,
-      "team": "Slaymar FC",
-      "p": 5,
-      "w": 3,
-      "b": 0,
-      "d": 0,
-      "l": 2,
-      "f": 35,
-      "a": 27,
-      "gd": 8,
       "pts": 11
     },
     {
@@ -1630,6 +1640,23 @@
           "date": "2026-10-22",
           "us": 5,
           "them": 7,
+          "season": "Summer 2026/27"
+        }
+      ]
+    },
+    {
+      "team": "Unathletico Madrid",
+      "p": 1,
+      "w": 1,
+      "d": 0,
+      "l": 0,
+      "f": 5,
+      "a": 0,
+      "games": [
+        {
+          "date": "2026-11-05",
+          "us": 5,
+          "them": 0,
           "season": "Summer 2026/27"
         }
       ]
