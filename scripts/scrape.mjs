@@ -175,9 +175,15 @@ function parseGoalsSheet(text) {
   };
   return blocks.map((c) => {
     const us = [], them = [];
-    for (const r of rows.slice(1)) { const a = cell(r[c]); if (a) us.push(a); const b = cell(r[c + 1]); if (b) them.push(b); }
+    let forfeit = false;
+    for (const r of rows.slice(1)) {
+      for (const [raw, list] of [[r[c], us], [r[c + 1], them]]) {
+        if (/forfeit/i.test(raw || "")) { forfeit = true; continue; }
+        const g = cell(raw); if (g) list.push(g);
+      }
+    }
     const byMin = (x, y) => (x.min ?? 99) - (y.min ?? 99);
-    return { us: +head[c], them: +head[c + 1], scorers: us.sort(byMin).map((g) => ({ player: g.name, min: g.min })), conceded: them.sort(byMin).map((g) => ({ min: g.min })) };
+    return { us: +head[c], them: +head[c + 1], forfeit, scorers: forfeit ? [] : us.sort(byMin).map((g) => ({ player: g.name, min: g.min })), conceded: forfeit ? [] : them.sort(byMin).map((g) => ({ min: g.min })) };
   });
 }
 
@@ -214,9 +220,11 @@ function gamesFromMatches(matches, teamName) {
     const [y, mo, dd] = (d || "").split("-").map(Number);
     const [hh, mi] = (t || "12:00").split(":").map(Number);
     if (!y) continue;
-    const opp = isHome ? away : home;
+    let opp = isHome ? away : home;
+    if (/^placeholder$/i.test(opp)) opp = "TBC"; // GameDay's stand-in until the draw is finalised
     const bye = !!Number(m.isBye) || !opp || /^bye$/i.test(opp);
     const hs = num(m.HomeScore), as = num(m.AwayScore);
+    const ff = /forfeit|\bff\b/i.test(`${m.FinalisationString || ""} ${m.MatchStatus || ""}`);
     games.push({
       round: num(m.Round) ?? m.Round,
       stage: clean(m.MatchName || "") || "Regular Season",
@@ -227,6 +235,7 @@ function gamesFromMatches(matches, teamName) {
       bye,
       us: hs == null || as == null ? null : isHome ? hs : as,
       them: hs == null || as == null ? null : isHome ? as : hs,
+      ...(ff ? { forfeit: true } : {}),
     });
   }
   games.sort((a, b) => a.datetime.localeCompare(b.datetime));
@@ -371,7 +380,8 @@ for (const f of found) {
     // Match each sheet game to the next season game with the same score.
     while (gi < seasonGames.length && !(seasonGames[gi].us === block.us && seasonGames[gi].them === block.them)) gi++;
     if (gi >= seasonGames.length) { console.warn(`Sheet game ${block.us}-${block.them} has no matching result`); break; }
-    seasonGames[gi].goals = { scorers: block.scorers, conceded: block.conceded };
+    seasonGames[gi].goals = { scorers: block.scorers, conceded: block.conceded, ...(block.forfeit ? { forfeit: true } : {}) };
+    if (block.forfeit) seasonGames[gi].forfeit = true;
     gi++;
   }
   for (const g of seasonGames) if (!g.goals && saved.has(g.datetime)) g.goals = saved.get(g.datetime);
@@ -446,8 +456,8 @@ const out = {
       const same = arr.filter((x) => x.datetime === g.datetime && x.opponent === g.opponent);
       return (same.find((x) => x.goals) || same[0]) === g;
     })
-    .map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue, goals: g.goals || null })),
-  ladder: cur.ladder.map(({ href, ...r }) => r),
+    .map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue, goals: g.goals || null, ...(g.forfeit || g.goals?.forfeit ? { forfeit: true } : {}) })),
+  ladder: cur.ladder.filter((r) => !/^placeholder$/i.test(r.team)).map(({ href, ...r }, i, arr) => ({ ...r, pos: r.pos })),
   // Games this season across grading + the league
   squad: Object.values(found.flatMap((f) => f.team.squad || []).reduce((m, p) => {
     const k = p.name.toLowerCase();

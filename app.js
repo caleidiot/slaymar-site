@@ -13,6 +13,9 @@
   }
 
   const us = data.team.name;
+  // GameDay uses a "Placeholder" team until the draw is finalised.
+  (data.fixtures || []).forEach((f) => { if (/^placeholder$/i.test(f.opponent || "")) f.opponent = "TBC"; });
+  data.ladder = (data.ladder || []).filter((t) => !/^placeholder$/i.test(t.team)).map((t, i) => ({ ...t, pos: i + 1 }));
   // Pre-season ladder (nobody has played): no positions yet.
   if ((data.ladder || []).length && data.ladder.every((t) => !t.p)) data.ladder.forEach((t) => (t.pos = "–"));
 
@@ -66,6 +69,12 @@
     const complete = g && missUs === 0 && missThem === 0 && [...g.scorers, ...theirs].every((x) => x.min != null);
     const ht = complete ? `HT ${g.scorers.filter((x) => x.min <= 20).length}–${theirs.filter((x) => x.min <= 20).length}` : "";
     const o = outcome(r);
+    if (r.forfeit) {
+      return `<div class="mc mc-${o}">` +
+        `<div class="mc-top"><span class="mc-team">Slaymar FC</span><span class="mc-score"><b>${r.us}–${r.them}</b><small>Forfeit</small></span><span class="mc-team">${esc(r.opponent)}</span></div>` +
+        `<p class="mc-ff">${r.us > r.them ? `${esc(r.opponent)} forfeited, so the win is awarded ${r.us}–${r.them}` : `Slaymar forfeited, awarded ${r.us}–${r.them}`}. No game was played.</p>` +
+        `<p class="mc-meta">${[r.stage === "Grading" ? "Grading" : r.round ? "Round " + esc(r.round) : "", fmtDate(r.date + "T12:00:00+10:30", { weekday: "short", day: "numeric", month: "short" }), r.venue ? esc(r.venue) : ""].filter(Boolean).join(" &nbsp;/&nbsp; ")}</p></div>`;
+    }
     return `<div class="mc mc-${o}">` +
       `<div class="mc-top"><span class="mc-team">Slaymar FC</span><span class="mc-score"><b>${r.us}–${r.them}</b>${ht ? `<small>${ht}</small>` : ""}</span><span class="mc-team">${esc(r.opponent)}</span></div>` +
       ((ours.length || theirs.length || missUs > 0 || missThem > 0) ? `<div class="mc-goals">` +
@@ -160,7 +169,7 @@
     const o = outcome(last);
     $("last-score").textContent = `${last.us}–${last.them}`;
     $("last-opp").innerHTML =
-      `<span class="result-tag">${{ W: "Won", L: "Lost", D: "Drew" }[o]}</span> vs ${esc(last.opponent)}` +
+      `<span class="result-tag">${last.forfeit ? (o === "W" ? "Won on forfeit" : "Lost on forfeit") : { W: "Won", L: "Lost", D: "Drew" }[o]}</span> vs ${esc(last.opponent)}` +
       (last.video ? `. <a href="https://www.youtube.com/watch?v=${esc(last.video.id)}">Watch it</a>` : "");
     if (last.goals?.scorers?.length) {
       $("last-opp").insertAdjacentHTML("afterend", `<p class="last-scorers">${BALL}<span>${groupScorers(last.goals.scorers).map((s) => esc(s.name) + (s.mins.length > 1 ? " ×" + s.mins.length : "")).join(", ")}</span></p>`);
@@ -186,6 +195,9 @@
         const o = outcome(g);
         return `<li class="${o}" title="${esc(g.season || "")}"><span class="s">${g.us}–${g.them}</span><span class="d">${fmtDate(g.date + "T12:00:00+10:30", { month: "short", year: "2-digit" })}</span></li>`;
       }).join("");
+    } else if (next && next.opponent === "TBC") {
+      $("h2h-sub").textContent = "Next opponent";
+      $("h2h-rec").textContent = "Not drawn yet. Check back once GameDay confirms who we're playing.";
     } else if (next && next.opponent && next.opponent !== "Bye") {
       $("h2h-sub").textContent = `vs ${next.opponent}`;
       $("h2h-rec").textContent = "First meeting.";
@@ -232,7 +244,7 @@
     return `<li class="r-item"><details><summary>` +
       `<span class="badge ${o}" aria-label="${{ W: "Win", L: "Loss", D: "Draw" }[o]}">${o}</span>` +
       `<span class="r-main"><span class="r-opp">vs ${esc(r.opponent)}</span>` +
-      `<span class="r-date">${shortDate(r.date)}${r.stage === "Grading" ? ", Grading" : r.round ? ", Rd " + esc(r.round) : ""}</span></span>` +
+      `<span class="r-date">${shortDate(r.date)}${r.stage === "Grading" ? ", Grading" : r.round ? ", Rd " + esc(r.round) : ""}${r.forfeit ? ", Forfeit" : ""}</span></span>` +
       `<span class="r-score">${r.us}–${r.them}</span>` +
       `<span class="chev" aria-hidden="true"></span>` +
       `</summary>${matchCard(r)}</details></li>`;

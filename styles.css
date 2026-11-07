@@ -401,6 +401,7 @@ main { padding-top: 8px; }
 .p-count b { font: 900 1.4rem/1 var(--display); }
 .p-seasons li { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--rule); }
 
+.mc-ff { max-width: 528px; margin: 14px auto 0; padding: 0 16px; text-align: center; color: rgba(255,255,255,.85); }
 .mc-mvp { margin: 6px 0 0; text-align: center; font-size: .85rem; color: rgba(255,255,255,.7); }
 .mc-mvp b { color: var(--tape); font-weight: 700; margin-left: 4px; }
 .mc-mvp img { width: 1.1rem; height: 1.1rem; vertical-align: -0.2em; margin-right: 6px; }
