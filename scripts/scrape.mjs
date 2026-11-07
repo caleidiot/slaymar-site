@@ -457,7 +457,7 @@ const out = {
       return (same.find((x) => x.goals) || same[0]) === g;
     })
     .map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue, goals: g.goals || null, ...(g.forfeit || g.goals?.forfeit ? { forfeit: true } : {}) })),
-  ladder: cur.ladder.filter((r) => !/^placeholder$/i.test(r.team)).map(({ href, ...r }, i, arr) => ({ ...r, pos: r.pos })),
+  ladder: cur.ladder.filter((r) => !/^placeholder$/i.test(r.team)).map(({ href, ...r }, i, arr) => ({ ...r, pos: i + 1 })),
   // Games this season across grading + the league
   squad: Object.values(found.flatMap((f) => f.team.squad || []).reduce((m, p) => {
     const k = p.name.toLowerCase();
