@@ -211,7 +211,13 @@
       "opponent": "Unathletico Madrid",
       "bye": false,
       "us": 5,
-      "them": 0
+      "them": 0,
+      "goals": {
+        "scorers": [],
+        "conceded": [],
+        "forfeit": true
+      },
+      "forfeit": true
     },
     {
       "round": 1,
@@ -219,12 +225,12 @@
       "date": "2026-11-12",
       "datetime": "2026-11-12T22:10:00+10:30",
       "venue": "Unley Court 2",
-      "opponent": "Placeholder",
+      "opponent": "TBC",
       "bye": false,
       "us": null,
       "them": null
     }
   ],
   "squad": [],
-  "archived": "2026-11-07T06:01:40.741Z"
+  "archived": "2026-11-07T08:10:09.069Z"
 }

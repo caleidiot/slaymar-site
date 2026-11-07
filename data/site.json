@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-07T06:01:49.201Z",
+  "updated": "2026-11-07T08:10:12.258Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -13,7 +13,7 @@
   },
   "next": {
     "datetime": "2026-11-12T22:10:00+10:30",
-    "opponent": "Placeholder",
+    "opponent": "TBC",
     "venue": "Unley Court 2",
     "round": 1
   },
@@ -27,7 +27,13 @@
       "opponent": "Unathletico Madrid",
       "bye": false,
       "us": 5,
-      "them": 0
+      "them": 0,
+      "goals": {
+        "scorers": [],
+        "conceded": [],
+        "forfeit": true
+      },
+      "forfeit": true
     },
     {
       "round": 1,
@@ -35,7 +41,7 @@
       "date": "2026-11-12",
       "datetime": "2026-11-12T22:10:00+10:30",
       "venue": "Unley Court 2",
-      "opponent": "Placeholder",
+      "opponent": "TBC",
       "bye": false,
       "us": null,
       "them": null
@@ -254,7 +260,46 @@
       "us": 4,
       "them": 6,
       "venue": "Unley Court 3",
-      "goals": null
+      "goals": {
+        "scorers": [
+          {
+            "player": "Cale",
+            "min": 10
+          },
+          {
+            "player": "Will",
+            "min": 21
+          },
+          {
+            "player": "Dougie",
+            "min": 23
+          },
+          {
+            "player": "Crahtim",
+            "min": 31
+          }
+        ],
+        "conceded": [
+          {
+            "min": 6
+          },
+          {
+            "min": 9
+          },
+          {
+            "min": 11
+          },
+          {
+            "min": 31
+          },
+          {
+            "min": 34
+          },
+          {
+            "min": 38
+          }
+        ]
+      }
     },
     {
       "date": "2026-11-05",
@@ -264,7 +309,12 @@
       "us": 5,
       "them": 0,
       "venue": "Unley Court 1",
-      "goals": null
+      "goals": {
+        "scorers": [],
+        "conceded": [],
+        "forfeit": true
+      },
+      "forfeit": true
     }
   ],
   "ladder": [
@@ -436,19 +486,6 @@
       "a": 42,
       "gd": -19,
       "pts": 8
-    },
-    {
-      "pos": 14,
-      "team": "Placeholder",
-      "p": 1,
-      "w": 1,
-      "b": 0,
-      "d": 0,
-      "l": 0,
-      "f": 14,
-      "a": 5,
-      "gd": 9,
-      "pts": 3
     }
   ],
   "squad": [
