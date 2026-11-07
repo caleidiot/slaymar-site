@@ -377,8 +377,15 @@ for (const f of found) {
   let gi = 0;
   for (const block of sheet || []) {
     // Match each sheet game to the next season game with the same score.
-    while (gi < seasonGames.length && !(seasonGames[gi].us === block.us && seasonGames[gi].them === block.them)) gi++;
-    if (gi >= seasonGames.length) { console.warn(`Sheet game ${block.us}-${block.them} has no matching result`); break; }
+    // If no later game has that score (sheet typo or disputed score), take the next game in order.
+    let j = gi;
+    while (j < seasonGames.length && !(seasonGames[j].us === block.us && seasonGames[j].them === block.them)) j++;
+    if (j >= seasonGames.length) {
+      if (gi >= seasonGames.length) { console.warn(`Sheet game ${block.us}-${block.them} has no matching result`); break; }
+      console.warn(`Sheet game ${block.us}-${block.them} doesn't match GameDay ${seasonGames[gi].us}-${seasonGames[gi].them} (${seasonGames[gi].opponent}); using it by order`);
+      j = gi;
+    }
+    gi = j;
     seasonGames[gi].goals = { scorers: block.scorers, conceded: block.conceded, ...(block.forfeit ? { forfeit: true } : {}) };
     if (block.forfeit) seasonGames[gi].forfeit = true;
     gi++;
