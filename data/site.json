@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-07T08:11:55.291Z",
+  "updated": "2026-11-07T11:08:25.168Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -248,8 +248,51 @@
       "them": 7,
       "venue": "Unley Court 2",
       "goals": {
-        "scorers": [],
-        "conceded": []
+        "scorers": [
+          {
+            "player": "Schmitt",
+            "min": null
+          },
+          {
+            "player": "Gorin",
+            "min": null
+          },
+          {
+            "player": "Dougie",
+            "min": null
+          },
+          {
+            "player": "Dougie",
+            "min": null
+          },
+          {
+            "player": "Dougie",
+            "min": null
+          }
+        ],
+        "conceded": [
+          {
+            "min": null
+          },
+          {
+            "min": null
+          },
+          {
+            "min": null
+          },
+          {
+            "min": null
+          },
+          {
+            "min": null
+          },
+          {
+            "min": null
+          },
+          {
+            "min": null
+          }
+        ]
       }
     },
     {

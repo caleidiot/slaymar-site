@@ -384,8 +384,51 @@
       "us": 5,
       "them": 7,
       "goals": {
-        "scorers": [],
-        "conceded": []
+        "scorers": [
+          {
+            "player": "Schmitt",
+            "min": null
+          },
+          {
+            "player": "Gorin",
+            "min": null
+          },
+          {
+            "player": "Dougie",
+            "min": null
+          },
+          {
+            "player": "Dougie",
+            "min": null
+          },
+          {
+            "player": "Dougie",
+            "min": null
+          }
+        ],
+        "conceded": [
+          {
+            "min": null
+          },
+          {
+            "min": null
+          },
+          {
+            "min": null
+          },
+          {
+            "min": null
+          },
+          {
+            "min": null
+          },
+          {
+            "min": null
+          },
+          {
+            "min": null
+          }
+        ]
       }
     },
     {
@@ -477,5 +520,5 @@
       "last": "2026-10-29"
     }
   ],
-  "archived": "2026-11-07T08:11:53.076Z"
+  "archived": "2026-11-07T11:08:22.407Z"
 }
