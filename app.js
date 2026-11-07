@@ -77,7 +77,7 @@
       ((ours.length || theirs.length || missUs > 0 || missThem > 0) ? `<div class="mc-goals">` +
         `<ul class="mc-us">${ours.map((s) => `<li><span class="mc-n">${esc(s.name)}</span><span class="mc-m">${mins(s.mins)}</span></li>`).join("")}${missUs > 0 ? `<li class="mc-miss">${g && g.note && !ours.length ? esc(g.note) : missUs + " not logged"}</li>` : ""}</ul>` +
         `<span class="mc-ball">${BALL}</span>` +
-        `<ul class="mc-them">${theirs.map((x) => `<li><span class="mc-m">${x.min != null ? x.min + "'" : ""}</span></li>`).join("")}${missThem > 0 ? `<li class="mc-miss">${missThem} not logged</li>` : ""}</ul>` +
+        `<ul class="mc-them">${theirs.filter((x) => x.min != null).map((x) => `<li><span class="mc-m">${x.min}'</span></li>`).join("")}${theirs.some((x) => x.min == null) ? `<li class="mc-miss">${theirs.filter((x) => x.min == null).length} goals, no times</li>` : ""}${missThem > 0 ? `<li class="mc-miss">${missThem} not logged</li>` : ""}</ul>` +
       `</div>` : "") +
       (() => {
         if (r.mvp) return `<p class="mc-mvp">MVP <b>${esc(kit(r.mvp))}</b></p>`;
@@ -109,7 +109,8 @@
     const start = new Date(date + "T00:00:00+10:30").getTime();
     const v = videos.find((v) => {
       const t = new Date(v.published).getTime();
-      return !used.has(v.id) && t >= start && t < start + 10 * 864e5;
+      // Fallback only for undated match uploads; skips highlight reels like "Best goals of...".
+      return !used.has(v.id) && !titleDate(v.title) && /\bvs\b|full match/i.test(v.title) && t >= start && t < start + 10 * 864e5;
     });
     if (v) used.add(v.id);
     return v;
