@@ -13,9 +13,6 @@
   }
 
   const us = data.team.name;
-  // GameDay uses a "Placeholder" team until the draw is finalised.
-  (data.fixtures || []).forEach((f) => { if (/^placeholder$/i.test(f.opponent || "")) f.opponent = "TBC"; });
-  data.ladder = (data.ladder || []).filter((t) => !/^placeholder$/i.test(t.team)).map((t, i) => ({ ...t, pos: i + 1 }));
   // Pre-season ladder (nobody has played): no positions yet.
   if ((data.ladder || []).length && data.ladder.every((t) => !t.p)) data.ladder.forEach((t) => (t.pos = "–"));
 
@@ -195,9 +192,6 @@
         const o = outcome(g);
         return `<li class="${o}" title="${esc(g.season || "")}"><span class="s">${g.us}–${g.them}</span><span class="d">${fmtDate(g.date + "T12:00:00+10:30", { month: "short", year: "2-digit" })}</span></li>`;
       }).join("");
-    } else if (next && next.opponent === "TBC") {
-      $("h2h-sub").textContent = "Next opponent";
-      $("h2h-rec").textContent = "Not drawn yet. Check back once GameDay confirms who we're playing.";
     } else if (next && next.opponent && next.opponent !== "Bye") {
       $("h2h-sub").textContent = `vs ${next.opponent}`;
       $("h2h-rec").textContent = "First meeting.";

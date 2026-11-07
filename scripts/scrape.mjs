@@ -220,8 +220,7 @@ function gamesFromMatches(matches, teamName) {
     const [y, mo, dd] = (d || "").split("-").map(Number);
     const [hh, mi] = (t || "12:00").split(":").map(Number);
     if (!y) continue;
-    let opp = isHome ? away : home;
-    if (/^placeholder$/i.test(opp)) opp = "TBC"; // GameDay's stand-in until the draw is finalised
+    const opp = isHome ? away : home;
     const bye = !!Number(m.isBye) || !opp || /^bye$/i.test(opp);
     const hs = num(m.HomeScore), as = num(m.AwayScore);
     const ff = /forfeit|\bff\b/i.test(`${m.FinalisationString || ""} ${m.MatchStatus || ""}`);
@@ -243,7 +242,7 @@ function gamesFromMatches(matches, teamName) {
 }
 // Before round 1 there's no ladder yet: list every team on zero.
 function zeroLadder(matches) {
-  const teams = [...new Set(matches.flatMap((m) => [clean(m.HomeName || ""), clean(m.AwayName || "")]).filter((n) => n && !/^bye$|^placeholder$/i.test(n)))].sort();
+  const teams = [...new Set(matches.flatMap((m) => [clean(m.HomeName || ""), clean(m.AwayName || "")]).filter((n) => n && !/^bye$/i.test(n)))].sort();
   return teams.map((team, i) => ({ pos: i + 1, team, p: 0, w: 0, b: 0, d: 0, l: 0, f: 0, a: 0, gd: 0, pts: 0 }));
 }
 
@@ -457,7 +456,7 @@ const out = {
       return (same.find((x) => x.goals) || same[0]) === g;
     })
     .map((g) => ({ date: g.date, round: g.round, stage: g.stage, opponent: g.opponent, us: g.us, them: g.them, venue: g.venue, goals: g.goals || null, ...(g.forfeit || g.goals?.forfeit ? { forfeit: true } : {}) })),
-  ladder: cur.ladder.filter((r) => !/^placeholder$/i.test(r.team)).map(({ href, ...r }, i, arr) => ({ ...r, pos: i + 1 })),
+  ladder: cur.ladder.map(({ href, ...r }) => r),
   // Games this season across grading + the league
   squad: Object.values(found.flatMap((f) => f.team.squad || []).reduce((m, p) => {
     const k = p.name.toLowerCase();
