@@ -253,6 +253,17 @@
       "bye": false,
       "us": 2,
       "them": 13
+    },
+    {
+      "round": 1,
+      "stage": "Regular Season",
+      "date": "2026-11-26",
+      "datetime": "2026-11-26T19:40:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "The Caper Mates",
+      "bye": false,
+      "us": null,
+      "them": null
     }
   ],
   "squad": [
@@ -292,5 +303,5 @@
       "last": "2026-11-19"
     }
   ],
-  "archived": "2026-11-20T02:21:16.517Z"
+  "archived": "2026-11-20T11:44:09.915Z"
 }

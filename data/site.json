@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20T02:21:19.335Z",
+  "updated": "2026-11-20T11:44:11.937Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -11,7 +11,12 @@
     "name": "Unley/Immanuel - Thursday Senior Open Futsal A/B Grade",
     "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-664406-0&pool=1&a=LADDER"
   },
-  "next": null,
+  "next": {
+    "datetime": "2026-11-26T19:40:00+10:30",
+    "opponent": "The Caper Mates",
+    "venue": "Unley Court 3",
+    "round": 1
+  },
   "fixtures": [
     {
       "round": 1,
@@ -51,6 +56,17 @@
       "bye": false,
       "us": 2,
       "them": 13
+    },
+    {
+      "round": 1,
+      "stage": "Regular Season",
+      "date": "2026-11-26",
+      "datetime": "2026-11-26T19:40:00+10:30",
+      "venue": "Unley Court 3",
+      "opponent": "The Caper Mates",
+      "bye": false,
+      "us": null,
+      "them": null
     }
   ],
   "results": [
