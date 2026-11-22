@@ -264,6 +264,17 @@
       "bye": false,
       "us": null,
       "them": null
+    },
+    {
+      "round": 1,
+      "stage": "Regular Season",
+      "date": "2026-12-03",
+      "datetime": "2026-12-03T21:20:00+10:30",
+      "venue": "Unley Court 1",
+      "opponent": "Avas Army",
+      "bye": false,
+      "us": null,
+      "them": null
     }
   ],
   "squad": [
@@ -303,5 +314,5 @@
       "last": "2026-11-19"
     }
   ],
-  "archived": "2026-11-22T01:21:53.144Z"
+  "archived": "2026-11-22T11:28:51.639Z"
 }
