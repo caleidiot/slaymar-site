@@ -241,7 +241,11 @@
       "opponent": "Placeholder",
       "bye": false,
       "us": 3,
-      "them": 11
+      "them": 11,
+      "goals": {
+        "scorers": [],
+        "conceded": []
+      }
     },
     {
       "round": 1,
@@ -252,7 +256,20 @@
       "opponent": "Barts Men",
       "bye": false,
       "us": 2,
-      "them": 13
+      "them": 13,
+      "goals": {
+        "scorers": [
+          {
+            "player": "Fill-In Player",
+            "min": null
+          },
+          {
+            "player": "Crahtim",
+            "min": null
+          }
+        ],
+        "conceded": []
+      }
     },
     {
       "round": 1,
@@ -314,5 +331,5 @@
       "last": "2026-11-19"
     }
   ],
-  "archived": "2026-11-23T12:50:32.275Z"
+  "archived": "2026-11-24T02:14:27.810Z"
 }
