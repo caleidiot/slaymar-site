@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-26T03:36:16.311Z",
+  "updated": "2026-11-26T16:57:16.959Z",
   "team": {
     "name": "Slaymar FC",
     "id": "26983581"
@@ -12,9 +12,9 @@
     "url": "https://websites.mygameday.app/comp_info.cgi?c=0-10486-0-664406-0&pool=1&a=LADDER"
   },
   "next": {
-    "datetime": "2026-11-26T19:40:00+10:30",
-    "opponent": "The Caper Mates",
-    "venue": "Unley Court 3",
+    "datetime": "2026-12-03T18:50:00+10:30",
+    "opponent": "Avas Army",
+    "venue": "Unley Court 2",
     "round": 1
   },
   "fixtures": [
@@ -82,8 +82,8 @@
       "venue": "Unley Court 3",
       "opponent": "The Caper Mates",
       "bye": false,
-      "us": null,
-      "them": null
+      "us": 7,
+      "them": 11
     },
     {
       "round": 1,
@@ -443,210 +443,220 @@
         ],
         "conceded": []
       }
+    },
+    {
+      "date": "2026-11-26",
+      "round": 1,
+      "stage": "Regular Season",
+      "opponent": "The Caper Mates",
+      "us": 7,
+      "them": 11,
+      "venue": "Unley Court 3",
+      "goals": null
     }
   ],
   "ladder": [
     {
       "pos": 1,
       "team": "RKO Reborn",
-      "p": 8,
+      "p": 9,
       "w": 8,
       "b": 0,
       "d": 0,
-      "l": 0,
-      "f": 65,
-      "a": 30,
-      "gd": 35,
-      "pts": 24
+      "l": 1,
+      "f": 69,
+      "a": 41,
+      "gd": 28,
+      "pts": 25
     },
     {
       "pos": 2,
       "team": "The Ants FC",
-      "p": 8,
-      "w": 6,
+      "p": 9,
+      "w": 7,
       "b": 0,
       "d": 0,
       "l": 2,
-      "f": 65,
-      "a": 47,
-      "gd": 18,
-      "pts": 20
+      "f": 70,
+      "a": 49,
+      "gd": 21,
+      "pts": 23
     },
     {
       "pos": 3,
       "team": "Fillis Mis",
-      "p": 8,
-      "w": 4,
+      "p": 9,
+      "w": 5,
       "b": 1,
       "d": 1,
       "l": 2,
-      "f": 51,
-      "a": 33,
-      "gd": 18,
-      "pts": 18
+      "f": 66,
+      "a": 38,
+      "gd": 28,
+      "pts": 21
     },
     {
       "pos": 4,
-      "team": "Unley Browns Ressies",
-      "p": 8,
-      "w": 4,
-      "b": 1,
-      "d": 1,
-      "l": 2,
-      "f": 46,
-      "a": 37,
-      "gd": 9,
-      "pts": 18
-    },
-    {
-      "pos": 5,
-      "team": "WOSSC Wombats",
-      "p": 7,
-      "w": 5,
-      "b": 0,
-      "d": 0,
-      "l": 2,
-      "f": 77,
-      "a": 41,
-      "gd": 36,
-      "pts": 17
-    },
-    {
-      "pos": 6,
       "team": "Adelaide united fc",
-      "p": 7,
-      "w": 4,
+      "p": 8,
+      "w": 5,
       "b": 1,
       "d": 1,
       "l": 0,
-      "f": 38,
-      "a": 17,
-      "gd": 21,
-      "pts": 16
+      "f": 56,
+      "a": 21,
+      "gd": 35,
+      "pts": 19
     },
     {
-      "pos": 7,
+      "pos": 5,
       "team": "Dice FC",
-      "p": 8,
-      "w": 3,
+      "p": 9,
+      "w": 4,
       "b": 1,
       "d": 1,
       "l": 3,
-      "f": 36,
-      "a": 29,
-      "gd": 7,
-      "pts": 16
+      "f": 45,
+      "a": 35,
+      "gd": 10,
+      "pts": 19
+    },
+    {
+      "pos": 6,
+      "team": "Unley Browns Ressies",
+      "p": 9,
+      "w": 4,
+      "b": 1,
+      "d": 1,
+      "l": 3,
+      "f": 48,
+      "a": 42,
+      "gd": 6,
+      "pts": 19
+    },
+    {
+      "pos": 7,
+      "team": "WOSSC Wombats",
+      "p": 8,
+      "w": 5,
+      "b": 0,
+      "d": 0,
+      "l": 3,
+      "f": 81,
+      "a": 59,
+      "gd": 22,
+      "pts": 18
     },
     {
       "pos": 8,
-      "team": "Slaymar FC",
-      "p": 8,
-      "w": 4,
-      "b": 0,
-      "d": 0,
-      "l": 4,
-      "f": 45,
-      "a": 51,
-      "gd": -6,
-      "pts": 16
-    },
-    {
-      "pos": 9,
-      "team": "Brazukas",
-      "p": 7,
-      "w": 3,
-      "b": 1,
-      "d": 1,
-      "l": 2,
-      "f": 44,
-      "a": 38,
-      "gd": 6,
-      "pts": 15
-    },
-    {
-      "pos": 10,
       "team": "Unathletico Madrid",
-      "p": 8,
+      "p": 9,
       "w": 4,
-      "b": 0,
+      "b": 1,
       "d": 0,
       "l": 3,
       "f": 42,
       "a": 40,
       "gd": 2,
-      "pts": 15
+      "pts": 17
+    },
+    {
+      "pos": 9,
+      "team": "Slaymar FC",
+      "p": 9,
+      "w": 4,
+      "b": 0,
+      "d": 0,
+      "l": 5,
+      "f": 52,
+      "a": 62,
+      "gd": -10,
+      "pts": 17
+    },
+    {
+      "pos": 10,
+      "team": "Brazukas",
+      "p": 8,
+      "w": 3,
+      "b": 1,
+      "d": 1,
+      "l": 3,
+      "f": 47,
+      "a": 49,
+      "gd": -2,
+      "pts": 16
     },
     {
       "pos": 11,
-      "team": "Indoor Bleagles",
-      "p": 8,
-      "w": 2,
-      "b": 1,
-      "d": 0,
-      "l": 5,
-      "f": 39,
-      "a": 58,
-      "gd": -19,
-      "pts": 13
-    },
-    {
-      "pos": 12,
       "team": "Avas Army",
-      "p": 8,
-      "w": 2,
+      "p": 9,
+      "w": 3,
       "b": 0,
       "d": 1,
       "l": 4,
-      "f": 58,
-      "a": 65,
-      "gd": -7,
-      "pts": 12
+      "f": 69,
+      "a": 68,
+      "gd": 1,
+      "pts": 15
+    },
+    {
+      "pos": 12,
+      "team": "Indoor Bleagles",
+      "p": 9,
+      "w": 2,
+      "b": 1,
+      "d": 0,
+      "l": 6,
+      "f": 44,
+      "a": 73,
+      "gd": -29,
+      "pts": 14
     },
     {
       "pos": 13,
       "team": "Placeholder",
-      "p": 3,
-      "w": 3,
+      "p": 4,
+      "w": 4,
       "b": 0,
       "d": 0,
       "l": 0,
-      "f": 33,
-      "a": 13,
-      "gd": 20,
-      "pts": 9
+      "f": 44,
+      "a": 17,
+      "gd": 27,
+      "pts": 12
     },
     {
       "pos": 14,
       "team": "The Caper Mates",
-      "p": 8,
-      "w": 1,
+      "p": 9,
+      "w": 2,
       "b": 0,
       "d": 0,
       "l": 6,
-      "f": 32,
-      "a": 52,
-      "gd": -20,
-      "pts": 9
+      "f": 43,
+      "a": 59,
+      "gd": -16,
+      "pts": 12
     },
     {
       "pos": 15,
       "team": "Barts Men",
-      "p": 1,
+      "p": 2,
       "w": 1,
       "b": 0,
       "d": 0,
-      "l": 0,
-      "f": 13,
-      "a": 2,
-      "gd": 11,
-      "pts": 3
+      "l": 1,
+      "f": 19,
+      "a": 11,
+      "gd": 8,
+      "pts": 4
     }
   ],
   "squad": [
     {
       "name": "C Abrahamson",
-      "games": 6,
-      "last": "2026-11-19"
+      "games": 7,
+      "last": "2026-11-26"
     },
     {
       "name": "C S Avdoulas",
@@ -655,13 +665,13 @@
     },
     {
       "name": "C Marinos",
-      "games": 6,
-      "last": "2026-11-19"
+      "games": 7,
+      "last": "2026-11-26"
     },
     {
       "name": "G Shakes",
-      "games": 7,
-      "last": "2026-11-19"
+      "games": 8,
+      "last": "2026-11-26"
     },
     {
       "name": "J Foster",
@@ -670,13 +680,13 @@
     },
     {
       "name": "J Smith",
-      "games": 4,
-      "last": "2026-11-12"
+      "games": 5,
+      "last": "2026-11-26"
     },
     {
       "name": "W Plagakis",
-      "games": 7,
-      "last": "2026-11-19"
+      "games": 8,
+      "last": "2026-11-26"
     }
   ],
   "opponents": [
@@ -1864,6 +1874,23 @@
           "date": "2026-10-01",
           "us": 9,
           "them": 5,
+          "season": "Summer 2026/27"
+        }
+      ]
+    },
+    {
+      "team": "The Caper Mates",
+      "p": 1,
+      "w": 0,
+      "d": 0,
+      "l": 1,
+      "f": 7,
+      "a": 11,
+      "games": [
+        {
+          "date": "2026-11-26",
+          "us": 7,
+          "them": 11,
           "season": "Summer 2026/27"
         }
       ]
